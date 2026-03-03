@@ -1,52 +1,52 @@
 <template>
-  <div class="min-vh-100 bg-light p-3 p-md-4">
-    <div class="container-fluid px-0 px-md-3">
+  <div class="min-h-screen bg-gradient-to-br from-midnight-50 to-ocean-50 py-8">
+    <div class="container mx-auto px-4 max-w-7xl">
 
       <!-- Header -->
-      <div class="mb-5 mb-md-6">
-        <div class="bg-primary rounded-4 p-4 p-md-5 shadow-lg mb-4">
-          <div class="d-flex align-items-center mb-3">
-            <div class="rounded-circle bg-white d-flex align-items-center justify-content-center me-4" style="width: 60px; height: 60px;">
-              <img :src="headerImage" alt="Header Icon" class="img-fluid" style="max-height: 30px;" />
+      <div class="mb-8">
+        <div class="bg-gradient-to-r from-ocean-600 to-twilight-600 rounded-3xl p-8 shadow-strong mb-6">
+          <div class="flex items-center mb-4">
+            <div class="rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center mr-6 w-16 h-16">
+              <span class="text-3xl">✈️</span>
             </div>
-            <h1 class="display-4 fw-bold text-white mb-0">Book Your Flight</h1>
+            <h1 class="text-4xl lg:text-5xl font-bold text-white mb-0">Book Your Flight</h1>
           </div>
-          <div class="d-flex align-items-center text-white-75 fs-5">
-            <img :src="formIcon" alt="Form Icon" class="img-fluid me-3" style="max-height: 24px;" />
+          <div class="flex items-center text-white/90 text-lg">
+            <span class="text-2xl mr-4">🎯</span>
             <span>Discover perfect journeys with exclusive deals</span>
           </div>
         </div>
       </div>
 
       <!-- Flight Search Form -->
-      <div class="card border-0 shadow-lg rounded-4 overflow-hidden mb-5">
-        <div class="card-header bg-primary text-white py-4 px-4 px-md-5">
-          <div class="d-flex align-items-center">
-            <img :src="formIcon" alt="Form Icon" class="img-fluid me-3" style="max-height: 24px;" />
-            <span class="h4 mb-0 fw-semibold">Search Flights</span>
+      <div class="card border-0 shadow-strong rounded-3xl overflow-hidden mb-8">
+        <div class="bg-gradient-to-r from-ocean-600 to-twilight-600 text-white p-6">
+          <div class="flex items-center">
+            <span class="text-2xl mr-3">🔍</span>
+            <span class="text-2xl font-semibold">Search Flights</span>
           </div>
         </div>
 
-        <div class="card-body p-4 p-md-5">
+        <div class="p-8">
           <form @submit.prevent="handleSearch">
 
             <!-- Trip Type -->
-            <div class="mb-5">
-              <label class="form-label fw-semibold text-primary mb-3">Trip Type</label>
-              <div class="btn-group bg-light rounded-3 p-1" role="group">
+            <div class="mb-8">
+              <label class="block text-lg font-semibold text-ocean-700 mb-4">Trip Type</label>
+              <div class="flex flex-wrap gap-3 bg-midnight-100 rounded-2xl p-2">
                 <button
                   type="button"
                   @click="tripType = 'oneway'"
-                  class="btn btn-lg px-4 px-md-5 me-2"
-                  :class="tripType === 'oneway' ? 'btn-primary shadow-sm' : 'btn-outline-primary'"
+                  class="flex-1 min-w-[140px] px-6 py-3 rounded-xl font-semibold transition-all duration-200"
+                  :class="tripType === 'oneway' ? 'bg-ocean-600 text-white shadow-medium' : 'text-midnight-700 hover:bg-white/50'"
                 >
                   One Way
                 </button>
                 <button
                   type="button"
                   @click="tripType = 'round'"
-                  class="btn btn-lg px-4 px-md-5 me-2"
-                  :class="tripType === 'round' ? 'btn-primary shadow-sm' : 'btn-outline-primary'"
+                  class="flex-1 min-w-[140px] px-6 py-3 rounded-xl font-semibold transition-all duration-200"
+                  :class="tripType === 'round' ? 'bg-ocean-600 text-white shadow-medium' : 'text-midnight-700 hover:bg-white/50'"
                 >
                   Round Trip
                 </button>
@@ -54,150 +54,175 @@
             </div>
 
             <!-- Main Form Grid -->
-            <div class="row g-3 g-md-4 mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               <!-- From -->
-              <div class="col-12 col-md-6 col-lg-3">
-                <label class="form-label fw-semibold text-primary">From</label>
-                <input
-                  v-model="search.from"
-                  type="text"
-                  placeholder="Departure city"
-                  class="form-control form-control-lg border-2"
-                  :class="search.from ? 'border-primary' : 'border-primary-subtle'"
-                  required
-                />
+              <div>
+                <label class="block text-lg font-semibold text-primary-700 mb-3">From</label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400 text-xl">📍</span>
+                  <input
+                    v-model="search.from"
+                    type="text"
+                    placeholder="Departure city"
+                    class="input-field pl-12 pr-4 py-4 text-lg"
+                    :class="search.from ? 'border-primary-500 ring-2 ring-primary-200' : 'border-secondary-300'"
+                    required
+                  />
+                </div>
               </div>
 
               <!-- To -->
-              <div class="col-12 col-md-6 col-lg-3">
-                <label class="form-label fw-semibold text-primary">To</label>
-                <input
-                  v-model="search.to"
-                  type="text"
-                  placeholder="Destination city"
-                  class="form-control form-control-lg border-2"
-                  :class="search.to ? 'border-primary' : 'border-primary-subtle'"
-                  required
-                />
+              <div>
+                <label class="block text-lg font-semibold text-primary-700 mb-3">To</label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400 text-xl">🎯</span>
+                  <input
+                    v-model="search.to"
+                    type="text"
+                    placeholder="Destination city"
+                    class="input-field pl-12 pr-4 py-4 text-lg"
+                    :class="search.to ? 'border-primary-500 ring-2 ring-primary-200' : 'border-secondary-300'"
+                    required
+                  />
+                </div>
               </div>
 
               <!-- Departure Date -->
-              <div class="col-12 col-md-6 col-lg-3">
-                <label class="form-label fw-semibold text-primary">Departure</label>
-                <input
-                  v-model="search.departDate"
-                  type="date"
-                  :min="today"
-                  class="form-control form-control-lg border-2"
-                  :class="search.departDate ? 'border-primary' : 'border-primary-subtle'"
-                  required
-                />
+              <div>
+                <label class="block text-lg font-semibold text-primary-700 mb-3">Departure</label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400 text-xl">📅</span>
+                  <input
+                    v-model="search.departDate"
+                    type="date"
+                    :min="today"
+                    class="input-field pl-12 pr-4 py-4 text-lg"
+                    :class="search.departDate ? 'border-primary-500 ring-2 ring-primary-200' : 'border-secondary-300'"
+                    required
+                  />
+                </div>
               </div>
 
               <!-- Return Date -->
-              <div class="col-12 col-md-6 col-lg-3" v-if="tripType === 'round'">
-                <label class="form-label fw-semibold text-primary">Return</label>
-                <input
-                  v-model="search.returnDate"
-                  type="date"
-                  :min="minReturnDate"
-                  class="form-control form-control-lg border-2"
-                  :class="search.returnDate ? 'border-primary' : 'border-primary-subtle'"
-                  required
-                />
+              <div v-if="tripType === 'round'">
+                <label class="block text-lg font-semibold text-primary-700 mb-3">Return</label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400 text-xl">📅</span>
+                  <input
+                    v-model="search.returnDate"
+                    type="date"
+                    :min="search.departDate || today"
+                    class="input-field pl-12 pr-4 py-4 text-lg"
+                    :class="search.returnDate ? 'border-primary-500 ring-2 ring-primary-200' : 'border-secondary-300'"
+                    required
+                  />
+                </div>
               </div>
             </div>
 
             <!-- Second Row: Passengers & Class -->
-            <div class="row g-3 g-md-4 mb-5">
-              <div class="col-12 col-md-4">
-                <label class="form-label fw-semibold text-primary">Travelers</label>
-                <select v-model="search.passengers" class="form-select form-select-lg border-2 border-primary-subtle">
-                  <option v-for="n in 8" :key="n" :value="n">
-                    {{ n }} {{ n === 1 ? 'Traveler' : 'Travelers' }}
-                  </option>
-                </select>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div>
+                <label class="block text-lg font-semibold text-primary-700 mb-3">Travelers</label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400 text-xl">👥</span>
+                  <select v-model="search.passengers" class="input-field pl-12 pr-4 py-4 text-lg appearance-none">
+                    <option v-for="n in 8" :key="n" :value="n">
+                      {{ n }} {{ n === 1 ? 'Traveler' : 'Travelers' }}
+                    </option>
+                  </select>
+                </div>
               </div>
 
-              <div class="col-12 col-md-4">
-                <label class="form-label fw-semibold text-primary">Cabin Class</label>
-                <select v-model="search.class" class="form-select form-select-lg border-2 border-primary-subtle">
-                  <option value="Economy">Economy</option>
-                  <option value="Premium Economy">Premium Economy</option>
-                  <option value="Business">Business Class</option>
-                  <option value="First">First Class</option>
-                </select>
+              <div>
+                <label class="block text-lg font-semibold text-primary-700 mb-3">Cabin Class</label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400 text-xl">✈️</span>
+                  <select v-model="search.class" class="input-field pl-12 pr-4 py-4 text-lg appearance-none">
+                    <option value="Economy">Economy</option>
+                    <option value="Premium Economy">Premium Economy</option>
+                    <option value="Business">Business Class</option>
+                    <option value="First">First Class</option>
+                  </select>
+                </div>
               </div>
 
-              <div class="col-12 col-md-4 d-flex align-items-end">
+              <div class="flex items-end">
                 <button
                   type="button"
                   @click="showAdvanced = !showAdvanced"
-                  class="btn btn-outline-primary btn-lg w-100 border-2 border-dashed"
+                  class="w-full px-6 py-4 border-2 border-dashed border-primary-300 rounded-xl text-primary-700 font-semibold hover:bg-primary-50 transition-all duration-200 flex items-center justify-center space-x-2"
                 >
-                  <i class="bi bi-gear-wide-connected me-2"></i>
-                  Advanced Options
+                  <span class="text-xl">⚙️</span>
+                  <span>Advanced Options</span>
                 </button>
               </div>
             </div>
 
             <!-- Advanced Options Panel -->
-            <div v-if="showAdvanced" class="card bg-light border-2 border-primary-subtle rounded-4 mb-4">
-              <div class="card-body p-4">
-                <h5 class="fw-semibold text-primary mb-4">Advanced Search Options</h5>
-                <div class="row g-3 g-md-4">
-                  <div class="col-12 col-md-6">
-                    <label class="form-label fw-semibold text-primary">Flexible Dates</label>
-                    <select v-model="search.flexibleDates" class="form-select border-2 border-primary-subtle">
+            <div v-if="showAdvanced" class="bg-secondary-50 border-2 border-primary-200 rounded-2xl p-6 mb-8 animate-slide-up">
+              <h5 class="text-lg font-semibold text-primary-700 mb-6 flex items-center">
+                <span class="text-xl mr-3">🔧</span>
+                Advanced Search Options
+              </h5>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-lg font-semibold text-primary-700 mb-3">Flexible Dates</label>
+                  <div class="relative">
+                    <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400 text-xl">📅</span>
+                    <select v-model="search.flexibleDates" class="input-field pl-12 pr-4 py-4 text-lg appearance-none">
                       <option value="">None</option>
                       <option value="1">±1 day</option>
                       <option value="2">±2 days</option>
                       <option value="3">±3 days</option>
                     </select>
                   </div>
-                  <div class="col-12 col-md-6">
-                    <label class="form-label fw-semibold text-primary">Preferred Airline</label>
+                </div>
+                <div>
+                  <label class="block text-lg font-semibold text-primary-700 mb-3">Preferred Airline</label>
+                  <div class="relative">
+                    <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400 text-xl">🛩️</span>
                     <input
                       v-model="search.airline"
                       type="text"
                       placeholder="e.g., Delta, Emirates"
-                      class="form-control border-2 border-primary-subtle"
+                      class="input-field pl-12 pr-4 py-4 text-lg"
                     />
                   </div>
-                  <div class="col-12 col-md-6">
-                    <div class="form-check">
+                </div>
+                <div class="flex items-center space-x-3">
+                  <input
+                    id="directFlights"
+                    type="checkbox"
+                    v-model="search.directOnly"
+                    class="w-5 h-5 text-primary-600 border-2 border-primary-300 rounded focus:ring-primary-500"
+                  />
+                  <label for="directFlights" class="text-lg font-semibold text-primary-700 cursor-pointer">
+                    Direct Flights Only
+                  </label>
+                </div>
+                <div>
+                  <label class="block text-lg font-semibold text-primary-700 mb-3">Price Range ($)</label>
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="relative">
+                      <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400 text-xl">💵</span>
                       <input
-                        id="directFlights"
-                        type="checkbox"
-                        v-model="search.directOnly"
-                        class="form-check-input"
+                        v-model.number="search.priceMin"
+                        type="number"
+                        placeholder="Min"
+                        min="0"
+                        class="input-field pl-12 pr-4 py-4 text-lg"
                       />
-                      <label for="directFlights" class="form-check-label fw-semibold text-primary">
-                        Direct Flights Only
-                      </label>
                     </div>
-                  </div>
-                  <div class="col-12 col-md-6">
-                    <label class="form-label fw-semibold text-primary">Price Range ($)</label>
-                    <div class="row g-2">
-                      <div class="col">
-                        <input
-                          v-model.number="search.priceMin"
-                          type="number"
-                          placeholder="Min"
-                          min="0"
-                          class="form-control border-2 border-primary-subtle"
-                        />
-                      </div>
-                      <div class="col">
-                        <input
-                          v-model.number="search.priceMax"
-                          type="number"
-                          placeholder="Max"
-                          min="0"
-                          class="form-control border-2 border-primary-subtle"
-                        />
-                      </div>
+                    <div class="relative">
+                      <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400 text-xl">💰</span>
+                      <input
+                        v-model.number="search.priceMax"
+                        type="number"
+                        placeholder="Max"
+                        min="0"
+                        class="input-field pl-12 pr-4 py-4 text-lg"
+                      />
                     </div>
                   </div>
                 </div>
@@ -205,45 +230,37 @@
             </div>
 
             <!-- Search Button -->
-            <div class="mt-4">
-              <button
-                type="submit"
-                :disabled="!isFormValid || loading"
-                class="btn btn-primary btn-lg w-100 py-3 fw-bold"
-                :class="{'btn-primary': isFormValid && !loading, 'btn-secondary': !isFormValid || loading}"
-              >
-                <span v-if="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
-                <i v-else class="bi bi-search me-2"></i>
-                {{ loading ? 'Searching...' : 'Search Flights' }}
+            <div class="flex justify-center">
+              <button type="submit" class="btn-ocean text-lg px-12 py-4 flex items-center space-x-3">
+                <span class="text-2xl">🔍</span>
+                <span>Search Flights</span>
+                <i class="bi bi-arrow-right text-xl"></i>
               </button>
             </div>
-
           </form>
         </div>
       </div>
 
       <!-- Loading State -->
-      <div v-if="loading" class="text-center py-5">
-        <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-        <h4 class="text-primary fw-semibold">Searching flights...</h4>
-        <p class="text-muted">Please wait while we find the best flights for you</p>
+      <div v-if="loading" class="text-center py-16">
+        <div class="inline-block animate-spin rounded-full h-16 w-16 border-4 border-primary-200 border-t-primary-600 mb-6"></div>
+        <h4 class="text-2xl font-semibold text-primary-700 mb-2">Searching flights...</h4>
+        <p class="text-secondary-600">Please wait while we find the best flights for you</p>
       </div>
 
       <!-- Flight Results -->
-      <div v-if="searched && !loading && flights.length > 0" class="mb-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h2 class="display-5 fw-bold text-primary mb-0">
+      <div v-if="searched && !loading && flights.length > 0" class="mb-8">
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8">
+          <h2 class="text-3xl lg:text-4xl font-bold text-primary-700 mb-4 lg:mb-0">
             {{ flights.length }} Flight{{ flights.length > 1 ? 's' : '' }} Found
           </h2>
-          <button @click="clearSearch" class="btn btn-outline-primary">
-            <i class="bi bi-arrow-clockwise me-2"></i>
+          <button @click="clearSearch" class="btn-secondary">
+            <i class="bi bi-arrow-clockwise mr-2"></i>
             New Search
           </button>
         </div>
-        <div class="row g-4">
-          <div class="col-12" v-for="flight in validFlights" :key="flight.id">
+        <div class="space-y-6">
+          <div v-for="flight in validFlights" :key="flight.id" class="w-full">
             <FlightCard
               :flight="flight"
               :passengers="search.passengers"
@@ -254,40 +271,40 @@
       </div>
 
       <!-- No Flights Found -->
-      <div v-else-if="searched && !loading && flights.length === 0" class="text-center py-5">
-        <div class="card border-0 bg-light shadow-sm rounded-4 p-5 mb-4">
-          <i class="bi bi-airplane-slash display-1 text-primary mb-4"></i>
-          <h3 class="text-primary fw-bold mb-3">No flights match your search</h3>
-          <p class="text-muted mb-4">Try adjusting your search criteria or dates to find available flights</p>
-          <button @click="clearSearch" class="btn btn-primary px-5">
-            <i class="bi bi-search me-2"></i>
+      <div v-else-if="searched && !loading && flights.length === 0" class="text-center py-16">
+        <div class="card max-w-2xl mx-auto p-8">
+          <div class="text-6xl mb-6">✈️</div>
+          <h3 class="text-2xl font-bold text-primary-700 mb-4">No flights match your search</h3>
+          <p class="text-secondary-600 mb-6">Try adjusting your search criteria or dates to find available flights</p>
+          <button @click="clearSearch" class="btn-primary">
+            <i class="bi bi-search mr-2"></i>
             Try New Search
           </button>
         </div>
       </div>
 
       <!-- Welcome State -->
-      <div v-else-if="!searched && !loading" class="text-center py-5">
-        <div class="card border-0 bg-light shadow-sm rounded-4 p-5">
-          <div class="rounded-circle bg-primary bg-opacity-10 mx-auto mb-4 overflow-hidden d-flex align-items-center justify-content-center" style="width: 200px; height: 200px;">
-            <img :src="welcomeImage" alt="Welcome Image" class="img-fluid" />
+      <div v-else-if="!searched && !loading" class="text-center py-16">
+        <div class="card max-w-4xl mx-auto p-8">
+          <div class="w-48 h-48 mx-auto mb-8 bg-primary-100 rounded-full flex items-center justify-center">
+            <span class="text-6xl">🌍</span>
           </div>
-          <h3 class="display-5 fw-bold text-primary mb-3">Your Journey Begins Here</h3>
-          <p class="lead text-muted mb-4">
+          <h3 class="text-3xl lg:text-4xl font-bold text-primary-700 mb-4">Your Journey Begins Here</h3>
+          <p class="text-xl text-secondary-600 mb-8 max-w-2xl mx-auto">
             Enter your travel details above to explore amazing flight deals and create unforgettable travel experiences.
           </p>
-          <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
-            <div class="d-flex align-items-center">
-              <i class="bi bi-check-circle-fill text-success me-2"></i>
-              <span>Best Price Guarantee</span>
+          <div class="flex flex-col sm:flex-row gap-6 justify-center">
+            <div class="flex items-center space-x-3">
+              <i class="bi bi-check-circle-fill text-green-500 text-xl"></i>
+              <span class="font-medium">Best Price Guarantee</span>
             </div>
-            <div class="d-flex align-items-center">
-              <i class="bi bi-check-circle-fill text-success me-2"></i>
-              <span>24/7 Customer Support</span>
+            <div class="flex items-center space-x-3">
+              <i class="bi bi-check-circle-fill text-green-500 text-xl"></i>
+              <span class="font-medium">24/7 Customer Support</span>
             </div>
-            <div class="d-flex align-items-center">
-              <i class="bi bi-check-circle-fill text-success me-2"></i>
-              <span>Secure Booking</span>
+            <div class="flex items-center space-x-3">
+              <i class="bi bi-check-circle-fill text-green-500 text-xl"></i>
+              <span class="font-medium">Secure Booking</span>
             </div>
           </div>
         </div>
@@ -303,11 +320,6 @@ import { useRoute } from 'vue-router'
 import { useFlights } from '@/composables/useFlights'
 import { useBookingStore } from '@/stores/bookingStore'
 import FlightCard from '@/components/flight/FlightCard.vue'
-
-// Images
-import welcomeImage from '@/assets/images/image.png'
-import headerImage from '@/assets/images/image.png'
-import formIcon from '@/assets/images/image.png'
 
 // Composables
 const route = useRoute()
@@ -335,9 +347,6 @@ const search = reactive({
 
 // Computed Properties
 const today = computed(() => new Date().toISOString().split('T')[0])
-const minReturnDate = computed(() => {
-  return search.departDate || today.value
-})
 const isFormValid = computed(() => {
   const hasRequiredFields = search.from && search.to && search.departDate
   if (tripType.value === 'round') {
@@ -399,140 +408,49 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Custom styles to enhance Bootstrap */
-.min-vh-100 {
-  min-height: 100vh;
+/* Custom animations and utilities */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-.bg-light {
-  background-color: #f8f9fa !important;
+.animate-spin {
+  animation: spin 1s linear infinite;
 }
 
-.rounded-4 {
-  border-radius: 1rem !important;
-}
-
-.border-2 {
-  border-width: 2px !important;
-}
-
-.border-primary-subtle {
-  border-color: rgba(17, 44, 83, 0.25) !important;
-}
-
-.btn-group .btn {
-  border-radius: 0.5rem !important;
-}
-
-.form-control:focus, .form-select:focus {
-  border-color: hsl(213, 7%, 73%) !important;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
-}
-
-.btn-lg {
-  padding: 0.75rem 1.5rem !important;
-  font-size: 1.1rem !important;
-}
-
-.btn-outline-primary {
-  border-width: 2px !important;
-}
-
-.btn-outline-primary:hover {
-  background-color: rgba(13, 110, 253, 0.1) !important;
-}
-
-.text-primary {
-  color: #78c514 !important;
-}
-
-.bg-primary {
-  background-color: #70b9e9 !important;
-}
-
-.text-white-75 {
-  color: rgba(244, 244, 247, 0.75) !important;
-}
-
-.shadow-lg {
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
-}
-
-.display-4 {
-  font-size: calc(1.475rem + 2.7vw) !important;
-}
-
-.display-5 {
-  font-size: calc(1.375rem + 1.5vw) !important;
-}
-
-.lead {
-  font-size: 1.25rem !important;
-  font-weight: 300 !important;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .display-4 {
-    font-size: 2rem !important;
-  }
-  
-  .display-5 {
-    font-size: 1.75rem !important;
-  }
-  
-  .card-body {
-    padding: 1.5rem !important;
-  }
-  
-  .btn-lg {
-    padding: 0.5rem 1rem !important;
-    font-size: 1rem !important;
-  }
-}
-
-/* Form input states */
-.form-control.border-primary {
-  border-color: #6f7783 !important;
-}
-
-/* Spinner animation */
-.spinner-border {
-  vertical-align: middle;
-}
-
-/* Check circles */
-.bi-check-circle-fill {
-  font-size: 1.25rem;
-}
-
-/* Custom form select styles */
-.form-select {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%230d6efd' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
+/* Custom select arrow */
+select.input-field {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
   background-position: right 0.75rem center;
-  background-size: 16px 12px;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
 }
 
-/* Form check custom */
-.form-check-input:checked {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
+/* Checkbox custom styling */
+input[type="checkbox"]:checked {
+  background-color: rgb(37 99 235);
+  border-color: rgb(37 99 235);
 }
 
-.form-check-input:focus {
-  border-color: #0d6efd;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+input[type="checkbox"]:focus {
+  border-color: rgb(37 99 235);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 /* Card hover effects */
-.card:hover {
-  transform: translateY(-2px);
-  transition: transform 0.3s ease;
+.card {
+  transition: all 0.3s ease;
 }
 
-/* Flight card spacing */
-.row.g-4 > .col-12:not(:last-child) {
-  margin-bottom: 1rem;
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
 }
 </style>

@@ -1,131 +1,123 @@
 <template>
-  <div class="auth-page">
-    <div class="auth-container">
-      <v-card class="auth-card" elevation="10">
-        <v-card-title class="text-center py-4">
-          <h2 class="text-h4 font-weight-bold">Welcome Back</h2>
-          <p class="text-body-2 text-grey mt-2">Sign in to continue your journey</p>
-        </v-card-title>
-
-        <v-card-text>
-          <v-form @submit.prevent="handleLogin" ref="form">
-            <v-text-field
-              v-model="credentials.email"
-              label="Email"
-              type="email"
-              prepend-inner-icon="mdi-email"
-              variant="outlined"
-              :rules="[v => !!v || 'Email is required']"
+  <div class="login-page d-flex align-items-center justify-content-center">
+    <div class="card shadow-sm w-100" style="max-width: 480px;">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Login</h4>
+      </div>
+      <div class="card-body">
+        <form @submit.prevent="handleLogin">
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input 
+              type="email" 
+              class="form-control" 
+              id="email"
+              v-model="username"
               required
-            ></v-text-field>
-
-            <v-text-field
-              v-model="credentials.password"
-              label="Password"
-              type="password"
-              prepend-inner-icon="mdi-lock"
-              variant="outlined"
-              :rules="[v => !!v || 'Password is required']"
-              required
-            ></v-text-field>
-
-            <div class="d-flex justify-space-between align-center mb-4">
-              <v-checkbox
-                v-model="rememberMe"
-                label="Remember me"
-                hide-details
-              ></v-checkbox>
-              <a href="#" class="text-primary text-decoration-none">Forgot Password?</a>
-            </div>
-
-            <v-btn
-              type="submit"
-              color="primary"
-              size="large"
-              block
-              :loading="loading"
             >
-              Sign In
-            </v-btn>
-          </v-form>
-
-          <v-divider class="my-4"></v-divider>
-
-          <div class="text-center">
-            <p class="text-body-2">
-              Don't have an account?
-              <router-link to="/register" class="text-primary font-weight-bold">
-                Sign Up
-              </router-link>
-            </p>
           </div>
-        </v-card-text>
-      </v-card>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input 
+              :type="showPassword ? 'text' : 'password'" 
+              class="form-control" 
+              id="password"
+              v-model="password"
+              required
+            >
+          </div>
+
+          <!-- Show Password -->
+          <div class="form-check mb-3">
+            <input 
+              type="checkbox" 
+              class="form-check-input" 
+              id="showPassword" 
+              v-model="showPassword"
+            >
+            <label class="form-check-label" for="showPassword">Show Password</label>
+          </div>
+
+          <!-- Error -->
+          <div v-if="error" class="alert alert-danger">
+            {{ error }}
+          </div>
+
+          <!-- Submit -->
+          <button 
+            type="submit" 
+            class="btn btn-primary w-100"
+            :disabled="loading"
+          >
+            <span v-if="loading" class="spinner-border spinner-border-sm me-2"></span>
+            {{ loading ? 'Logging in...' : 'Login' }}
+          </button>
+        </form>
+
+        <div class="mt-3 text-center">
+          <p>
+            Don't have an account? 
+            <router-link to="/register">Register</router-link>
+          </p>
+          <p>
+            <a href="#" class="text-primary" @click.prevent="forgotPassword">Forgot Password?</a>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
-<script setup>
-import { ref, reactive } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/authStore'
+<script>
+import bgImage from '@/assets/images/im1.png'  // <-- put your image here
 
-const router = useRouter()
-const authStore = useAuthStore()
-const form = ref(null)
-const loading = ref(false)
-const rememberMe = ref(false)
+export default {
+  name: 'LoginView',
+  data() {
+    return {
+      username: '',
+      password: '',
+      showPassword: false,
+      loading: false,
+      error: '',
+      background: bgImage
+    }
+  },
+  methods: {
+    handleLogin() {
+      if (!this.username || !this.password) {
+        this.error = 'Please fill in all fields'
+        return
+      }
 
-const credentials = reactive({
-  email: '',
-  password: ''
-})
-
-const handleLogin = async () => {
-  const { valid } = await form.value.validate()
-  if (!valid) return
-
-  loading.value = true
-  try {
-    await authStore.login(credentials)
-    router.push('/dashboard')
-  } catch (error) {
-    console.error('Login failed:', error)
-  } finally {
-    loading.value = false
+      this.loading = true
+      setTimeout(() => {
+        localStorage.setItem('authToken', 'demo-token-123')
+        this.$router.push('/')
+        this.loading = false
+      }, 800)
+    },
+    forgotPassword() {
+      alert('Password reset functionality will be implemented.')
+    }
   }
 }
 </script>
 
 <style scoped>
-.auth-page {
+.login-page {
   min-height: 100vh;
-  background-image: linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ),
-    url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1920&q=80');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+  background: url('@/assets/images/im1.png') center/cover no-repeat;
+  padding: 2rem;
 }
 
-.auth-container {
-  width: 100%;
-  max-width: 450px;
+.card {
+  border-radius: 12px;
 }
-
-.auth-card {
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-radius: 16px !important;
-}
-
-:deep(.v-card-title) {
-  flex-direction: column;
+.card-header {
+  border-bottom: none;
 }
 </style>

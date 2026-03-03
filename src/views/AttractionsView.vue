@@ -1,66 +1,110 @@
 <template>
-  <v-container>
-    <h1 class="text-h3 mb-6">Local Attractions & Tours</h1>
+  <div class="container mt-4">
+    <h1 class="mb-4 display-5 fw-bold text-primary">Local Attractions & Tours</h1>
     
-    <v-row class="mb-6">
-      <v-col cols="12" md="6">
-        <v-text-field
-          v-model="searchQuery"
-          label="Search attractions"
-          prepend-inner-icon="mdi-magnify"
-          variant="outlined"
-          clearable
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" md="3">
-        <v-select
-          v-model="selectedCategory"
-          label="Category"
-          :items="categories"
-          variant="outlined"
-        ></v-select>
-      </v-col>
-      <v-col cols="12" md="3">
-        <v-select
-          v-model="selectedCity"
-          label="City"
-          :items="cities"
-          variant="outlined"
-        ></v-select>
-      </v-col>
-    </v-row>
+    <!-- Search and Filter Row -->
+    <div class="row mb-4 g-3">
+      <div class="col-md-6">
+        <div class="input-group">
+          <span class="input-group-text bg-white border-end-0">
+            <i class="bi bi-search text-muted"></i>
+          </span>
+          <input 
+            v-model="searchQuery"
+            type="text" 
+            class="form-control border-start-0"
+            placeholder="Search attractions..."
+            aria-label="Search attractions"
+          >
+          <button 
+            v-if="searchQuery" 
+            class="btn btn-outline-secondary" 
+            type="button"
+            @click="searchQuery = ''"
+          >
+            <i class="bi bi-x"></i>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <select 
+          v-model="selectedCategory" 
+          class="form-select"
+          aria-label="Select category"
+        >
+          <option disabled>Category</option>
+          <option v-for="category in categories" :key="category" :value="category">
+            {{ category }}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <select 
+          v-model="selectedCity" 
+          class="form-select"
+          aria-label="Select city"
+        >
+          <option disabled>City</option>
+          <option v-for="city in cities" :key="city" :value="city">
+            {{ city }}
+          </option>
+        </select>
+      </div>
+    </div>
 
-    <v-row>
-      <v-col v-for="attraction in filteredAttractions" :key="attraction.id" cols="12" md="6" lg="4">
-        <v-card hover height="100%">
-          <v-img :src="attraction.image" height="200" cover></v-img>
-          <v-card-title>{{ attraction.name }}</v-card-title>
-          <v-card-subtitle>
-            <v-icon small>mdi-map-marker</v-icon> {{ attraction.location }}
-          </v-card-subtitle>
-          <v-card-text>
-            <v-chip small class="mr-2 mb-2" color="primary">{{ attraction.category }}</v-chip>
-            <p class="text-body-2 mb-2">{{ attraction.description }}</p>
-            <div class="d-flex align-center mb-2">
-              <v-rating :model-value="attraction.rating" readonly dense size="small"></v-rating>
-              <span class="text-caption ml-2">({{ attraction.reviews }} reviews)</span>
+    <!-- Attractions Grid -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <div v-for="attraction in filteredAttractions" :key="attraction.id" class="col">
+        <div class="card h-100 shadow-sm border-0 hover-shadow">
+          <img 
+            :src="attraction.image" 
+            class="card-img-top" 
+            :alt="attraction.name"
+            style="height: 200px; object-fit: cover;"
+          >
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold">{{ attraction.name }}</h5>
+            <p class="card-subtitle mb-2 text-muted">
+              <i class="bi bi-geo-alt me-1"></i> {{ attraction.location }}
+            </p>
+            
+            <div class="mb-3">
+              <span class="badge bg-primary mb-2">{{ attraction.category }}</span>
+              <p class="card-text text-secondary mb-3">{{ attraction.description }}</p>
+              
+              <div class="d-flex align-items-center mb-2">
+                <div class="rating me-2">
+                  <i 
+                    v-for="star in 5" 
+                    :key="star"
+                    class="bi me-1"
+                    :class="star <= attraction.rating ? 'bi-star-fill text-warning' : 'bi-star text-secondary'"
+                  ></i>
+                </div>
+                <small class="text-muted">({{ attraction.reviews }} reviews)</small>
+              </div>
+              
+              <p class="card-text mb-0">
+                <i class="bi bi-clock me-1"></i> {{ attraction.duration }}
+              </p>
             </div>
-            <div class="text-body-2">
-              <v-icon small>mdi-clock</v-icon> {{ attraction.duration }}
+            
+            <div class="mt-auto pt-3 border-top">
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="h4 text-primary mb-0 fw-bold">${{ attraction.price }}</span>
+                <button 
+                  class="btn btn-primary px-4" 
+                  @click="bookAttraction(attraction)"
+                >
+                  <i class="bi bi-calendar-plus me-2"></i>Book Now
+                </button>
+              </div>
             </div>
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-actions class="pa-4">
-            <div class="text-h6 text-primary">${{ attraction.price }}</div>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" variant="elevated" @click="bookAttraction(attraction)">
-              Book Now
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -146,3 +190,48 @@ const bookAttraction = (attraction) => {
   })
 }
 </script>
+
+<style scoped>
+.hover-shadow {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-shadow:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+.rating {
+  display: inline-flex;
+  align-items: center;
+}
+
+.badge {
+  font-size: 0.8rem;
+  padding: 0.35rem 0.75rem;
+}
+
+.input-group-text {
+  border-right: none;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #dee2e6;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+</style>

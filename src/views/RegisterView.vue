@@ -1,197 +1,158 @@
 <template>
-  <div class="auth-page">
-    <div class="auth-container">
-      <v-card class="auth-card" elevation="10">
-        <v-card-title class="text-center py-4">
-          <h2 class="text-h4 font-weight-bold">Create Account</h2>
-          <p class="text-body-2 text-grey mt-2">Start your journey with us</p>
-        </v-card-title>
-
-        <v-card-text>
-          <v-form @submit.prevent="handleRegister" ref="form">
-            <v-row>
-              <v-col cols="12" md="6">
-                <v-text-field
-                  v-model="formData.firstName"
-                  label="First Name"
-                  prepend-inner-icon="mdi-account"
-                  variant="outlined"
-                  :rules="[v => !!v || 'First name is required']"
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field
-                  v-model="formData.lastName"
-                  label="Last Name"
-                  prepend-inner-icon="mdi-account"
-                  variant="outlined"
-                  :rules="[v => !!v || 'Last name is required']"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
-
-            <v-text-field
-              v-model="formData.email"
-              label="Email"
-              type="email"
-              prepend-inner-icon="mdi-email"
-              variant="outlined"
-              :rules="[
-                v => !!v || 'Email is required',
-                v => /.+@.+\..+/.test(v) || 'Email must be valid'
-              ]"
-              required
-            ></v-text-field>
-
-            <v-text-field
-              v-model="formData.phone"
-              label="Phone Number"
-              type="tel"
-              prepend-inner-icon="mdi-phone"
-              variant="outlined"
-            ></v-text-field>
-
-            <v-text-field
-              v-model="formData.password"
-              label="Password"
-              type="password"
-              prepend-inner-icon="mdi-lock"
-              variant="outlined"
-              :rules="[
-                v => !!v || 'Password is required',
-                v => v.length >= 6 || 'Password must be at least 6 characters'
-              ]"
-              required
-            ></v-text-field>
-
-            <v-text-field
-              v-model="formData.confirmPassword"
-              label="Confirm Password"
-              type="password"
-              prepend-inner-icon="mdi-lock-check"
-              variant="outlined"
-              :rules="[
-                v => !!v || 'Please confirm your password',
-                v => v === formData.password || 'Passwords do not match'
-              ]"
-              required
-            ></v-text-field>
-
-            <v-checkbox
-              v-model="formData.agreeTerms"
-              :rules="[v => !!v || 'You must agree to continue']"
-              required
-            >
-              <template v-slot:label>
-                <div class="text-body-2">
-                  I agree to the
-                  <a href="#" class="text-primary">Terms of Service</a>
-                  and
-                  <a href="#" class="text-primary">Privacy Policy</a>
-                </div>
-              </template>
-            </v-checkbox>
-
-            <v-btn
-              type="submit"
-              color="primary"
-              size="large"
-              block
-              :loading="loading"
-              class="mt-2"
-            >
-              Create Account
-            </v-btn>
-          </v-form>
-
-          <v-divider class="my-4"></v-divider>
-
-          <div class="text-center">
-            <p class="text-body-2">
-              Already have an account?
-              <router-link to="/login" class="text-primary font-weight-bold">
-                Sign In
-              </router-link>
-            </p>
+  <div class="register-page d-flex align-items-center justify-content-center">
+    <div class="card shadow-sm w-100" style="max-width: 480px;">
+      <div class="card-header bg- text-green">
+        <h4 class="mb-0">Register</h4>
+      </div>
+      <div class="card-body">
+        <form @submit.prevent="handleRegister">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="firstName"
+                v-model="formData.first_name"
+                required
+              >
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="lastName"
+                v-model="formData.last_name"
+                required
+              >
+            </div>
           </div>
-        </v-card-text>
-      </v-card>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input 
+              type="email" 
+              class="form-control" 
+              id="email"
+              v-model="formData.email"
+              required
+            >
+          </div>
+
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="username"
+              v-model="formData.username"
+              required
+            >
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input 
+              type="password" 
+              class="form-control" 
+              id="password"
+              v-model="formData.password"
+              required
+            >
+          </div>
+
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <input 
+              type="password" 
+              class="form-control" 
+              id="confirmPassword"
+              v-model="confirmPassword"
+              required
+            >
+          </div>
+
+          <div v-if="error" class="alert alert-danger">
+            {{ error }}
+          </div>
+
+          <button 
+            type="submit" 
+            class="btn btn-primary w-100"
+            :disabled="loading || formData.password !== confirmPassword"
+          >
+            <span v-if="loading" class="spinner-border spinner-border-sm me-2"></span>
+            {{ loading ? 'Registering...' : 'Register' }}
+          </button>
+        </form>
+
+        <div class="mt-3 text-center">
+          <p>Already have an account? <router-link to="/login">Login</router-link></p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
-<script setup>
-import { ref, reactive } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/authStore'
+<script>
+import { mapState, mapActions } from 'pinia'
+import { useAuthStore } from '@/stores/auth'
+import bgImage from '@/assets/images/im1.png' // <-- Add your image here
 
-const router = useRouter()
-const authStore = useAuthStore()
-const form = ref(null)
-const loading = ref(false)
-
-const formData = reactive({
-  firstName: '',
-  lastName: '',
-  email: '',
-  phone: '',
-  password: '',
-  confirmPassword: '',
-  agreeTerms: false
-})
-
-const handleRegister = async () => {
-  const { valid } = await form.value.validate()
-  if (!valid) return
-
-  loading.value = true
-  try {
-    // Mock registration - replace with actual API call
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    console.log('Registration data:', formData)
+export default {
+  name: 'RegisterView',
+  data() {
+    return {
+      formData: {
+        first_name: '',
+        last_name: '',
+        email: '',
+        username: '',
+        password: ''
+      },
+      confirmPassword: '',
+      background: bgImage
+    }
+  },
+  computed: {
+    ...mapState(useAuthStore, ['loading', 'error'])
+  },
+  methods: {
+    ...mapActions(useAuthStore, ['register']),
     
-    // Auto login after registration
-    await authStore.login({ email: formData.email, password: formData.password })
-    router.push('/dashboard')
-  } catch (error) {
-    console.error('Registration failed:', error)
-  } finally {
-    loading.value = false
+    async handleRegister() {
+      if (this.formData.password !== this.confirmPassword) {
+        alert('Passwords do not match!')
+        return
+      }
+      
+      try {
+        await this.register(this.formData)
+        this.$router.push('/dashboard')
+      } catch (error) {
+        // Error is handled in the store
+      }
+    }
   }
 }
 </script>
 
 <style scoped>
-.auth-page {
+.register-page {
   min-height: 100vh;
-  background-image: linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ),
-    url('https://images.unsplash.com/photo-1556388158-158ea5ccacbd?auto=format&fit=crop&w=1920&q=80');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  padding: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  background: url('@/assets/images/im1.png') center/cover no-repeat;
 }
 
-.auth-container {
-  width: 100%;
-  max-width: 500px;
+.card {
+  border-radius: 12px;
 }
 
-.auth-card {
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-radius: 16px !important;
-}
-
-:deep(.v-card-title) {
-  flex-direction: column;
+.card-header {
+  border-bottom: none;
 }
 </style>

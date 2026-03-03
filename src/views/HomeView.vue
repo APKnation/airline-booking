@@ -1,309 +1,336 @@
 <template>
-  <div class="home-view">
-    <!-- NAVIGATION BAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-      <div class="container">
-        <!-- Logo -->
-        <router-link to="/" class="navbar-brand fw-bold fs-3">
-          <i class="bi bi-airplane-engines me-2"></i>
-          SkyBook
-        </router-link>
-        
-        <!-- Mobile Toggle -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <!-- Navigation Links -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <router-link to="/" class="nav-link active">Home</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/flights" class="nav-link">
-                <i class="bi bi-airplane me-2"></i>
-                Flights
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/hotels" class="nav-link">
-                <i class="bi bi-building me-2"></i>
-                Hotels
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/cars" class="nav-link">
-                <i class="bi bi-car-front me-2"></i>
-                Cars
-              </router-link>
-            </li>
-             <li class="nav-item">
-              <router-link to="/attractions" class="nav-link">
-                <i class="bi bi-car-front me-2"></i>
-                Attractions
-              </router-link>
-            </li>
-             <li class="nav-item">
-              <router-link to="/dashboard" class="nav-link">
-                <i class="bi bi-car-front me-2"></i>
-                Dashboard
-              </router-link>
-            </li>
-             <li class="nav-item">
-              <router-link to="/checkout" class="nav-link">
-                <i class="bi bi-car-front me-2"></i>
-                Checkout
-              </router-link>
-            </li>
-             <li class="nav-item">
-              <router-link to="/guide" class="nav-link">
-                <i class="bi bi-car-front me-2"></i>
-                TravelGuider
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/packages" class="nav-link">
-                <i class="bi bi-briefcase me-2"></i>
-                Packages
-              </router-link>
-            </li>
-             <li class="nav-item">
-              <router-link to="/taxi" class="nav-link">
-                <i class="bi bi-car-front me-2"></i>
-                Tax
-              </router-link>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                <i class="bi bi-person-circle me-2"></i>
-                Account
-              </a>
-              <ul class="dropdown-menu">
-                <li><router-link to="/login" class="dropdown-item">Login</router-link></li>
-                <li><router-link to="/register" class="dropdown-item">Sign Up</router-link></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><router-link to="/profile" class="dropdown-item">My Profile</router-link></li>
-                <li><router-link to="/bookings" class="dropdown-item">My Bookings</router-link></li>
-              </ul>
-            </li>
-          </ul>
+  <div class="home-page">
+    <!-- MODERN HERO SECTION -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-600 via-primary-700 to-accent-700">
+      <!-- Animated Background Elements -->
+      <div class="absolute inset-0">
+        <div class="absolute inset-0">
+          <div class="absolute top-20 left-10 w-32 h-32 bg-accent-400/20 rounded-full blur-xl animate-pulse"></div>
+          <div class="absolute top-40 right-20 w-48 h-48 bg-primary-300/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
+          <div class="absolute bottom-20 left-1/4 w-40 h-40 bg-accent-300/20 rounded-full blur-xl animate-pulse delay-2000"></div>
+          <div class="absolute bottom-40 right-1/3 w-36 h-36 bg-primary-400/20 rounded-full blur-2xl animate-pulse delay-500"></div>
         </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-secondary-900/20 to-transparent"></div>
       </div>
-    </nav>
 
-    <!-- HERO SECTION -->
-    <section class="hero-section">
-      <!-- Background Image with Airplanes -->
-      <div class="hero-background position-absolute top-0 start-0 w-100 h-100">
-        <!-- Main background image -->
-        <div class="background-image position-absolute top-0 start-0 w-100 h-100"></div>
-        
-        <!-- Overlay gradient -->
-        <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100"></div>
-        
-        <!-- Animated Airplanes -->
-        <div class="airplane airplane-1 position-absolute">
-          <i class="bi bi-airplane"></i>
-        </div>
-        <div class="airplane airplane-2 position-absolute">
-          <i class="bi bi-airplane"></i>
-        </div>
-        <div class="airplane airplane-3 position-absolute">
-          <i class="bi bi-airplane"></i>
-        </div>
-      </div>
-      
-      <!-- Hero Content -->
-      <div class="container position-relative z-2">
-        <div class="row justify-content-center text-center text-white py-6 py-lg-8">
-          <div class="col-12 col-lg-10 col-xl-8">
-            <!-- Main Title -->
-            <h1 class="hero-title display-2 display-lg-1 fw-bold mb-4 animate__animated animate__fadeInDown">
-              Explore the World with Confidence
+      <!-- Main Content -->
+      <div class="relative container mx-auto px-4">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <!-- Left Column - Text Content -->
+          <div class="space-y-8 animate-slide-up">
+            <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 border border-white/20">
+              <span class="text-yellow-300">🌟 Featured</span>
+              <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+              <span class="text-white">Worldwide Travel</span>
+            </div>
+            
+            <h1 class="text-5xl lg:text-7xl font-bold text-white leading-tight">
+              <span class="text-gradient">Dream</span>, Discover,
+              <span class="text-gradient">Explore</span>
             </h1>
             
-            <!-- Subtitle -->
-            <p class="hero-subtitle lead fs-4 mb-5 animate__animated animate__fadeInUp">
-              Book flights, hotels, cars, and experiences across 500+ destinations worldwide
+            <p class="text-xl lg:text-2xl text-secondary-200 leading-relaxed max-w-2xl">
+              Your passport to unforgettable experiences. Book flights, hotels, and adventures 
+              across 1000+ destinations with our AI-powered travel assistant.
             </p>
-            
-            <!-- CTA Buttons -->
-            <div class="d-flex flex-column flex-md-row gap-3 justify-content-center mb-5 animate__animated animate__fadeInUp">
-              <router-link to="/flights" class="btn btn-primary btn-lg px-5 py-3 fw-bold">
-                <i class="bi bi-airplane-engines me-2"></i>
-                Book Flights
-              </router-link>
-              <router-link to="/hotels" class="btn btn-outline-light btn-lg px-5 py-3 fw-bold">
-                <i class="bi bi-building me-2"></i>
-                Find Hotels
-              </router-link>
+
+            <!-- Interactive Search Bar -->
+            <div class="space-y-4">
+              <div class="flex flex-wrap gap-2 justify-center lg:justify-start">
+                <button 
+                  v-for="tab in searchTabs" 
+                  :key="tab.id"
+                  :class="[
+                    'px-6 py-3 rounded-lg font-medium transition-all duration-200',
+                    activeTab === tab.id 
+                      ? 'bg-white text-primary-700 shadow-medium' 
+                      : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
+                  ]"
+                  @click="activeTab = tab.id"
+                >
+                  <i :class="tab.icon + ' mr-2'"></i>
+                  {{ tab.label }}
+                </button>
+              </div>
+              
+              <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-strong">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  <div class="relative">
+                    <i class="bi bi-geo-alt absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400"></i>
+                    <input 
+                      type="text" 
+                      placeholder="Where do you want to go?"
+                      v-model="searchQuery"
+                      class="w-full pl-12 pr-4 py-3 rounded-lg bg-white/90 border border-white/20 placeholder-secondary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+                    >
+                  </div>
+                  <div class="relative">
+                    <i class="bi bi-calendar absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400"></i>
+                    <input 
+                      type="text" 
+                      placeholder="Check-in — Check-out"
+                      @focus="showDatePicker = true"
+                      class="w-full pl-12 pr-4 py-3 rounded-lg bg-white/90 border border-white/20 placeholder-secondary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+                    >
+                  </div>
+                  <div class="relative">
+                    <i class="bi bi-people absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400"></i>
+                    <input 
+                      type="text" 
+                      placeholder="2 adults, 0 children"
+                      class="w-full pl-12 pr-4 py-3 rounded-lg bg-white/90 border border-white/20 placeholder-secondary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+                    >
+                  </div>
+                  <button class="btn-primary flex items-center justify-center space-x-2">
+                    <i class="bi bi-search"></i>
+                    <span>Explore</span>
+                  </button>
+                </div>
+              </div>
             </div>
-            
-            <!-- Stats Bar -->
-            <div class="row justify-content-center animate__animated animate__fadeInUp">
-              <div class="col-auto px-4">
-                <div class="stat-item">
-                  <div class="stat-number h1 fw-bold mb-1">500+</div>
-                  <div class="stat-label small text-uppercase opacity-75">Destinations</div>
+
+            <!-- Quick Stats -->
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-8">
+              <div class="text-center">
+                <div class="text-3xl font-bold text-white">500K+</div>
+                <div class="text-secondary-300">Happy Travelers</div>
+              </div>
+              <div class="hidden lg:block w-px h-12 bg-white/20"></div>
+              <div class="text-center">
+                <div class="text-3xl font-bold text-white">1000+</div>
+                <div class="text-secondary-300">Destinations</div>
+              </div>
+              <div class="hidden lg:block w-px h-12 bg-white/20"></div>
+              <div class="text-center">
+                <div class="text-3xl font-bold text-white">24/7</div>
+                <div class="text-secondary-300">Support</div>
+              </div>
+              <div class="hidden lg:block w-px h-12 bg-white/20"></div>
+              <div class="text-center">
+                <div class="text-3xl font-bold text-white">4.9</div>
+                <div class="text-secondary-300">Rating</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column - Hero Image -->
+          <div class="relative animate-fade-in">
+            <div class="relative">
+              <img 
+                src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                alt="Travel Adventure"
+                class="w-full h-auto rounded-3xl shadow-2xl"
+              >
+              
+              <!-- Floating Testimonial Cards -->
+              <div class="absolute -top-8 -left-8 bg-white rounded-2xl p-4 shadow-strong animate-bounce-in">
+                <div class="flex items-center space-x-3 mb-3">
+                  <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="w-10 h-10 rounded-full">
+                  <div>
+                    <div class="flex text-yellow-400">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="text-sm text-secondary-600 italic">"Best travel experience ever!"</p>
+                    <span class="text-xs text-secondary-500">— Sarah M.</span>
+                  </div>
                 </div>
               </div>
-              <div class="col-auto px-4">
-                <div class="stat-item">
-                  <div class="stat-number h1 fw-bold mb-1">24/7</div>
-                  <div class="stat-label small text-uppercase opacity-75">Support</div>
-                </div>
-              </div>
-              <div class="col-auto px-4">
-                <div class="stat-item">
-                  <div class="stat-number h1 fw-bold mb-1">1M+</div>
-                  <div class="stat-label small text-uppercase opacity-75">Happy Travelers</div>
-                </div>
-              </div>
-              <div class="col-auto px-4">
-                <div class="stat-item">
-                  <div class="stat-number h1 fw-bold mb-1">50K+</div>
-                  <div class="stat-label small text-uppercase opacity-75">Hotels</div>
+              
+              <div class="absolute -bottom-6 -right-6 bg-accent-500 text-white rounded-2xl p-4 shadow-strong animate-bounce-in delay-500">
+                <div class="flex items-center space-x-3">
+                  <i class="bi bi-tag text-2xl"></i>
+                  <div>
+                    <div class="text-2xl font-bold">$299</div>
+                    <div class="text-sm">Bali Special</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
+
       <!-- Scroll Indicator -->
-      <div class="scroll-indicator position-absolute start-50 translate-middle-x text-white text-center">
-        <p class="mb-2 small text-uppercase opacity-75">Discover More</p>
-        <i class="bi bi-chevron-down fs-4"></i>
+      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center animate-bounce">
+        <span class="text-white/80 text-sm mb-2 block">Scroll to explore</span>
+        <div class="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center">
+          <div class="w-1 h-3 bg-white/60 rounded-full mt-2 animate-pulse"></div>
+        </div>
       </div>
     </section>
 
-    <!-- FEATURED SERVICES SECTION -->
-    <section class="services-section py-6">
-      <div class="container">
-        <div class="row justify-content-center mb-5">
-          <div class="col-12 col-md-10 col-lg-8 text-center">
-            <h2 class="display-4 fw-bold mb-3">Everything You Need to Travel</h2>
-            <p class="lead text-muted mb-0">
-              From flights to hotels, cars to experiences - we've got you covered
-            </p>
-          </div>
+    <!-- FEATURED CATEGORIES SECTION -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl lg:text-5xl font-bold text-secondary-900 mb-4">Find Your Perfect Getaway</h2>
+          <p class="text-xl text-secondary-600 max-w-3xl mx-auto">Browse curated travel experiences tailored to your style</p>
         </div>
-        
-        <div class="row g-4">
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="service-card card border-0 h-100 shadow-sm text-center hover-lift">
-              <div class="card-body p-5">
-                <div class="service-icon mb-4">
-                  <i class="bi bi-airplane-engines fs-1 text-primary"></i>
-                </div>
-                <h4 class="fw-bold mb-3">Flight Booking</h4>
-                <p class="text-muted mb-4">
-                  Find and book flights to destinations worldwide with our best price guarantee
-                </p>
-                <router-link to="/flights" class="btn btn-outline-primary">
-                  Book Now <i class="bi bi-arrow-right ms-2"></i>
-                </router-link>
-              </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div 
+            v-for="category in categories" 
+            :key="category.id"
+            class="group card card-hover p-8 text-center cursor-pointer transition-all duration-300"
+            @mouseenter="hoveredCategory = category.id"
+            @mouseleave="hoveredCategory = null"
+          >
+            <div 
+              class="w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center text-3xl transition-all duration-300 group-hover:scale-110"
+              :style="{ backgroundColor: category.color + '20' }"
+            >
+              <i :class="category.icon" :style="{ color: category.color }"></i>
             </div>
-          </div>
-          
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="service-card card border-0 h-100 shadow-sm text-center hover-lift">
-              <div class="card-body p-5">
-                <div class="service-icon mb-4">
-                  <i class="bi bi-building fs-1 text-primary"></i>
-                </div>
-                <h4 class="fw-bold mb-3">Hotel Reservations</h4>
-                <p class="text-muted mb-4">
-                  Choose from thousands of hotels, resorts, and accommodations worldwide
-                </p>
-                <router-link to="/hotels" class="btn btn-outline-primary">
-                  Find Hotels <i class="bi bi-arrow-right ms-2"></i>
-                </router-link>
-              </div>
+            <h3 class="text-xl font-semibold text-secondary-900 mb-3">{{ category.title }}</h3>
+            <p class="text-secondary-600 mb-6">{{ category.description }}</p>
+            <div class="flex justify-center space-x-6 text-sm text-secondary-500 mb-6">
+              <span class="flex items-center">
+                <i class="bi bi-clock mr-2"></i>
+                {{ category.duration }}
+              </span>
+              <span class="flex items-center">
+                <i class="bi bi-people mr-2"></i>
+                {{ category.groupSize }}
+              </span>
             </div>
-          </div>
-          
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="service-card card border-0 h-100 shadow-sm text-center hover-lift">
-              <div class="card-body p-5">
-                <div class="service-icon mb-4">
-                  <i class="bi bi-car-front fs-1 text-primary"></i>
-                </div>
-                <h4 class="fw-bold mb-3">Car Rental</h4>
-                <p class="text-muted mb-4">
-                  Rent cars at competitive prices with flexible pick-up and drop-off options
-                </p>
-                <router-link to="/cars" class="btn btn-outline-primary">
-                  Rent Cars <i class="bi bi-arrow-right ms-2"></i>
-                </router-link>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="service-card card border-0 h-100 shadow-sm text-center hover-lift">
-              <div class="card-body p-5">
-                <div class="service-icon mb-4">
-                  <i class="bi bi-briefcase fs-1 text-primary"></i>
-                </div>
-                <h4 class="fw-bold mb-3">Travel Packages</h4>
-                <p class="text-muted mb-4">
-                  All-inclusive packages combining flights, hotels, and activities
-                </p>
-                <router-link to="/packages" class="btn btn-outline-primary">
-                  View Packages <i class="bi bi-arrow-right ms-2"></i>
-                </router-link>
-              </div>
-            </div>
+            <button 
+              class="inline-flex items-center space-x-2 font-semibold transition-all duration-200 group-hover:translate-x-1"
+              :style="{ color: category.color }"
+            >
+              Explore
+              <i class="bi bi-arrow-right transition-transform duration-200 group-hover:translate-x-1"></i>
+            </button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- FEATURED DESTINATIONS -->
-    <section class="destinations-section py-6 bg-light">
-      <div class="container">
-        <div class="row justify-content-between align-items-center mb-5">
-          <div class="col-12 col-lg-8">
-            <h2 class="display-4 fw-bold mb-3">Popular Destinations</h2>
-            <p class="lead text-muted mb-0">
-              Discover the world's most sought-after travel destinations
-            </p>
-          </div>
-          <div class="col-12 col-lg-4 text-lg-end mt-3 mt-lg-0">
-            <router-link to="/destinations" class="btn btn-outline-primary px-4">
-              View All <i class="bi bi-arrow-right ms-2"></i>
-            </router-link>
+    <!-- HOW IT WORKS SECTION -->
+    <section class="py-20 bg-gradient-to-br from-secondary-50 to-primary-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl lg:text-5xl font-bold text-secondary-900 mb-4">Travel Made Simple</h2>
+          <p class="text-xl text-secondary-600 max-w-3xl mx-auto">Your journey from dream to reality in three easy steps</p>
+        </div>
+
+        <div class="relative">
+          <div class="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary-300 to-transparent transform -translate-y-1/2"></div>
+          
+          <div class="grid md:grid-cols-3 gap-8 relative">
+            <div class="group text-center">
+              <div class="relative mb-8">
+                <div class="w-20 h-20 mx-auto bg-primary-600 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-medium group-hover:scale-110 transition-transform duration-300">
+                  01
+                </div>
+                <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-medium group-hover:scale-110 transition-transform duration-300">
+                  <i class="bi bi-search text-primary-600 text-xl"></i>
+                </div>
+              </div>
+              <h3 class="text-2xl font-semibold text-secondary-900 mb-4 mt-8">Discover & Plan</h3>
+              <p class="text-secondary-600 leading-relaxed">Use our AI-powered search to find perfect destinations based on your preferences, budget, and travel style.</p>
+            </div>
+            
+            <div class="group text-center">
+              <div class="relative mb-8">
+                <div class="w-20 h-20 mx-auto bg-primary-600 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-medium group-hover:scale-110 transition-transform duration-300">
+                  02
+                </div>
+                <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-medium group-hover:scale-110 transition-transform duration-300">
+                  <i class="bi bi-calendar-check text-primary-600 text-xl"></i>
+                </div>
+              </div>
+              <h3 class="text-2xl font-semibold text-secondary-900 mb-4 mt-8">Book & Customize</h3>
+              <p class="text-secondary-600 leading-relaxed">Secure your bookings with flexible options. Add experiences, transportation, and special requests.</p>
+            </div>
+            
+            <div class="group text-center">
+              <div class="relative mb-8">
+                <div class="w-20 h-20 mx-auto bg-primary-600 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-medium group-hover:scale-110 transition-transform duration-300">
+                  03
+                </div>
+                <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-medium group-hover:scale-110 transition-transform duration-300">
+                  <i class="bi bi-airplane text-primary-600 text-xl"></i>
+                </div>
+              </div>
+              <h3 class="text-2xl font-semibold text-secondary-900 mb-4 mt-8">Travel & Enjoy</h3>
+              <p class="text-secondary-600 leading-relaxed">Receive real-time updates, local tips, and 24/7 support throughout your journey. Just enjoy the experience!</p>
+            </div>
           </div>
         </div>
-        
-        <div class="row g-4">
-          <div class="col-12 col-md-6 col-lg-3" v-for="destination in featuredDestinations" :key="destination.name">
-            <div class="destination-card position-relative overflow-hidden rounded-3 shadow-sm">
+      </div>
+    </section>
+
+    <!-- FEATURED DESTINATIONS CARDS -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16">
+          <div class="mb-6 lg:mb-0">
+            <h2 class="text-4xl lg:text-5xl font-bold text-secondary-900 mb-4">Trending Destinations</h2>
+            <p class="text-xl text-secondary-600 max-w-2xl">Inspired by thousands of traveler experiences</p>
+          </div>
+          <button class="btn-primary">
+            View All
+            <i class="bi bi-arrow-right ml-2"></i>
+          </button>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div 
+            v-for="destination in destinations" 
+            :key="destination.id"
+            class="group card card-hover overflow-hidden cursor-pointer"
+            @mouseenter="hoveredDestination = destination.id"
+            @mouseleave="hoveredDestination = null"
+          >
+            <div class="relative h-64 overflow-hidden">
               <img 
                 :src="destination.image" 
                 :alt="destination.name"
-                class="img-fluid w-100"
-                style="height: 250px; object-fit: cover;"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               >
-              <div class="destination-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-4">
-                <div class="destination-content text-white">
-                  <h5 class="fw-bold mb-2">{{ destination.name }}</h5>
-                  <div class="d-flex align-items-center mb-3">
-                    <i class="bi bi-geo-alt me-2"></i>
-                    <small>{{ destination.country }}</small>
-                  </div>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span class="badge bg-white text-dark p-2">
-                      From ${{ destination.price }}
-                    </span>
-                    <button class="btn btn-light btn-sm px-3" @click="viewDestination(destination)">
-                      Explore
-                    </button>
-                  </div>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              <div class="absolute top-4 right-4 flex space-x-2">
+                <div class="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center space-x-1">
+                  <i class="bi bi-thermometer-half text-primary-600"></i>
+                  <span class="text-sm font-medium">{{ destination.temperature }}</span>
                 </div>
+                <button class="bg-white/90 backdrop-blur-sm rounded-lg p-2 hover:bg-white transition-colors duration-200">
+                  <i class="bi bi-heart text-secondary-600 hover:text-red-500 transition-colors duration-200"></i>
+                </button>
+              </div>
+              <div 
+                class="absolute top-4 left-4 px-3 py-1 rounded-full text-white text-sm font-semibold"
+                :style="{ backgroundColor: destination.badgeColor }"
+              >
+                {{ destination.badge }}
+              </div>
+            </div>
+            
+            <div class="p-6">
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="text-xl font-semibold text-secondary-900">{{ destination.name }}</h3>
+                <div class="flex items-center space-x-1 text-yellow-500">
+                  <i class="bi bi-star-fill"></i>
+                  <span class="text-sm font-medium text-secondary-700">{{ destination.rating }}</span>
+                </div>
+              </div>
+              
+              <p class="text-secondary-600 mb-6 line-clamp-2">{{ destination.description }}</p>
+              
+              <div class="flex justify-between items-center">
+                <div class="flex items-baseline space-x-1">
+                  <span class="text-sm text-secondary-500">From</span>
+                  <span class="text-2xl font-bold text-primary-600">${{ destination.price }}</span>
+                  <span class="text-sm text-secondary-500">/person</span>
+                </div>
+                <button class="btn-accent text-sm px-4 py-2">
+                  Book Now
+                  <i class="bi bi-arrow-right ml-1"></i>
+                </button>
               </div>
             </div>
           </div>
@@ -311,449 +338,197 @@
       </div>
     </section>
 
-    <!-- TESTIMONIALS -->
-    <section class="testimonials-section py-6">
+    <!-- BENEFITS SECTION -->
+    <section class="benefits-section">
       <div class="container">
-        <div class="row justify-content-center mb-5">
-          <div class="col-12 text-center">
-            <h2 class="display-4 fw-bold mb-3">Travelers Love SkyBook</h2>
-            <p class="lead text-muted mb-0">
-              Join over 1 million satisfied travelers worldwide
+        <div class="benefits-grid">
+          <div class="benefits-text">
+            <h2>Why Choose Us?</h2>
+            <p class="benefits-description">
+              We're not just another booking platform. We're your personal travel companion, 
+              dedicated to making every journey unforgettable.
             </p>
+            
+            <div class="benefits-list">
+              <div class="benefit-item">
+                <div class="benefit-icon">
+                  <i class="bi bi-shield-check"></i>
+                </div>
+                <div>
+                  <h4>Best Price Guarantee</h4>
+                  <p>Find a better price? We'll match it and give you 10% extra credit.</p>
+                </div>
+              </div>
+              
+              <div class="benefit-item">
+                <div class="benefit-icon">
+                  <i class="bi bi-headset"></i>
+                </div>
+                <div>
+                  <h4>24/7 Support</h4>
+                  <p>Round-the-clock assistance in 15 languages from real travel experts.</p>
+                </div>
+              </div>
+              
+              <div class="benefit-item">
+                <div class="benefit-icon">
+                  <i class="bi bi-arrow-repeat"></i>
+                </div>
+                <div>
+                  <h4>Flexible Cancellation</h4>
+                  <p>Most bookings can be cancelled or changed for free up to 24 hours before.</p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        
-        <div class="row g-4">
-          <div class="col-12 col-md-4" v-for="testimonial in testimonials" :key="testimonial.name">
-            <div class="testimonial-card card border-0 shadow-sm h-100">
-              <div class="card-body p-4">
-                <div class="d-flex align-items-center mb-4">
-                  <img :src="testimonial.avatar" class="rounded-circle me-3" width="60" height="60" :alt="testimonial.name">
-                  <div>
-                    <h5 class="fw-bold mb-1">{{ testimonial.name }}</h5>
-                    <div class="text-warning">
-                      <i class="bi bi-star-fill" v-for="n in testimonial.rating" :key="n"></i>
+          
+          <div class="benefits-visual">
+            <div class="benefits-card glass-card">
+              <div class="benefits-card-content">
+                <h3>Travel Smart with Our App</h3>
+                <p>Get instant notifications, digital itineraries, and exclusive mobile-only deals.</p>
+                
+                <div class="app-download">
+                  <button class="app-store-btn">
+                    <i class="bi bi-apple"></i>
+                    <div>
+                      <span>Download on the</span>
+                      <span>App Store</span>
                     </div>
+                  </button>
+                  
+                  <button class="play-store-btn">
+                    <i class="bi bi-google-play"></i>
+                    <div>
+                      <span>Get it on</span>
+                      <span>Google Play</span>
+                    </div>
+                  </button>
+                </div>
+                
+                <div class="qr-code">
+                  <div class="qr-placeholder">
+                    Scan to download
                   </div>
                 </div>
-                <p class="text-muted">{{ testimonial.comment }}</p>
-                <small class="text-muted">{{ testimonial.destination }}</small>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- FOOTER -->
-    <footer class="footer bg-dark text-white py-5">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-lg-4 mb-4 mb-lg-0">
-            <h5 class="fw-bold mb-4">
-              <i class="bi bi-airplane-engines me-2"></i>
-              SkyBook
-            </h5>
-            <p class="text-light opacity-75">
-              Your trusted partner for all travel needs. Book flights, hotels, cars, and experiences with confidence.
-            </p>
-            <div class="social-links mt-4">
-              <a href="#" class="text-white me-3"><i class="bi bi-facebook fs-5"></i></a>
-              <a href="#" class="text-white me-3"><i class="bi bi-twitter fs-5"></i></a>
-              <a href="#" class="text-white me-3"><i class="bi bi-instagram fs-5"></i></a>
-              <a href="#" class="text-white"><i class="bi bi-linkedin fs-5"></i></a>
-            </div>
-          </div>
-          
-          <div class="col-6 col-md-3 col-lg-2 mb-4">
-            <h6 class="fw-bold mb-4">Services</h6>
-            <ul class="list-unstyled">
-              <li class="mb-2"><router-link to="/flights" class="text-white opacity-75 text-decoration-none">Flights</router-link></li>
-              <li class="mb-2"><router-link to="/hotels" class="text-white opacity-75 text-decoration-none">Hotels</router-link></li>
-              <li class="mb-2"><router-link to="/cars" class="text-white opacity-75 text-decoration-none">Car Rental</router-link></li>
-              <li class="mb-2"><router-link to="/packages" class="text-white opacity-75 text-decoration-none">Packages</router-link></li>
-            </ul>
-          </div>
-          
-          <div class="col-6 col-md-3 col-lg-2 mb-4">
-            <h6 class="fw-bold mb-4">Company</h6>
-            <ul class="list-unstyled">
-              <li class="mb-2"><a href="#" class="text-white opacity-75 text-decoration-none">About Us</a></li>
-              <li class="mb-2"><a href="#" class="text-white opacity-75 text-decoration-none">Careers</a></li>
-              <li class="mb-2"><a href="#" class="text-white opacity-75 text-decoration-none">Press</a></li>
-              <li class="mb-2"><a href="#" class="text-white opacity-75 text-decoration-none">Contact</a></li>
-            </ul>
-          </div>
-          
-          <div class="col-12 col-md-6 col-lg-4">
-            <h6 class="fw-bold mb-4">Newsletter</h6>
-            <p class="text-light opacity-75 mb-4">Subscribe for exclusive deals and travel tips</p>
-            <div class="input-group">
-              <input type="email" class="form-control" placeholder="Your email address">
-              <button class="btn btn-primary" type="button">
-                <i class="bi bi-envelope"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        
-        <hr class="my-5 opacity-25">
-        
-        <div class="row">
-          <div class="col-12 text-center">
-            <p class="text-light opacity-75 mb-0">
-              © 2024 SkyBook. All rights reserved. | 
-              <a href="#" class="text-white opacity-75 text-decoration-none me-3">Privacy Policy</a>
-              <a href="#" class="text-white opacity-75 text-decoration-none">Terms of Service</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-// Import local images - you'll need to add these to your assets folder
-import parisImage from '@/assets/images/im1.png'
-import tokyoImage from '@/assets/images/im1.png'
-import newyorkImage from '@/assets/images/im1.png'
-import baliImage from '@/assets/images/im1.png'
-import avatar1 from '@/assets/images/im1.png'
-import avatar2 from '@/assets/images/im1.png'
-import avatar3 from '@/assets/images/im1.png'
-
-const router = useRouter()
-
-const featuredDestinations = ref([
-  {
-    name: 'Paris',
-    country: 'France',
-    image: parisImage,
-    price: 299
+<script>
+export default {
+  name: 'HomePage',
+  data() {
+    return {
+      activeTab: 'flights',
+      searchQuery: '',
+      hoveredCategory: null,
+      hoveredDestination: null,
+      showDatePicker: false,
+      searchTabs: [
+        { id: 'flights', label: 'Flights', icon: 'bi bi-airplane' },
+        { id: 'hotels', label: 'Hotels', icon: 'bi bi-building' },
+        { id: 'packages', label: 'Packages', icon: 'bi bi-suitcase' },
+        { id: 'cars', label: 'Cars', icon: 'bi bi-car-front' }
+      ],
+      categories: [
+        {
+          id: 1,
+          title: 'Beach Escapes',
+          description: 'Relax on pristine shores with crystal clear waters',
+          icon: 'bi bi-umbrella',
+          color: '#00b4d8',
+          duration: '3-7 days',
+          groupSize: '2-4 people'
+        },
+        {
+          id: 2,
+          title: 'City Breaks',
+          description: 'Explore vibrant cities and urban culture',
+          icon: 'bi bi-buildings',
+          color: '#ff6b6b',
+          duration: '2-5 days',
+          groupSize: '1-2 people'
+        },
+        {
+          id: 3,
+          title: 'Mountain Adventures',
+          description: 'Hike through breathtaking alpine landscapes',
+          icon: 'bi bi-mountain',
+          color: '#06d6a0',
+          duration: '5-10 days',
+          groupSize: '2-6 people'
+        },
+        {
+          id: 4,
+          title: 'Cultural Journeys',
+          description: 'Immerse yourself in rich history and traditions',
+          icon: 'bi bi-geo-alt',
+          color: '#7209b7',
+          duration: '7-14 days',
+          groupSize: '4-8 people'
+        }
+      ],
+      destinations: [
+        {
+          id: 1,
+          name: 'Bali, Indonesia',
+          image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=400&h=300&fit=crop',
+          temperature: '28°C',
+          badge: 'Popular',
+          badgeColor: '#4361ee',
+          rating: 4.8,
+          description: 'Tropical paradise with lush landscapes and vibrant culture',
+          price: 499
+        },
+        {
+          id: 2,
+          name: 'Santorini, Greece',
+          image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&h=300&fit=crop',
+          temperature: '25°C',
+          badge: 'Romantic',
+          badgeColor: '#ff6b6b',
+          rating: 4.9,
+          description: 'Stunning white-washed buildings with breathtaking sea views',
+          price: 699
+        },
+        {
+          id: 3,
+          name: 'Kyoto, Japan',
+          image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=300&fit=crop',
+          temperature: '22°C',
+          badge: 'Cultural',
+          badgeColor: '#06d6a0',
+          rating: 4.7,
+          description: 'Ancient temples, traditional gardens, and rich heritage',
+          price: 599
+        },
+        {
+          id: 4,
+          name: 'Swiss Alps',
+          image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
+          temperature: '18°C',
+          badge: 'Adventure',
+          badgeColor: '#7209b7',
+          rating: 4.9,
+          description: 'Majestic mountains and pristine alpine scenery',
+          price: 799
+        }
+      ]
+    }
   },
-  {
-    name: 'Tokyo',
-    country: 'Japan',
-    image: tokyoImage,
-    price: 499
-  },
-  {
-    name: 'New York',
-    country: 'USA',
-    image: newyorkImage,
-    price: 399
-  },
-  {
-    name: 'Bali',
-    country: 'Indonesia',
-    image: baliImage,
-    price: 199
+  methods: {
+    handleSearch() {
+      if (this.searchQuery) {
+        console.log('Searching for:', this.searchQuery, 'Tab:', this.activeTab);
+        // Implement search logic here
+      }
+    }
   }
-])
-
-const testimonials = ref([
-  {
-    name: 'Sarah Johnson',
-    comment: 'Amazing experience! Found the perfect hotel at the best price. Highly recommended!',
-    rating: 5,
-    destination: 'Paris, France',
-    avatar: avatar1
-  },
-  {
-    name: 'Michael Chen',
-    comment: 'The flight booking was seamless and the customer support was incredibly helpful.',
-    rating: 5,
-    destination: 'Tokyo, Japan',
-    avatar: avatar2
-  },
-  {
-    name: 'Emma Wilson',
-    comment: 'Car rental process was smooth and the vehicle was in perfect condition.',
-    rating: 4,
-    destination: 'New York, USA',
-    avatar: avatar3
-  }
-])
-
-const viewDestination = (destination) => {
-  router.push({ 
-    path: '/flights',
-    query: { destination: destination.name }
-  })
 }
 </script>
-
-<style scoped>
-/* Navigation Bar */
-.navbar {
-  background: hsla(140, 100%, 2%, 0.94);
-  backdrop-filter: blur(10px);
-  padding: 1rem 0;
-  transition: all 0.3s ease;
-}
-
-.navbar.scrolled {
-  background: hsla(220, 2%, 70%, 0.95);
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-}
-
-.navbar-brand {
-  color: white !important;
-}
-
-.nav-link {
-  color: rgba(255, 255, 255, 0.85) !important;
-  margin: 0 0.5rem;
-  transition: all 0.3s ease;
-}
-
-.nav-link:hover,
-.nav-link.active {
-  color: white !important;
-  transform: translateY(-2px);
-}
-
-.nav-link i {
-  font-size: 1.1rem;
-}
-
-/* Hero Section */
-.hero-section {
-  min-height: 100vh;
-  padding-top: 76px; /* Account for fixed navbar */
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-background {
-  z-index: 1;
-}
-
-.background-image {
-  background-image: linear-gradient(hsla(0, 15%, 91%, 0.50), rgba(0, 0, 0, 0.7)), 
-                    url('@/assets/images/im1.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.hero-overlay {
-  background: linear-gradient(135deg, rgba(13, 110, 253, 0.7) 0%, rgba(102, 16, 242, 0.7) 100%);
-  z-index: 1;
-}
-
-/* Animated Airplanes */
-.airplane {
-  font-size: 2rem;
-  color: rgba(255, 255, 255, 0.8);
-  z-index: 2;
-  animation: float 20s infinite linear;
-}
-
-.airplane-1 {
-  top: 20%;
-  left: 10%;
-  animation-delay: 0s;
-}
-
-.airplane-2 {
-  top: 40%;
-  right: 15%;
-  animation-delay: 5s;
-}
-
-.airplane-3 {
-  top: 60%;
-  left: 20%;
-  animation-delay: 10s;
-}
-
-@keyframes float {
-  0% {
-    transform: translateX(-100px) rotate(45deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(calc(100vw + 100px)) rotate(45deg);
-    opacity: 0;
-  }
-}
-
-.hero-title {
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-  line-height: 1.2;
-}
-
-.hero-subtitle {
-  opacity: 0.9;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.stat-item {
-  padding: 0 1.5rem;
-  position: relative;
-}
-
-.stat-item:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 30px;
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.scroll-indicator {
-  bottom: 2rem;
-  animation: bounce 2s infinite;
-  z-index: 2;
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0) translateX(-50%);
-  }
-  40% {
-    transform: translateY(-10px) translateX(-50%);
-  }
-  60% {
-    transform: translateY(-5px) translateX(-50%);
-  }
-}
-
-/* Services Section */
-.service-card {
-  transition: all 0.3s ease;
-  border-radius: 1rem !important;
-}
-
-.service-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
-}
-
-.service-icon {
-  width: 80px;
-  height: 80px;
-  background: rgba(13, 110, 253, 0.1);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-}
-
-.hover-lift:hover {
-  transform: translateY(-5px);
-}
-
-/* Destination Cards */
-.destination-card {
-  transition: transform 0.3s ease;
-  border-radius: 1rem !important;
-}
-
-.destination-card:hover {
-  transform: translateY(-5px);
-}
-
-.destination-overlay {
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.destination-card:hover .destination-overlay {
-  opacity: 1;
-}
-
-/* Testimonial Cards */
-.testimonial-card {
-  border-radius: 1rem !important;
-  transition: transform 0.3s ease;
-}
-
-.testimonial-card:hover {
-  transform: translateY(-3px);
-}
-
-/* Footer */
-.footer a:hover {
-  opacity: 1 !important;
-  text-decoration: underline !important;
-}
-
-.social-links a {
-  transition: all 0.3s ease;
-  display: inline-block;
-}
-
-.social-links a:hover {
-  transform: translateY(-3px);
-  color: #0d6efd !important;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .hero-section {
-    min-height: auto;
-    padding-bottom: 4rem;
-  }
-  
-  .hero-title {
-    font-size: 2.5rem !important;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.25rem !important;
-  }
-  
-  .stat-item {
-    padding: 0 1rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .stat-item:not(:last-child)::after {
-    display: none;
-  }
-  
-  .display-4 {
-    font-size: 2rem !important;
-  }
-  
-  .navbar-nav {
-    background: rgba(0, 0, 0, 0.9);
-    padding: 1rem;
-    border-radius: 0.5rem;
-    margin-top: 1rem;
-  }
-}
-
-/* Custom utilities */
-.rounded-3 {
-  border-radius: 1rem !important;
-}
-
-.py-6 {
-  padding-top: 4rem !important;
-  padding-bottom: 4rem !important;
-}
-
-.py-8 {
-  padding-top: 6rem !important;
-  padding-bottom: 6rem !important;
-}
-</style>

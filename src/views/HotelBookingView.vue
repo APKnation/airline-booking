@@ -1,350 +1,506 @@
 <template>
-  <v-container class="pa-4 pa-md-8" fluid>
+  <div class="hotel-booking-page">
     <!-- Header Section -->
-    <v-row justify="center" class="mb-6 mb-md-10">
-      <v-col cols="12" class="text-center">
-        <v-icon color="primary" size="x-large" class="mb-4">mdi-bed</v-icon>
-        <h1 class="text-h3 text-md-h2 font-weight-bold text-primary mb-3">
-          Find Your Perfect Stay
-        </h1>
-        <p class="text-body-1 text-medium-emphasis max-width-600 mx-auto">
-          Discover amazing hotels, resorts, and accommodations for your next journey
-        </p>
-      </v-col>
-    </v-row>
+    <div class="container-fluid py-5 bg-primary bg-gradient text-center text-white">
+      <i class="bi bi-buildings-fill display-1 mb-3"></i>
+      <h1 class="display-4 fw-bold mb-2">Find Your Perfect Stay</h1>
+      <p class="lead opacity-75">Discover amazing hotels, resorts, and accommodations for your next journey</p>
+    </div>
 
     <!-- Search Form Section -->
-    <v-row justify="center" class="mb-8 mb-md-12">
-      <v-col cols="12" lg="10" xl="8">
-        <v-card class="pa-4 pa-sm-6" elevation="1" rounded="xl" border>
-          <div class="d-flex align-center mb-4">
-            <v-icon color="primary" class="mr-3">mdi-magnify</v-icon>
-            <h2 class="text-h5 text-md-h4 font-weight-semibold">
-              Search Hotels
-            </h2>
+    <div class="container mt-n5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8">
+          <div class="card shadow-lg rounded-4 border-0">
+            <div class="card-body p-4 p-md-5">
+              <div class="d-flex align-items-center mb-4">
+                <i class="bi bi-search fs-3 text-primary me-3"></i>
+                <h2 class="h4 mb-0 fw-bold">Search Hotels</h2>
+              </div>
+
+              <!-- Hotel Search Form -->
+              <form @submit.prevent="handleSearch" class="row g-3">
+                <div class="col-12 col-md-6 col-lg-3">
+                  <label for="location" class="form-label fw-semibold">
+                    <i class="bi bi-geo-alt me-1"></i> Location
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    id="location"
+                    v-model="searchParams.location"
+                    placeholder="Enter a city or hotel"
+                    required
+                  >
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3">
+                  <label for="checkIn" class="form-label fw-semibold">
+                    <i class="bi bi-calendar-plus me-1"></i> Check-in
+                  </label>
+                  <input
+                    type="date"
+                    class="form-control form-control-lg"
+                    id="checkIn"
+                    v-model="searchParams.checkIn"
+                    required
+                  >
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3">
+                  <label for="checkOut" class="form-label fw-semibold">
+                    <i class="bi bi-calendar-minus me-1"></i> Check-out
+                  </label>
+                  <input
+                    type="date"
+                    class="form-control form-control-lg"
+                    id="checkOut"
+                    v-model="searchParams.checkOut"
+                    required
+                  >
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3">
+                  <label for="guests" class="form-label fw-semibold">
+                    <i class="bi bi-people me-1"></i> Guests
+                  </label>
+                  <select class="form-select form-select-lg" id="guests" v-model="searchParams.guests">
+                    <option value="1">1 Guest</option>
+                    <option value="2" selected>2 Guests</option>
+                    <option value="3">3 Guests</option>
+                    <option value="4">4 Guests</option>
+                    <option value="5">5+ Guests</option>
+                  </select>
+                </div>
+
+                <div class="col-12 mt-3">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center"
+                    :disabled="loading"
+                  >
+                    <template v-if="loading">
+                      <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                      Searching...
+                    </template>
+                    <template v-else>
+                      <i class="bi bi-search me-2"></i> Search Hotels
+                    </template>
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-          <HotelSearchForm @search="handleSearch" />
-        </v-card>
-      </v-col>
-    </v-row>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div v-if="loading" class="container my-5">
+      <div class="row justify-content-center">
+        <div class="col-12 text-center py-5">
+          <div class="spinner-border text-primary mb-4" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <h3 class="h4 text-primary">Finding the best stays for you...</h3>
+        </div>
+      </div>
+    </div>
 
     <!-- Results Section -->
-    <v-row v-if="loading" justify="center" class="my-12">
-      <v-col cols="12" class="text-center">
-        <v-progress-circular
-          indeterminate
-          color="primary"
-          size="64"
-          width="6"
-          class="mb-4"
-        ></v-progress-circular>
-        <h3 class="text-h6 text-primary">Finding the best stays for you...</h3>
-      </v-col>
-    </v-row>
+    <div v-else-if="hotels.length" class="container my-5">
+      <div class="row mb-4">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+          <div>
+            <h2 class="display-6 fw-bold mb-0">
+              Available Stays
+              <span class="badge bg-primary fs-6 ms-2">{{ hotels.length }}</span>
+            </h2>
+            <p class="text-muted mb-0 mt-2">
+              Showing results for {{ searchParams.location || 'your search' }}
+            </p>
+          </div>
+          <button class="btn btn-outline-primary" @click="toggleFilters">
+            <i class="bi bi-funnel me-2"></i>
+            Filter
+          </button>
+        </div>
+      </div>
 
-    <!-- Hotels Grid -->
-    <v-row v-else-if="hotels.length" class="mb-6">
-      <v-col cols="12" class="d-flex justify-space-between align-center mb-4">
-        <h2 class="text-h4 text-md-h3 font-weight-bold">
-          Available Stays
-          <v-chip color="primary" variant="flat" class="ml-3">
-            {{ hotels.length }}
-          </v-chip>
-        </h2>
-        <v-btn variant="tonal" color="primary" prepend-icon="mdi-filter">
-          Filter
-        </v-btn>
-      </v-col>
-      
-      <v-col
-        v-for="hotel in hotels"
-        :key="hotel.id"
-        cols="12"
-        sm="6"
-        lg="4"
-        xl="3"
-      >
-        <v-card
-          class="h-100 d-flex flex-column"
-          elevation="2"
-          hover
-          rounded="lg"
-          border
+      <!-- Hotels Grid -->
+      <div class="row g-4">
+        <div 
+          class="col-12 col-md-6 col-lg-4 col-xl-3" 
+          v-for="hotel in hotels" 
+          :key="hotel.id"
         >
-          <!-- Hotel Image -->
-          <div class="position-relative">
-            <v-img
-              :src="hotel.image || 'https://via.placeholder.com/400x250/3f51b5/ffffff?text=Hotel'"
-              height="200"
-              cover
-              gradient="to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4)"
-            >
-              <template v-slot:placeholder>
-                <v-row class="fill-height ma-0" align="center" justify="center">
-                  <v-progress-circular indeterminate color="primary"></v-progress-circular>
-                </v-row>
-              </template>
+          <div class="card h-100 border-0 shadow-sm hotel-card">
+            <!-- Hotel Image -->
+            <div class="position-relative">
+              <img 
+                :src="hotel.image" 
+                class="card-img-top"
+                :alt="hotel.name"
+                style="height: 200px; object-fit: cover;"
+              >
               
               <!-- Rating Badge -->
-              <v-chip
-                v-if="hotel.rating"
-                class="ma-2"
-                color="orange"
-                variant="flat"
-                size="small"
-                prepend-icon="mdi-star"
-              >
-                {{ hotel.rating }}
-              </v-chip>
-            </v-img>
-          </div>
-
-          <!-- Hotel Content -->
-          <v-card-title class="text-h6 font-weight-semibold pt-4 pb-1 px-4">
-            {{ hotel.name }}
-          </v-card-title>
-
-          <v-card-subtitle class="px-4 pb-2 d-flex align-center">
-            <v-icon size="small" color="primary" class="mr-1">mdi-map-marker</v-icon>
-            <span class="text-body-2">{{ hotel.location }}</span>
-          </v-card-subtitle>
-
-          <v-card-text class="px-4 pt-2 pb-3 flex-grow-1">
-            <!-- Amenities -->
-            <div v-if="hotel.amenities?.length" class="mb-3">
-              <div class="text-caption text-medium-emphasis mb-1">Amenities</div>
-              <div class="d-flex flex-wrap gap-1">
-                <v-chip
-                  v-for="(amenity, index) in hotel.amenities.slice(0, 3)"
-                  :key="index"
-                  size="small"
-                  variant="outlined"
-                  color="primary"
-                >
-                  {{ amenity }}
-                </v-chip>
-                <v-chip
-                  v-if="hotel.amenities.length > 3"
-                  size="small"
-                  variant="text"
-                  color="primary"
-                >
-                  +{{ hotel.amenities.length - 3 }} more
-                </v-chip>
+              <div v-if="hotel.rating" class="position-absolute top-0 start-0 m-3">
+                <span class="badge bg-warning text-dark px-3 py-2">
+                  <i class="bi bi-star-fill me-1"></i>
+                  {{ hotel.rating }}
+                </span>
+              </div>
+              
+              <!-- Discount Badge -->
+              <div v-if="hotel.discount" class="position-absolute top-0 end-0 m-3">
+                <span class="badge bg-danger px-3 py-2">
+                  -{{ hotel.discount }}%
+                </span>
               </div>
             </div>
 
-            <!-- Price -->
-            <div class="d-flex align-center justify-space-between mt-auto">
-              <div>
-                <div class="text-caption text-medium-emphasis">Starting from</div>
-                <div class="text-h5 font-weight-bold text-primary">
-                  ${{ hotel.price }}
-                  <span class="text-body-2 text-medium-emphasis">/night</span>
+            <!-- Hotel Content -->
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold mb-2">{{ hotel.name }}</h5>
+              
+              <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-geo-alt text-primary me-2"></i>
+                <small class="text-muted">{{ hotel.location }}</small>
+              </div>
+
+              <!-- Amenities -->
+              <div v-if="hotel.amenities?.length" class="mb-4">
+                <p class="text-muted small mb-2">Amenities</p>
+                <div class="d-flex flex-wrap gap-2">
+                  <span 
+                    v-for="(amenity, index) in hotel.amenities.slice(0, 3)" 
+                    :key="index"
+                    class="badge bg-light text-primary border"
+                  >
+                    {{ amenity }}
+                  </span>
+                  <span 
+                    v-if="hotel.amenities.length > 3"
+                    class="badge bg-light text-primary border"
+                  >
+                    +{{ hotel.amenities.length - 3 }}
+                  </span>
                 </div>
               </div>
-              <v-chip
-                v-if="hotel.discount"
-                color="error"
-                variant="flat"
-                size="small"
-                class="font-weight-bold"
-              >
-                -{{ hotel.discount }}%
-              </v-chip>
-            </div>
-          </v-card-text>
 
-          <!-- Action Button -->
-          <v-card-actions class="px-4 pb-4 pt-0">
-            <v-btn
-              color="primary"
-              variant="flat"
-              block
-              size="large"
-              @click="bookHotel(hotel)"
-              prepend-icon="mdi-calendar-check"
-              rounded="lg"
-            >
-              Book Now
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
+              <!-- Price and Book Button -->
+              <div class="mt-auto">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div>
+                    <p class="text-muted small mb-1">Starting from</p>
+                    <div class="d-flex align-items-center">
+                      <span class="h3 fw-bold text-primary mb-0">${{ hotel.price }}</span>
+                      <span class="text-muted ms-1">/night</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <button 
+                  class="btn btn-primary w-100 py-3 fw-semibold"
+                  @click="bookHotel(hotel)"
+                >
+                  <i class="bi bi-calendar-check me-2"></i>
+                  Book Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- No Results / Empty State -->
-    <v-row v-else-if="hasSearched" justify="center" class="my-12">
-      <v-col cols="12" md="8" lg="6" class="text-center">
-        <v-icon size="96" color="grey-lighten-1" class="mb-6">mdi-bed-empty</v-icon>
-        <h3 class="text-h4 mb-4">No hotels found</h3>
-        <p class="text-body-1 text-medium-emphasis mb-6">
-          Try adjusting your search criteria or dates to find available stays
-        </p>
-        <v-btn color="primary" size="large" rounded="lg" @click="handleSearch({ reset: true })">
-          Clear Search
-        </v-btn>
-      </v-col>
-    </v-row>
+    <div v-else-if="hasSearched" class="container my-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6 text-center py-5">
+          <div class="mb-4">
+            <i class="bi bi-buildings-slash display-1 text-muted opacity-25"></i>
+          </div>
+          <h3 class="h2 mb-3">No hotels found</h3>
+          <p class="lead text-muted mb-4">
+            Try adjusting your search criteria or dates to find available stays
+          </p>
+          <button class="btn btn-primary btn-lg px-5" @click="clearSearch">
+            <i class="bi bi-arrow-clockwise me-2"></i>
+            Clear Search
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- Initial State -->
-    <v-row v-else justify="center" class="my-12">
-      <v-col cols="12" md="10" lg="8" class="text-center">
-        <div class="pa-8 pa-md-12 rounded-xl bg-surface-lighten-1">
-          <v-icon size="96" color="primary" class="mb-6">mdi-bed-king</v-icon>
-          <h3 class="text-h4 mb-4">Ready to book your stay?</h3>
-          <p class="text-body-1 text-medium-emphasis mb-6 max-width-600 mx-auto">
-            Use the search form above to find hotels that match your travel plans. 
-            We'll show you the best available options with photos, amenities, and prices.
-          </p>
-          <v-btn color="primary" size="large" rounded="lg" prepend-icon="mdi-magnify">
-            Start Searching
-          </v-btn>
+    <div v-else class="container my-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 text-center">
+          <div class="bg-light rounded-4 p-5 p-md-6">
+            <div class="mb-4">
+              <i class="bi bi-buildings display-1 text-primary"></i>
+            </div>
+            <h3 class="h2 mb-4">Ready to book your stay?</h3>
+            <p class="lead text-muted mb-5">
+              Use the search form above to find hotels that match your travel plans. 
+              We'll show you the best available options with photos, amenities, and prices.
+            </p>
+            <button class="btn btn-primary btn-lg px-5" @click="scrollToSearch">
+              <i class="bi bi-search me-2"></i>
+              Start Searching
+            </button>
+          </div>
         </div>
-      </v-col>
-    </v-row>
-  </v-container>
+      </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div v-if="showSuccessToast" class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+      <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-success text-white">
+          <i class="bi bi-check-circle-fill me-2"></i>
+          <strong class="me-auto">Success!</strong>
+          <button type="button" class="btn-close btn-close-white" @click="showSuccessToast = false"></button>
+        </div>
+        <div class="toast-body">
+          Hotel added to your cart!
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import HotelSearchForm from '@/components/hotel/HotelSearchForm.vue'
-import { useBookingStore } from '@/stores/bookingStore'
-
-const bookingStore = useBookingStore()
-const hotels = ref([])
-const loading = ref(false)
-const hasSearched = ref(false)
-
-// Mock data for demonstration - replace with actual API call
-const mockHotels = [
-  {
-    id: 1,
-    name: 'Grand Luxury Hotel',
-    location: 'New York, NY',
-    rating: 4.8,
-    price: 299,
-    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    amenities: ['Pool', 'Spa', 'Restaurant', 'Gym', 'Free WiFi'],
-    discount: 15
+<script>
+export default {
+  name: 'HotelBookingView',
+  
+  data() {
+    return {
+      searchParams: {
+        location: '',
+        checkIn: this.getTomorrowDate(),
+        checkOut: this.getTwoDaysLaterDate(),
+        guests: '2'
+      },
+      hotels: [],
+      loading: false,
+      hasSearched: false,
+      showFilters: false,
+      showSuccessToast: false,
+      
+      // Mock data
+      mockHotels: [
+        {
+          id: 1,
+          name: 'Grand Luxury Hotel',
+          location: 'New York, NY',
+          rating: 4.8,
+          price: 299,
+          image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+          amenities: ['Pool', 'Spa', 'Restaurant', 'Gym', 'Free WiFi'],
+          discount: 15
+        },
+        {
+          id: 2,
+          name: 'Seaside Resort',
+          location: 'Miami Beach, FL',
+          rating: 4.6,
+          price: 189,
+          image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+          amenities: ['Beach Access', 'Pool', 'Bar', 'Free WiFi'],
+          discount: 0
+        },
+        {
+          id: 3,
+          name: 'Mountain View Lodge',
+          location: 'Aspen, CO',
+          rating: 4.9,
+          price: 349,
+          image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+          amenities: ['Fireplace', 'Hot Tub', 'Ski-in/Ski-out', 'Restaurant'],
+          discount: 10
+        },
+        {
+          id: 4,
+          name: 'Urban Boutique Hotel',
+          location: 'San Francisco, CA',
+          rating: 4.5,
+          price: 159,
+          image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+          amenities: ['Coffee Bar', 'Concierge', 'Free WiFi', 'Breakfast'],
+          discount: 20
+        }
+      ]
+    }
   },
-  {
-    id: 2,
-    name: 'Seaside Resort',
-    location: 'Miami Beach, FL',
-    rating: 4.6,
-    price: 189,
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    amenities: ['Beach Access', 'Pool', 'Bar', 'Free WiFi'],
-    discount: 0
+  
+  methods: {
+    getTomorrowDate() {
+      const tomorrow = new Date()
+      tomorrow.setDate(tomorrow.getDate() + 1)
+      return tomorrow.toISOString().split('T')[0]
+    },
+    
+    getTwoDaysLaterDate() {
+      const twoDaysLater = new Date()
+      twoDaysLater.setDate(twoDaysLater.getDate() + 3)
+      return twoDaysLater.toISOString().split('T')[0]
+    },
+    
+    async handleSearch() {
+      if (!this.searchParams.location.trim()) {
+        alert('Please enter a location')
+        return
+      }
+      
+      this.loading = true
+      this.hasSearched = true
+      
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      // Filter mock hotels based on search
+      this.hotels = this.mockHotels.filter(hotel => 
+        hotel.location.toLowerCase().includes(this.searchParams.location.toLowerCase())
+      )
+      
+      this.loading = false
+    },
+    
+    bookHotel(hotel) {
+      // Add to cart store
+      const bookingStore = this.$pinia?.stores?.booking || {
+        addToCart: (item) => {
+          console.log('Adding to cart:', item)
+          const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+          cart.push(item)
+          localStorage.setItem('cart', JSON.stringify(cart))
+        }
+      }
+      
+      bookingStore.addToCart({
+        type: 'hotel',
+        name: hotel.name,
+        price: hotel.price,
+        hotelDetails: hotel,
+        nights: 1,
+        total: hotel.price,
+        id: Date.now().toString()
+      })
+      
+      // Show success message
+      this.showSuccessToast = true
+      
+      // Auto-hide toast after 3 seconds
+      setTimeout(() => {
+        this.showSuccessToast = false
+      }, 3000)
+    },
+    
+    clearSearch() {
+      this.searchParams = {
+        location: '',
+        checkIn: this.getTomorrowDate(),
+        checkOut: this.getTwoDaysLaterDate(),
+        guests: '2'
+      }
+      this.hotels = []
+      this.hasSearched = false
+    },
+    
+    toggleFilters() {
+      this.showFilters = !this.showFilters
+      alert('Filter functionality would be implemented here')
+    },
+    
+    scrollToSearch() {
+      const searchForm = document.querySelector('.card.border-0.shadow-lg')
+      if (searchForm) {
+        searchForm.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
   },
-  {
-    id: 3,
-    name: 'Mountain View Lodge',
-    location: 'Aspen, CO',
-    rating: 4.9,
-    price: 349,
-    image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    amenities: ['Fireplace', 'Hot Tub', 'Ski-in/Ski-out', 'Restaurant'],
-    discount: 10
-  },
-  {
-    id: 4,
-    name: 'Urban Boutique Hotel',
-    location: 'San Francisco, CA',
-    rating: 4.5,
-    price: 159,
-    image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    amenities: ['Coffee Bar', 'Concierge', 'Free WiFi', 'Breakfast'],
-    discount: 20
+  
+  mounted() {
+    console.log('HotelBookingView mounted')
+    
+    // Set default dates
+    this.searchParams.checkIn = this.getTomorrowDate()
+    this.searchParams.checkOut = this.getTwoDaysLaterDate()
   }
-]
-
-const handleSearch = async (searchParams) => {
-  if (searchParams?.reset) {
-    hotels.value = []
-    hasSearched.value = false
-    return
-  }
-
-  loading.value = true
-  hasSearched.value = true
-  
-  // Simulate API call delay
-  await new Promise(resolve => setTimeout(resolve, 1000))
-  
-  // In a real app, this would be an API call:
-  // hotels.value = await fetchHotels(searchParams)
-  
-  hotels.value = mockHotels
-  loading.value = false
-}
-
-const bookHotel = (hotel) => {
-  bookingStore.addToCart({
-    type: 'hotel',
-    name: hotel.name,
-    price: hotel.price,
-    hotelDetails: hotel,
-    nights: 1,
-    total: hotel.price
-  })
-  
-  // Optional: Show confirmation
-  // alert(`Added ${hotel.name} to your cart!`)
 }
 </script>
 
 <style scoped>
-.max-width-600 {
-  max-width: 600px;
+.hotel-booking-page {
+  min-height: 100vh;
+  background-color: #f8f9fa;
 }
 
-.position-relative {
-  position: relative;
+.bg-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
 }
 
-.h-100 {
-  height: 100%;
+.mt-n5 {
+  margin-top: -3rem !important;
 }
 
-.d-flex {
-  display: flex;
+.hotel-card {
+  border-radius: 1rem !important;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.flex-column {
-  flex-direction: column;
+.hotel-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
 }
 
-.flex-grow-1 {
-  flex-grow: 1;
+.card-img-top {
+  border-radius: 1rem 1rem 0 0 !important;
 }
 
-.mt-auto {
-  margin-top: auto;
+/* Toast Animation */
+.toast {
+  min-width: 250px;
+  animation: slideIn 0.3s ease;
 }
 
-.gap-1 {
-  gap: 4px;
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
-.bg-surface-lighten-1 {
-  background-color: rgba(var(--v-theme-surface), 0.1);
-}
-
-.rounded-xl {
-  border-radius: 12px;
-}
-
-.rounded-lg {
-  border-radius: 8px;
-}
-
-.text-primary {
-  color: rgb(var(--v-theme-primary));
-}
-
-.font-weight-semibold {
-  font-weight: 600;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .display-4 {
+    font-size: 2.5rem !important;
+  }
+  
+  .bg-gradient {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+  
+  .mt-n5 {
+    margin-top: -2rem !important;
+  }
+  
+  .card-body {
+    padding: 1.5rem !important;
+  }
+  
+  .form-control-lg {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+  }
 }
 </style>

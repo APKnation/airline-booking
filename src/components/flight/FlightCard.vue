@@ -1,87 +1,86 @@
 <template>
-  <div class="card border-0 shadow-sm mb-4 p-4 flight-card">
+  <div class="card card-hover p-6 flight-card">
     <!-- Airline Info -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <div class="d-flex align-items-center">
-        <img 
-          :src="airlineLogo" 
-          alt="Airline Logo" 
-          class="rounded-circle me-3" 
-          style="width: 50px; height: 50px; object-fit: cover;" 
-        />
+    <div class="flex justify-between items-center mb-6">
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-full overflow-hidden bg-secondary-100 flex items-center justify-center">
+          <img 
+            :src="airlineLogo" 
+            alt="Airline Logo" 
+            class="w-full h-full object-cover"
+          />
+        </div>
         <div>
-          <div class="fw-bold text-primary">{{ flight.airline }}</div>
-          <div class="text-muted small">{{ flight.flightNumber }}</div>
+          <div class="font-bold text-primary-700 text-lg">{{ flight.airline }}</div>
+          <div class="text-secondary-500 text-sm">{{ flight.flightNumber }}</div>
         </div>
       </div>
-      <span
-        :class="['badge', 'px-3', 'py-2', getStatusClass(flight.status)]"
-      >
+      <span :class="getStatusClass(flight.status)" class="px-4 py-2 rounded-full text-sm font-semibold">
         {{ flight.status || 'On Time' }}
       </span>
     </div>
 
     <!-- Flight Route -->
-    <div class="border-top border-bottom border-light py-4">
-      <div class="row align-items-center text-center">
+    <div class="border-y border-secondary-200 py-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center text-center">
         <!-- Departure -->
-        <div class="col-12 col-md-4 mb-3 mb-md-0">
-          <div class="h4 fw-bold mb-1">{{ flight.departureTime }}</div>
-          <div class="text-body">{{ flight.from }}</div>
-          <div class="small text-muted">{{ flight.departureDate }}</div>
+        <div class="space-y-2">
+          <div class="text-2xl font-bold text-secondary-900">{{ flight.departureTime }}</div>
+          <div class="text-secondary-700 font-medium">{{ flight.from }}</div>
+          <div class="text-secondary-500 text-sm">{{ flight.departureDate }}</div>
         </div>
 
         <!-- Duration & Stops -->
-        <div class="col-12 col-md-4 mb-3 mb-md-0">
-          <div class="small text-muted mb-2">{{ flight.duration }}</div>
-          <div class="position-relative my-2">
-            <div class="flight-line bg-light w-100" style="height: 2px;"></div>
-            <div class="position-absolute top-50 start-50 translate-middle">
-              <i class="bi bi-airplane-fill text-primary fs-5"></i>
+        <div class="space-y-2">
+          <div class="text-secondary-500 text-sm">{{ flight.duration }}</div>
+          <div class="relative my-4">
+            <div class="h-0.5 bg-secondary-200 w-full"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <div class="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center">
+                <i class="bi bi-airplane-fill text-white text-sm"></i>
+              </div>
             </div>
           </div>
-          <div class="small text-muted">
+          <div class="text-secondary-500 text-sm">
             {{ flight.stops === 0 ? 'Non-stop' : flight.stops + ' stop(s)' }}
           </div>
         </div>
 
         <!-- Arrival -->
-        <div class="col-12 col-md-4">
-          <div class="h4 fw-bold mb-1">{{ flight.arrivalTime }}</div>
-          <div class="text-body">{{ flight.to }}</div>
-          <div class="small text-muted">{{ flight.arrivalDate }}</div>
+        <div class="space-y-2">
+          <div class="text-2xl font-bold text-secondary-900">{{ flight.arrivalTime }}</div>
+          <div class="text-secondary-700 font-medium">{{ flight.to }}</div>
+          <div class="text-secondary-500 text-sm">{{ flight.arrivalDate }}</div>
         </div>
       </div>
     </div>
 
     <!-- Footer -->
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-4">
-      <div class="mb-3 mb-md-0">
-        <div class="d-flex flex-wrap gap-2">
-          <span class="badge bg-light text-primary border border-primary-subtle px-3 py-2">
-            {{ flight.class || 'Economy' }}
-          </span>
-          <span
-            v-if="flight.seatsAvailable < 10"
-            class="badge bg-danger-subtle text-danger-emphasis px-3 py-2"
-          >
-            Only {{ flight.seatsAvailable }} seats left!
-          </span>
-        </div>
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mt-6 space-y-4 lg:space-y-0">
+      <div class="flex flex-wrap gap-2">
+        <span class="px-4 py-2 bg-secondary-100 text-primary-700 border border-primary-200 rounded-full text-sm font-semibold">
+          {{ flight.class || 'Economy' }}
+        </span>
+        <span
+          v-if="flight.seatsAvailable < 10"
+          class="px-4 py-2 bg-red-50 text-red-700 border border-red-200 rounded-full text-sm font-semibold"
+        >
+          Only {{ flight.seatsAvailable }} seats left!
+        </span>
       </div>
       
-      <div class="d-flex align-items-center">
-        <div class="me-4">
-          <div class="h4 fw-bold text-primary mb-0">${{ flight.price }}</div>
-          <div class="small text-muted">per passenger</div>
+      <div class="flex items-center space-x-6">
+        <div class="text-right">
+          <div class="text-2xl font-bold text-primary-700">${{ flight.price }}</div>
+          <div class="text-secondary-500 text-sm">per passenger</div>
         </div>
         <button
-          class="btn btn-primary px-4 py-2 fw-semibold"
+          class="btn-primary"
           @click="selectFlight"
           :disabled="flight.seatsAvailable === 0"
-          :class="{'btn-primary': flight.seatsAvailable > 0, 'btn-secondary': flight.seatsAvailable === 0}"
+          :class="flight.seatsAvailable === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'"
         >
-          <i class="bi bi-check-circle me-2"></i>
+          <i class="bi bi-check-circle mr-2"></i>
           Select Flight
         </button>
       </div>
@@ -104,12 +103,12 @@ const airlineLogo = computed(() => props.flight.airlineLogo || require('@/assets
 
 const getStatusClass = (status) => {
   const map = {
-    'On Time': 'bg-success-subtle text-success-emphasis',
-    'Delayed': 'bg-warning-subtle text-warning-emphasis',
-    'Cancelled': 'bg-danger-subtle text-danger-emphasis',
-    'Boarding': 'bg-info-subtle text-info-emphasis'
+    'On Time': 'status-on-time',
+    'Delayed': 'status-delayed',
+    'Cancelled': 'status-cancelled',
+    'Boarding': 'status-boarding'
   }
-  return map[status] || 'bg-light text-body'
+  return map[status] || 'status-on-time'
 }
 
 const selectFlight = () => emit('select', props.flight)
@@ -117,114 +116,69 @@ const selectFlight = () => emit('select', props.flight)
 
 <style scoped>
 .flight-card {
-  transition: all 0.3s ease;
-  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .flight-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
+/* Status badge classes */
+.status-on-time {
+  @apply bg-forest-50 text-forest-700 border border-forest-200;
+}
+
+.status-delayed {
+  @apply bg-sunset-50 text-sunset-700 border border-sunset-200;
+}
+
+.status-cancelled {
+  @apply bg-aurora-50 text-aurora-700 border border-aurora-200;
+}
+
+.status-boarding {
+  @apply bg-ocean-50 text-ocean-700 border border-ocean-200;
+}
+
+/* Flight line animation */
 .flight-line {
   position: relative;
-  background-color: #e9ecef;
-  height: 2px;
 }
 
 .flight-line::before {
-  content: '●';
+  content: '';
   position: absolute;
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  color: #0d6efd;
-  font-size: 12px;
+  width: 8px;
+  height: 8px;
+  background-color: rgb(14 165 233);
+  border-radius: 50%;
 }
 
 .flight-line::after {
-  content: '●';
+  content: '';
   position: absolute;
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  color: #0d6efd;
-  font-size: 12px;
+  width: 8px;
+  height: 8px;
+  background-color: rgb(14 165 233);
+  border-radius: 50%;
 }
 
-.btn:disabled {
-  cursor: not-allowed;
-  opacity: 0.65;
+/* Button disabled state */
+button:disabled {
+  @apply cursor-not-allowed opacity-50;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .flight-card {
-    padding: 1rem;
-  }
-  
-  .h4 {
-    font-size: 1.25rem;
-  }
-  
-  .btn {
-    padding: 0.5rem 1rem;
-  }
-}
-
-/* Custom badge styles */
-.badge {
-  border-radius: 50px;
-  font-weight: 500;
-}
-
-.bg-success-subtle {
-  background-color: rgba(25, 135, 84, 0.1);
-  border: 1px solid rgba(25, 135, 84, 0.2);
-}
-
-.bg-warning-subtle {
-  background-color: rgba(255, 193, 7, 0.1);
-  border: 1px solid rgba(255, 193, 7, 0.2);
-}
-
-.bg-danger-subtle {
-  background-color: rgba(220, 53, 69, 0.1);
-  border: 1px solid rgba(220, 53, 69, 0.2);
-}
-
-.bg-info-subtle {
-  background-color: rgba(13, 202, 240, 0.1);
-  border: 1px solid rgba(13, 202, 240, 0.2);
-}
-
-.bg-light {
-  background-color: #f8f9fa !important;
-  border: 1px solid #dee2e6;
-}
-
-/* Text colors */
-.text-success-emphasis {
-  color: #198754;
-}
-
-.text-warning-emphasis {
-  color: #ffc107;
-}
-
-.text-danger-emphasis {
-  color: #dc3545;
-}
-
-.text-info-emphasis {
-  color: #0dcaf0;
-}
-
-.text-body {
-  color: #212529 !important;
-}
-
-.border-primary-subtle {
-  border-color: rgba(13, 110, 253, 0.2) !important;
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, transform, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
 }
 </style>

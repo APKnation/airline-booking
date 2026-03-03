@@ -1,98 +1,193 @@
 <template>
-  <v-app-bar app color="primary" dark elevation="2">
-    <v-app-bar-nav-icon @click="drawer = !drawer" class="d-md-none"></v-app-bar-nav-icon>
-    
-    <v-toolbar-title>
-      <router-link to="/" class="text-white text-decoration-none d-flex align-center">
-        <v-icon size="32" class="mr-2">mdi-airplane</v-icon>
-        <span class="font-weight-bold">SkyBooker</span>
-      </router-link>
-    </v-toolbar-title>
-    
-    <v-spacer></v-spacer>
-    
-    <div class="d-none d-md-flex">
-      <v-btn text to="/flights" class="mx-1">
-        <v-icon start>mdi-airplane</v-icon>
-        Flights
-      </v-btn>
-      <v-btn text to="/hotels" class="mx-1">
-        <v-icon start>mdi-bed</v-icon>
-        Hotels
-      </v-btn>
-      <v-btn text to="/cars" class="mx-1">
-        <v-icon start>mdi-car</v-icon>
-        Cars
-      </v-btn>
-      <v-btn text to="/taxi" class="mx-1">
-        <v-icon start>mdi-taxi</v-icon>
-        Taxi
-      </v-btn>
-      <v-btn text to="/guide" class="mx-1">
-        <v-icon start>mdi-book-open</v-icon>
-        Guide
-      </v-btn>
-      <v-btn text to="/attractions" class="mx-1">
-        <v-icon start>mdi-map-marker</v-icon>
-        Attractions
-      </v-btn>
-    </div>
-    
-    <v-spacer></v-spacer>
-    
-    <v-btn icon to="/checkout" class="mr-2">
-      <v-badge :content="bookingCount" color="error" v-if="bookingCount > 0">
-        <v-icon>mdi-cart</v-icon>
-      </v-badge>
-      <v-icon v-else>mdi-cart</v-icon>
-    </v-btn>
-    
-    <v-btn v-if="!isAuthenticated" to="/login" variant="outlined">
-      Login
-    </v-btn>
-    <v-menu v-else>
-      <template v-slot:activator="{ props }">
-        <v-btn icon v-bind="props">
-          <v-icon>mdi-account-circle</v-icon>
-        </v-btn>
-      </template>
-      <v-list>
-        <v-list-item to="/dashboard">
-          <v-list-item-title>My Bookings</v-list-item-title>
-        </v-list-item>
-        <v-list-item @click="logout">
-          <v-list-item-title>Logout</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-  </v-app-bar>
-  
-  <!-- Mobile Navigation Drawer -->
-  <v-navigation-drawer v-model="drawer" temporary>
-    <v-list>
-      <v-list-item to="/flights" prepend-icon="mdi-airplane">Flights</v-list-item>
-      <v-list-item to="/hotels" prepend-icon="mdi-bed">Hotels</v-list-item>
-      <v-list-item to="/cars" prepend-icon="mdi-car">Cars</v-list-item>
-      <v-list-item to="/taxi" prepend-icon="mdi-taxi">Taxi</v-list-item>
-      <v-list-item to="/guide" prepend-icon="mdi-book-open">Guide</v-list-item>
-      <v-list-item to="/attractions" prepend-icon="mdi-map-marker">Attractions</v-list-item>
-    </v-list>
-  </v-navigation-drawer>
+  <header class="glass-effect sticky top-0 z-50 border-b border-white/10">
+    <nav class="container mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <router-link to="/" class="flex items-center space-x-2 text-2xl font-bold text-gradient hover:scale-105 transition-transform duration-200">
+            <span class="text-3xl">✈️</span>
+            <span>TravelBook</span>
+          </router-link>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="hidden lg:flex items-center space-x-1">
+          <router-link 
+            to="/" 
+            class="nav-link"
+            :class="$route.path === '/' ? 'active' : ''"
+          >
+            Home
+          </router-link>
+          <router-link 
+            to="/flights" 
+            class="nav-link"
+            :class="$route.path === '/flights' ? 'active' : ''"
+          >
+            Flights
+          </router-link>
+          <router-link 
+            to="/hotels" 
+            class="nav-link"
+            :class="$route.path === '/hotels' ? 'active' : ''"
+          >
+            Hotels
+          </router-link>
+          <router-link 
+            to="/cars" 
+            class="nav-link"
+            :class="$route.path === '/cars' ? 'active' : ''"
+          >
+            Cars
+          </router-link>
+          <router-link 
+            to="/taxi" 
+            class="nav-link"
+            :class="$route.path === '/taxi' ? 'active' : ''"
+          >
+            Taxi
+          </router-link>
+          <router-link 
+            to="/guide" 
+            class="nav-link"
+            :class="$route.path === '/guide' ? 'active' : ''"
+          >
+            Travel Guide
+          </router-link>
+          <router-link 
+            to="/attractions" 
+            class="nav-link"
+            :class="$route.path === '/attractions' ? 'active' : ''"
+          >
+            Attractions
+          </router-link>
+        </div>
+
+        <!-- Right Side Actions -->
+        <div class="flex items-center space-x-4">
+          <!-- Cart Icon -->
+          <div 
+            @click="goToCheckout" 
+            class="relative cursor-pointer p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 group"
+          >
+            <span class="text-2xl group-hover:scale-110 transition-transform duration-200">🛒</span>
+            <span 
+              v-if="cartCount > 0" 
+              class="absolute -top-1 -right-1 bg-aurora-500 text-white text-xs font-semibold rounded-full h-5 w-5 flex items-center justify-center animate-bounce-in shadow-medium"
+            >
+              {{ cartCount }}
+            </span>
+          </div>
+
+          <!-- User Menu / Auth Links -->
+          <div v-if="isAuthenticated" class="flex items-center space-x-3">
+            <router-link 
+              to="/dashboard" 
+              class="flex items-center space-x-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all duration-200 group"
+            >
+              <span class="text-lg">👤</span>
+              <span class="font-medium text-white group-hover:text-primary-200">{{ userName || 'User' }}</span>
+            </router-link>
+            <button 
+              @click="logoutHandler" 
+              class="px-4 py-2 rounded-lg border border-white/20 text-white hover:bg-white/10 transition-all duration-200 font-medium"
+            >
+              Logout
+            </button>
+          </div>
+          <div v-else class="flex items-center space-x-3">
+            <router-link 
+              to="/login" 
+              class="px-4 py-2 rounded-lg border border-white/30 text-white hover:bg-white/10 transition-all duration-200 font-medium"
+            >
+              Login
+            </router-link>
+            <router-link 
+              to="/register" 
+              class="btn-twilight text-sm px-4 py-2"
+            >
+              Sign Up
+            </router-link>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button class="lg:hidden p-2 rounded-lg hover:bg-white/10 transition-colors duration-200">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
 </template>
 
-<script setup>
-import { ref, computed } from 'vue'
-import { useBookingStore } from '@/stores/bookingStore'
-import { useAuthStore } from '@/stores/authStore'
+<script>
+import { useAuthStore } from '@/stores/auth'
+import { useCartStore } from '@/stores/cart'
 
-const drawer = ref(false)
-const bookingStore = useBookingStore()
-const authStore = useAuthStore()
+export default {
+  name: 'AppHeader',
 
-const bookingCount = computed(() => bookingStore.bookingCount)
-const isAuthenticated = computed(() => authStore.isAuthenticated)
+  data() {
+    return {
+      authStore: null,
+      cartStore: null
+    }
+  },
 
-const logout = () => {
-  authStore.logout()
+  computed: {
+    isAuthenticated() {
+      return this.authStore?.isAuthenticated || false
+    },
+    userName() {
+      return this.authStore?.userName || ''
+    },
+    cartCount() {
+      return this.cartStore?.totalItems || 0
+    }
+  },
+
+  created() {
+    try {
+      this.authStore = useAuthStore()
+    } catch (e) {
+      console.warn('Auth store not available', e)
+    }
+
+    try {
+      this.cartStore = useCartStore()
+    } catch (e) {
+      console.warn('Cart store not available', e)
+    }
+  },
+
+  methods: {
+    logoutHandler() {
+      if (this.authStore && typeof this.authStore.logout === 'function') {
+        this.authStore.logout()
+      }
+    },
+
+    goToCheckout() {
+      if (this.cartCount > 0) {
+        this.$router.push('/checkout')
+      }
+    }
+  }
 }
 </script>
+
+<style scoped>
+.nav-link {
+  @apply px-4 py-2 rounded-lg text-midnight-200 hover:text-white hover:bg-white/10 transition-all duration-200 font-medium;
+}
+
+.nav-link.active {
+  @apply text-white bg-white/20;
+}
+
+.nav-link.router-link-active {
+  @apply text-white bg-white/20;
+}
+</style>
