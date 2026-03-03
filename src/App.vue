@@ -3,8 +3,8 @@
     <!-- Header always visible -->
     <AppHeader />
 
-    <!-- Main content -->
-    <main class="flex-1 container mx-auto px-4 py-8 max-w-7xl">
+    <!-- Main content with proper spacing for mobile -->
+    <main class="flex-1 container mx-auto px-3 sm:px-4 py-6 sm:py-8 max-w-7xl pt-20 sm:pt-24">
       <div class="animate-fade-in">
         <router-view v-slot="{ Component }">
           <transition name="page" mode="out-in">

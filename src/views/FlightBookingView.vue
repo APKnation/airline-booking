@@ -1,10 +1,10 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-midnight-50 to-ocean-50 py-8">
+  <div class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-8">
     <div class="container mx-auto px-4 max-w-7xl">
 
       <!-- Header -->
       <div class="mb-8">
-        <div class="bg-gradient-to-r from-ocean-600 to-twilight-600 rounded-3xl p-8 shadow-strong mb-6">
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 shadow-strong mb-6">
           <div class="flex items-center mb-4">
             <div class="rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center mr-6 w-16 h-16">
               <span class="text-3xl">✈️</span>
@@ -20,7 +20,7 @@
 
       <!-- Flight Search Form -->
       <div class="card border-0 shadow-strong rounded-3xl overflow-hidden mb-8">
-        <div class="bg-gradient-to-r from-ocean-600 to-twilight-600 text-white p-6">
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
           <div class="flex items-center">
             <span class="text-2xl mr-3">🔍</span>
             <span class="text-2xl font-semibold">Search Flights</span>
@@ -32,13 +32,13 @@
 
             <!-- Trip Type -->
             <div class="mb-8">
-              <label class="block text-lg font-semibold text-ocean-700 mb-4">Trip Type</label>
-              <div class="flex flex-wrap gap-3 bg-midnight-100 rounded-2xl p-2">
+              <label class="block text-lg font-semibold text-blue-700 mb-4">Trip Type</label>
+              <div class="flex flex-wrap gap-3 bg-gray-100 rounded-2xl p-2">
                 <button
                   type="button"
                   @click="tripType = 'oneway'"
                   class="flex-1 min-w-[140px] px-6 py-3 rounded-xl font-semibold transition-all duration-200"
-                  :class="tripType === 'oneway' ? 'bg-ocean-600 text-white shadow-medium' : 'text-midnight-700 hover:bg-white/50'"
+                  :class="tripType === 'oneway' ? 'bg-blue-600 text-white shadow-medium' : 'text-gray-700 hover:bg-white/50'"
                 >
                   One Way
                 </button>
@@ -46,7 +46,7 @@
                   type="button"
                   @click="tripType = 'round'"
                   class="flex-1 min-w-[140px] px-6 py-3 rounded-xl font-semibold transition-all duration-200"
-                  :class="tripType === 'round' ? 'bg-ocean-600 text-white shadow-medium' : 'text-midnight-700 hover:bg-white/50'"
+                  :class="tripType === 'round' ? 'bg-blue-600 text-white shadow-medium' : 'text-gray-700 hover:bg-white/50'"
                 >
                   Round Trip
                 </button>

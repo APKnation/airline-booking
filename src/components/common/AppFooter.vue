@@ -142,11 +142,11 @@ export default {
 
 <style scoped>
 .social-link {
-  @apply w-10 h-10 bg-secondary-800 hover:bg-primary-600 text-secondary-400 hover:text-white rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 hover:shadow-medium;
+  @apply w-10 h-10 bg-gray-800 hover:bg-blue-600 text-gray-400 hover:text-white rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 hover:shadow-medium;
 }
 
 .footer-link {
-  @apply block text-secondary-400 hover:text-primary-400 transition-colors duration-200 text-sm;
+  @apply block text-gray-400 hover:text-blue-400 transition-colors duration-200 text-sm;
 }
 
 .footer-link:hover {
