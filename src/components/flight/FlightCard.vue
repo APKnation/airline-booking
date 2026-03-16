@@ -1,9 +1,9 @@
 <template>
-  <div class="card card-hover p-6 flight-card">
+  <div class="card card-hover p-6 flight-card backdrop-blur-sm bg-white/10 border border-white/20 shadow-2xl">
     <!-- Airline Info -->
     <div class="flex justify-between items-center mb-6">
       <div class="flex items-center space-x-4">
-        <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
+        <div class="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg">
           <img 
             :src="airlineLogo" 
             alt="Airline Logo" 
@@ -11,8 +11,8 @@
           />
         </div>
         <div>
-          <div class="font-bold text-blue-700 text-lg">{{ flight.airline }}</div>
-          <div class="text-gray-500 text-sm">{{ flight.flightNumber }}</div>
+          <div class="font-bold text-white text-lg">{{ flight.airline }}</div>
+          <div class="text-white/60 text-sm">{{ flight.flightNumber }}</div>
         </div>
       </div>
       <span :class="getStatusClass(flight.status)" class="px-4 py-2 rounded-full text-sm font-semibold">
@@ -21,36 +21,36 @@
     </div>
 
     <!-- Flight Route -->
-    <div class="border-y border-gray-200 py-6">
+    <div class="border-y border-white/20 py-6">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center text-center">
         <!-- Departure -->
         <div class="space-y-2">
-          <div class="text-2xl font-bold text-gray-900">{{ flight.departureTime }}</div>
-          <div class="text-gray-700 font-medium">{{ flight.from }}</div>
-          <div class="text-gray-500 text-sm">{{ flight.departureDate }}</div>
+          <div class="text-2xl font-bold text-white">{{ flight.departureTime }}</div>
+          <div class="text-white/80 font-medium">{{ flight.from }}</div>
+          <div class="text-white/60 text-sm">{{ flight.departureDate }}</div>
         </div>
 
         <!-- Duration & Stops -->
         <div class="space-y-2">
-          <div class="text-gray-500 text-sm">{{ flight.duration }}</div>
+          <div class="text-white/60 text-sm">{{ flight.duration }}</div>
           <div class="relative my-4">
-            <div class="h-0.5 bg-gray-200 w-full"></div>
+            <div class="h-0.5 bg-white/20 w-full"></div>
             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+              <div class="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
                 <i class="bi bi-airplane-fill text-white text-sm"></i>
               </div>
             </div>
           </div>
-          <div class="text-gray-500 text-sm">
+          <div class="text-white/60 text-sm">
             {{ flight.stops === 0 ? 'Non-stop' : flight.stops + ' stop(s)' }}
           </div>
         </div>
 
         <!-- Arrival -->
         <div class="space-y-2">
-          <div class="text-2xl font-bold text-gray-900">{{ flight.arrivalTime }}</div>
-          <div class="text-gray-700 font-medium">{{ flight.to }}</div>
-          <div class="text-gray-500 text-sm">{{ flight.arrivalDate }}</div>
+          <div class="text-2xl font-bold text-white">{{ flight.arrivalTime }}</div>
+          <div class="text-white/80 font-medium">{{ flight.to }}</div>
+          <div class="text-white/60 text-sm">{{ flight.arrivalDate }}</div>
         </div>
       </div>
     </div>
@@ -58,12 +58,12 @@
     <!-- Footer -->
     <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mt-6 space-y-4 lg:space-y-0">
       <div class="flex flex-wrap gap-2">
-        <span class="px-4 py-2 bg-gray-100 text-blue-700 border border-blue-200 rounded-full text-sm font-semibold">
+        <span class="px-4 py-2 bg-white/10 backdrop-blur-sm text-white border border-white/30 rounded-full text-sm font-semibold">
           {{ flight.class || 'Economy' }}
         </span>
         <span
           v-if="flight.seatsAvailable < 10"
-          class="px-4 py-2 bg-pink-50 text-pink-700 border border-pink-200 rounded-full text-sm font-semibold"
+          class="px-4 py-2 bg-pink-500/20 backdrop-blur-sm text-pink-300 border border-pink-400/30 rounded-full text-sm font-semibold"
         >
           Only {{ flight.seatsAvailable }} seats left!
         </span>
@@ -71,14 +71,14 @@
       
       <div class="flex items-center space-x-6">
         <div class="text-right">
-          <div class="text-2xl font-bold text-blue-700">${{ flight.price }}</div>
-          <div class="text-gray-500 text-sm">per passenger</div>
+          <div class="text-2xl font-bold text-white">${{ flight.price }}</div>
+          <div class="text-white/60 text-sm">per passenger</div>
         </div>
         <button
-          class="btn-forest"
+          class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
           @click="selectFlight"
           :disabled="flight.seatsAvailable === 0"
-          :class="flight.seatsAvailable === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'"
+          :class="flight.seatsAvailable === 0 ? 'opacity-50 cursor-not-allowed' : ''"
         >
           <i class="bi bi-check-circle mr-2"></i>
           Select Flight

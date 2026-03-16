@@ -1,15 +1,15 @@
 <!-- components/AppFooter.vue -->
 <template>
-  <footer class="bg-secondary-900 text-secondary-200 mt-auto relative">
+  <footer class="bg-midnight-900 text-midnight-200 mt-auto relative">
     <!-- Newsletter Section -->
     <div class="relative">
-      <div class="absolute inset-0 bg-gradient-to-r from-primary-600 to-accent-600 opacity-10"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-ocean-600 to-aurora-600 opacity-10"></div>
       <div class="relative container mx-auto px-4">
-        <div class="bg-gradient-to-r from-secondary-800 to-secondary-700 rounded-2xl p-8 shadow-strong -mt-16 mb-8 border border-secondary-600">
+        <div class="bg-gradient-to-r from-midnight-800 to-midnight-700 rounded-2xl p-8 shadow-strong -mt-16 mb-8 border border-midnight-600">
           <div class="grid lg:grid-cols-2 gap-8 items-center">
             <div class="space-y-3">
               <h3 class="text-2xl lg:text-3xl font-bold text-white">Stay Updated</h3>
-              <p class="text-secondary-300 text-lg">Get exclusive travel deals and offers delivered to your inbox</p>
+              <p class="text-midnight-300 text-lg">Get exclusive travel deals and offers delivered to your inbox</p>
             </div>
             <div class="w-full">
               <form @submit.prevent="subscribeNewsletter" class="flex flex-col sm:flex-row gap-3">
@@ -17,7 +17,7 @@
                   type="email" 
                   v-model="newsletterEmail"
                   placeholder="Enter your email address"
-                  class="flex-1 px-4 py-3 rounded-lg bg-secondary-900/50 border border-secondary-600 text-white placeholder-secondary-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+                  class="flex-1 px-4 py-3 rounded-lg bg-midnight-900/50 border border-midnight-600 text-white placeholder-midnight-400 focus:outline-none focus:ring-2 focus:ring-ocean-500 focus:border-transparent transition-all duration-200"
                   required
                 >
                 <button 
@@ -42,7 +42,7 @@
             <span class="text-4xl">✈️</span>
             <span class="text-2xl font-bold text-gradient">SkyBooker</span>
           </div>
-          <p class="text-secondary-300 leading-relaxed text-lg">
+          <p class="text-midnight-300 leading-relaxed text-lg">
             Your gateway to unforgettable travel experiences. Discover the world with confidence and ease.
           </p>
           <div class="flex space-x-4 pt-2">
@@ -105,9 +105,9 @@
       </div>
 
       <!-- Footer Bottom -->
-      <div class="border-t border-secondary-700 pt-8">
+      <div class="border-t border-midnight-700 pt-8">
         <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <p class="text-secondary-400 text-sm">
+          <p class="text-midnight-400 text-sm">
             &copy; {{ new Date().getFullYear() }} SkyBooker. All rights reserved.
           </p>
           <div class="flex space-x-6">
@@ -142,11 +142,11 @@ export default {
 
 <style scoped>
 .social-link {
-  @apply w-10 h-10 bg-gray-800 hover:bg-blue-600 text-gray-400 hover:text-white rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 hover:shadow-medium;
+  @apply w-10 h-10 bg-midnight-800 hover:bg-ocean-600 text-midnight-400 hover:text-white rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 hover:shadow-medium;
 }
 
 .footer-link {
-  @apply block text-gray-400 hover:text-blue-400 transition-colors duration-200 text-sm;
+  @apply block text-midnight-400 hover:text-ocean-400 transition-colors duration-200 text-sm;
 }
 
 .footer-link:hover {
