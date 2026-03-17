@@ -1,74 +1,68 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-    <!-- Hero Header -->
-    <div class="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
-      <div class="absolute inset-0 bg-black/20"></div>
-      <div class="absolute inset-0">
-        <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-transparent to-purple-600/20"></div>
-        <div class="h-full w-full bg-[url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center opacity-30"></div>
-      </div>
-      
-      <div class="relative container mx-auto px-4 py-16 lg:py-24">
-        <div class="grid lg:grid-cols-2 gap-12 items-center">
-          <div class="text-white">
-            <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-              <i class="bi bi-lightning-charge-fill text-yellow-300"></i>
-              <span class="text-sm font-semibold">Premium Car Rental Service</span>
+    <!-- Hero Card -->
+    <div class="container mx-auto px-4 py-8">
+      <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+        <div class="grid md:grid-cols-2 gap-0">
+          <!-- Left Side - Image -->
+          <div class="relative h-64 md:h-auto">
+            <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                 alt="Car Rental" 
+                 class="w-full h-full object-cover">
+            <div class="absolute top-4 left-4 bg-white rounded-lg shadow-lg px-3 py-2">
+              <div class="flex items-center gap-2">
+                <i class="bi bi-lightning-charge-fill text-yellow-500"></i>
+                <span class="text-sm font-bold text-gray-900">Premium Service</span>
+              </div>
             </div>
-            
-            <h1 class="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+            <div class="absolute bottom-4 left-4 bg-green-500 text-white rounded-lg shadow-lg px-3 py-2">
+              <div class="flex items-center gap-2">
+                <i class="bi bi-check-circle-fill"></i>
+                <span class="text-sm font-bold">4.8/5 Rating</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Right Side - Description -->
+          <div class="p-8 flex flex-col justify-center">
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">
               Rent a Car,<br>
-              <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-400">Your Way</span>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Your Way</span>
             </h1>
             
-            <p class="text-xl text-white/90 mb-8 leading-relaxed max-w-xl">
+            <p class="text-gray-600 mb-6 leading-relaxed">
               Choose from hundreds of premium cars, from economy to luxury. 
               Pick up anywhere, drop off anywhere. Your journey starts here.
             </p>
             
-            <div class="flex flex-wrap gap-3 mb-8">
-              <div class="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
-                <i class="bi bi-lightning-charge-fill text-yellow-300"></i>
-                <span class="font-medium">Instant Booking</span>
+            <div class="grid grid-cols-2 gap-3 mb-6">
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <i class="bi bi-lightning-charge-fill text-yellow-500"></i>
+                <span>Instant Booking</span>
               </div>
-              <div class="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
-                <i class="bi bi-shield-check text-green-300"></i>
-                <span class="font-medium">Full Insurance</span>
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <i class="bi bi-shield-check text-green-500"></i>
+                <span>Full Insurance</span>
               </div>
-              <div class="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
-                <i class="bi bi-coin text-yellow-300"></i>
-                <span class="font-medium">Best Price</span>
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <i class="bi bi-coin text-yellow-500"></i>
+                <span>Best Price</span>
+              </div>
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <i class="bi bi-people text-blue-500"></i>
+                <span>2,500+ Reviews</span>
               </div>
             </div>
             
-            <div class="flex gap-4">
-              <button @click="scrollToSearch" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
+            <div class="flex gap-3">
+              <button @click="scrollToSearch" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 shadow-md hover:shadow-lg">
                 <i class="bi bi-search me-2"></i>
                 Find Your Car
               </button>
-              <button class="border-2 border-white text-white px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-blue-600 transition-all duration-300">
+              <button class="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-3 rounded-lg font-semibold transition-colors duration-200">
                 <i class="bi bi-play-circle me-2"></i>
                 Watch Demo
               </button>
-            </div>
-          </div>
-          
-          <div class="relative">
-            <div class="relative z-10">
-              <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                   alt="Car Rental" 
-                   class="rounded-3xl shadow-2xl w-full">
-            </div>
-            <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-4 z-20">
-              <div class="flex items-center gap-3">
-                <div class="bg-green-100 p-3 rounded-full">
-                  <i class="bi bi-check-circle-fill text-green-600 text-xl"></i>
-                </div>
-                <div>
-                  <p class="font-bold text-gray-900">4.8/5 Rating</p>
-                  <p class="text-sm text-gray-600">2,500+ Reviews</p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
