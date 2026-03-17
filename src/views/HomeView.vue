@@ -56,7 +56,6 @@
               <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-strong">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div class="relative">
-                    <i class="bi bi-geo-alt absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400"></i>
                     <input 
                       type="text" 
                       placeholder="Where do you want to go?"
@@ -65,7 +64,6 @@
                     >
                   </div>
                   <div class="relative">
-                    <i class="bi bi-calendar absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400"></i>
                     <input 
                       type="text" 
                       placeholder="Check-in — Check-out"
@@ -74,7 +72,6 @@
                     >
                   </div>
                   <div class="relative">
-                    <i class="bi bi-people absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400"></i>
                     <input 
                       type="text" 
                       placeholder="2 adults, 0 children"
@@ -82,7 +79,6 @@
                     >
                   </div>
                   <button class="btn-primary flex items-center justify-center space-x-2">
-                    <i class="bi bi-search"></i>
                     <span>Explore</span>
                   </button>
                 </div>
@@ -128,11 +124,7 @@
                   <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="w-10 h-10 rounded-full">
                   <div>
                     <div class="flex text-yellow-400">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
+                      <span class="text-2xl">★★★★★</span>
                     </div>
                     <p class="text-sm text-secondary-600 italic">"Best travel experience ever!"</p>
                     <span class="text-xs text-secondary-500">— Sarah M.</span>
@@ -142,7 +134,6 @@
               
               <div class="absolute -bottom-6 -right-6 bg-accent-500 text-white rounded-2xl p-4 shadow-strong animate-bounce-in delay-500">
                 <div class="flex items-center space-x-3">
-                  <i class="bi bi-tag text-2xl"></i>
                   <div>
                     <div class="text-2xl font-bold">$299</div>
                     <div class="text-sm">Bali Special</div>
@@ -189,11 +180,9 @@
             <p class="text-secondary-600 mb-6">{{ category.description }}</p>
             <div class="flex justify-center space-x-6 text-sm text-secondary-500 mb-6">
               <span class="flex items-center">
-                <i class="bi bi-clock mr-2"></i>
                 {{ category.duration }}
               </span>
               <span class="flex items-center">
-                <i class="bi bi-people mr-2"></i>
                 {{ category.groupSize }}
               </span>
             </div>
@@ -202,7 +191,6 @@
               :style="{ color: category.color }"
             >
               Explore
-              <i class="bi bi-arrow-right transition-transform duration-200 group-hover:translate-x-1"></i>
             </button>
           </div>
         </div>
@@ -227,7 +215,6 @@
                   01
                 </div>
                 <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-medium group-hover:scale-110 transition-transform duration-300">
-                  <i class="bi bi-search text-primary-600 text-xl"></i>
                 </div>
               </div>
               <h3 class="text-2xl font-semibold text-secondary-900 mb-4 mt-8">Discover & Plan</h3>
@@ -240,7 +227,6 @@
                   02
                 </div>
                 <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-medium group-hover:scale-110 transition-transform duration-300">
-                  <i class="bi bi-calendar-check text-primary-600 text-xl"></i>
                 </div>
               </div>
               <h3 class="text-2xl font-semibold text-secondary-900 mb-4 mt-8">Book & Customize</h3>
@@ -253,7 +239,6 @@
                   03
                 </div>
                 <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-medium group-hover:scale-110 transition-transform duration-300">
-                  <i class="bi bi-airplane text-primary-600 text-xl"></i>
                 </div>
               </div>
               <h3 class="text-2xl font-semibold text-secondary-900 mb-4 mt-8">Travel & Enjoy</h3>
@@ -295,11 +280,9 @@
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
               <div class="absolute top-4 right-4 flex space-x-2">
                 <div class="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center space-x-1">
-                  <i class="bi bi-thermometer-half text-primary-600"></i>
                   <span class="text-sm font-medium">{{ destination.temperature }}</span>
                 </div>
                 <button class="bg-white/90 backdrop-blur-sm rounded-lg p-2 hover:bg-white transition-colors duration-200">
-                  <i class="bi bi-heart text-secondary-600 hover:text-red-500 transition-colors duration-200"></i>
                 </button>
               </div>
               <div 
@@ -314,7 +297,6 @@
               <div class="flex justify-between items-start mb-3">
                 <h3 class="text-xl font-semibold text-secondary-900">{{ destination.name }}</h3>
                 <div class="flex items-center space-x-1 text-yellow-500">
-                  <i class="bi bi-star-fill"></i>
                   <span class="text-sm font-medium text-secondary-700">{{ destination.rating }}</span>
                 </div>
               </div>
@@ -329,7 +311,6 @@
                 </div>
                 <button class="btn-accent text-sm px-4 py-2">
                   Book Now
-                  <i class="bi bi-arrow-right ml-1"></i>
                 </button>
               </div>
             </div>
