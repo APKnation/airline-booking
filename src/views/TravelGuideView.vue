@@ -95,36 +95,47 @@
               </h3>
               <div class="row g-4">
                 <div class="col-12 col-md-6" v-for="attraction in selectedDestination.attractions" :key="attraction.id">
-                  <div class="card h-100 border-2 border-primary-subtle shadow-sm hover-lift">
-                    <div class="position-relative overflow-hidden rounded-top" style="height: 180px;">
+                  <a href="#" class="flex flex-col items-center bg-neutral-primary-soft p-6 border border-default rounded-base shadow-xs md:flex-row md:max-w-xl md:flex-row md:max-w-xl attraction-card">
+                    <!-- Attraction Image -->
+                    <div class="relative w-full md:w-48 mb-4 md:mb-0">
                       <img 
                         :src="attraction.image" 
                         :alt="attraction.name" 
-                        class="card-img-top w-100 h-100"
-                        style="object-fit: cover;"
+                        class="object-cover w-full rounded-base h-48 md:h-auto"
                       />
-                      <div class="position-absolute top-0 end-0 m-3">
-                        <span class="badge bg-primary px-3 py-2">
+                      <div class="absolute top-0 end-0 m-3">
+                        <span class="px-3 py-1 bg-neutral-secondary-medium text-body rounded-full text-sm font-semibold">
                           <i class="bi bi-star-fill me-1"></i>
                           {{ attraction.rating }}
                         </span>
                       </div>
                     </div>
-                    <div class="card-body">
-                      <h5 class="card-title fw-bold mb-2">{{ attraction.name }}</h5>
-                      <p class="card-text text-muted small mb-3">{{ attraction.description }}</p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="text-warning">
+                    
+                    <div class="flex flex-col justify-between md:p-4 leading-normal flex-1">
+                      <!-- Header Section -->
+                      <div class="mb-4">
+                        <h5 class="text-2xl font-bold tracking-tight text-heading mb-2">
+                          {{ attraction.name }}
+                        </h5>
+                        <p class="text-body mb-3">{{ attraction.description }}</p>
+                      </div>
+
+                      <!-- Footer with Rating and Button -->
+                      <div class="flex items-center justify-between">
+                        <div class="text-yellow-500">
                           <i class="bi bi-star-fill" v-for="n in Math.round(attraction.rating)" :key="n"></i>
-                          <i class="bi bi-star" v-for="n in (5 - Math.round(attraction.rating))" :key="'empty' + n"></i>
+                          <i class="bi bi-star text-gray-300" v-for="n in (5 - Math.round(attraction.rating))" :key="'empty' + n"></i>
                         </div>
-                        <router-link to="/attractions" class="btn btn-success btn-sm px-3">
-                          <i class="bi bi-ticket-perforated me-1"></i>
+                        
+                        <router-link to="/attractions" class="inline-flex items-center w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
                           Book Now
+                          <svg class="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+                          </svg>
                         </router-link>
                       </div>
                     </div>
-                  </div>
+                  </a>
                 </div>
               </div>
             </div>
@@ -137,22 +148,21 @@
               </h3>
               <div class="row g-3">
                 <div class="col-12" v-for="(tip, index) in selectedDestination.tips" :key="index">
-                  <div class="card border-0 bg-light">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start">
-                        <div class="flex-shrink-0 me-3">
-                          <div class="rounded-circle bg-primary bg-opacity-10 p-2">
-                            <i class="bi bi-lightbulb text-primary fs-5"></i>
-                          </div>
-                        </div>
-                        <div class="flex-grow-1">
-                          <p class="mb-0 text-dark">{{ tip }}</p>
-                        </div>
-                        <div class="flex-shrink-0 ms-3">
-                          <span class="badge bg-primary rounded-pill px-3 py-2">
-                            Tip {{ index + 1 }}
-                          </span>
-                        </div>
+                  <div class="flex flex-col items-center bg-neutral-primary-soft p-6 border border-default rounded-base shadow-xs md:flex-row md:max-w-xl md:flex-row md:max-w-xl tip-card">
+                    <!-- Tip Icon -->
+                    <div class="w-full md:w-16 mb-4 md:mb-0 flex items-center justify-center">
+                      <div class="rounded-full bg-neutral-secondary-medium p-3">
+                        <i class="bi bi-lightbulb text-heading text-xl"></i>
+                      </div>
+                    </div>
+                    
+                    <div class="flex flex-col justify-between md:p-4 leading-normal flex-1">
+                      <!-- Tip Content -->
+                      <div class="flex items-center justify-between">
+                        <p class="text-body mb-0 flex-1">{{ tip }}</p>
+                        <span class="px-3 py-1 bg-neutral-secondary-medium text-body rounded-full text-sm font-semibold ms-4">
+                          Tip {{ index + 1 }}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -392,6 +402,25 @@ onMounted(() => {
 
 <style scoped>
 /* Custom Styles */
+.attraction-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.attraction-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.tip-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tip-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
 .rounded-4 {
   border-radius: 1rem !important;
 }
