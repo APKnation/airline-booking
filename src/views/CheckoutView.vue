@@ -246,9 +246,9 @@
         <div class="col-lg-4">
           <div class="sidebar-sticky">
             <!-- Summary Card -->
-            <div class="summary-card card border-0 shadow">
-              <div class="card-header bg-primary text-white py-3">
-                <h5 class="mb-0">
+            <div class="bg-neutral-primary-soft p-6 border border-default rounded-base shadow-xs summary-card">
+              <div class="bg-neutral-secondary-medium text-heading p-4 rounded-base mb-4">
+                <h5 class="mb-0 font-semibold">
                   <i class="bi bi-clipboard-data me-2"></i>
                   Booking Summary
                 </h5>
@@ -325,20 +325,16 @@
             </div>
 
             <!-- Trust Badges -->
-            <div class="trust-badges card border-0 shadow-sm mt-4">
-              <div class="card-body text-center py-3">
-                <div class="row g-2">
-                  <div class="col-6">
-                    <div class="badge-item">
-                      <i class="bi bi-shield-check text-success"></i>
-                      <small>Secure Booking</small>
-                    </div>
+            <div class="bg-neutral-primary-soft p-6 border border-default rounded-base shadow-xs trust-badges">
+              <div class="text-center py-3">
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="badge-item">
+                    <i class="bi bi-shield-check text-success"></i>
+                    <small>Secure Booking</small>
                   </div>
-                  <div class="col-6">
-                    <div class="badge-item">
-                      <i class="bi bi-arrow-clockwise text-primary"></i>
-                      <small>Flexible Cancellation</small>
-                    </div>
+                  <div class="badge-item">
+                    <i class="bi bi-arrow-clockwise text-primary"></i>
+                    <small>Flexible Cancellation</small>
                   </div>
                 </div>
               </div>
@@ -481,6 +477,24 @@ const formatDate = (date) => {
 </script>
 
 <style scoped>
+.summary-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.trust-badges {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.trust-badges:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
 .checkout-container {
   min-height: 100vh;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
