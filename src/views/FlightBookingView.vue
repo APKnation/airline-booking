@@ -56,7 +56,6 @@
               <div>
                 <label class="block text-lg font-semibold text-white mb-3">From</label>
                 <div class="relative">
-                  <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 text-xl">📍</span>
                   <input
                     v-model="search.from"
                     type="text"
@@ -72,7 +71,6 @@
               <div>
                 <label class="block text-lg font-semibold text-white mb-3">To</label>
                 <div class="relative">
-                  <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 text-xl">🎯</span>
                   <input
                     v-model="search.to"
                     type="text"
@@ -88,7 +86,6 @@
               <div>
                 <label class="block text-lg font-semibold text-white mb-3">Departure</label>
                 <div class="relative">
-                  <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 text-xl">📅</span>
                   <input
                     v-model="search.departDate"
                     type="date"
@@ -104,7 +101,6 @@
               <div v-if="tripType === 'round'">
                 <label class="block text-lg font-semibold text-white mb-3">Return</label>
                 <div class="relative">
-                  <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 text-xl">📅</span>
                   <input
                     v-model="search.returnDate"
                     type="date"
@@ -122,7 +118,6 @@
               <div>
                 <label class="block text-lg font-semibold text-white mb-3">Travelers</label>
                 <div class="relative">
-                  <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 text-xl">👥</span>
                   <select v-model="search.passengers" class="input-field pl-12 pr-4 py-4 text-lg appearance-none bg-white/10 backdrop-blur-sm border border-white/20 text-white">
                     <option v-for="n in 8" :key="n" :value="n">
                       {{ n }} {{ n === 1 ? 'Traveler' : 'Travelers' }}
@@ -134,7 +129,6 @@
               <div>
                 <label class="block text-lg font-semibold text-white mb-3">Cabin Class</label>
                 <div class="relative">
-                  <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 text-xl">✈️</span>
                   <select v-model="search.class" class="input-field pl-12 pr-4 py-4 text-lg appearance-none bg-white/10 backdrop-blur-sm border border-white/20 text-white">
                     <option value="Economy">Economy</option>
                     <option value="Premium Economy">Premium Economy</option>
@@ -164,7 +158,6 @@
                 <div>
                   <label class="block text-lg font-semibold text-white mb-3">Flexible Dates</label>
                   <div class="relative">
-                    <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 text-xl">📅</span>
                     <select v-model="search.flexibleDates" class="input-field pl-12 pr-4 py-4 text-lg appearance-none bg-white/10 backdrop-blur-sm border border-white/20 text-white">
                       <option value="">None</option>
                       <option value="1">±1 day</option>
@@ -199,7 +192,6 @@
                   <label class="block text-lg font-semibold text-white mb-3">Price Range ($)</label>
                   <div class="grid grid-cols-2 gap-4">
                     <div class="relative">
-                      <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 text-xl">💵</span>
                       <input
                         v-model.number="search.priceMin"
                         type="number"
@@ -209,7 +201,6 @@
                       />
                     </div>
                     <div class="relative">
-                      <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 text-xl">💰</span>
                       <input
                         v-model.number="search.priceMax"
                         type="number"
@@ -226,7 +217,6 @@
             <!-- Search Button -->
             <div class="flex justify-center">
               <button type="submit" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white text-lg px-12 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-3 transform hover:scale-105">
-                <span class="text-2xl">🔍</span>
                 <span>Search Flights</span>
                 <i class="bi bi-arrow-right text-xl"></i>
               </button>
@@ -280,7 +270,6 @@
       <div v-else-if="!searched && !loading" class="text-center py-16">
         <div class="card max-w-4xl mx-auto p-8 backdrop-blur-sm bg-white/10 border border-white/20">
           <div class="w-48 h-48 mx-auto mb-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
-            <span class="text-6xl">🌍</span>
           </div>
           <h3 class="text-3xl lg:text-4xl font-bold text-white mb-4">Your Journey Begins Here</h3>
           <p class="text-xl text-white/70 mb-8 max-w-2xl mx-auto">
