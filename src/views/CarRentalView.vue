@@ -222,107 +222,95 @@
               v-for="car in cars" 
               :key="car.id"
             >
-              <div class="card h-100 border-0 shadow-sm car-card">
+              <a href="#" class="flex flex-col items-center bg-neutral-primary-soft p-6 border border-default rounded-base shadow-xs md:flex-row md:max-w-xl md:flex-row md:max-w-xl car-card">
                 <!-- Car Image -->
-                <div class="position-relative">
-                  <img 
-                    :src="car.image" 
-                    class="card-img-top"
-                    :alt="car.model"
-                    style="height: 200px; object-fit: cover;"
-                  >
-                  
-                  <!-- Car Type Badge -->
-                  <div class="position-absolute top-0 end-0 m-3">
-                    <span class="badge bg-primary px-3 py-2">
-                      {{ car.type.charAt(0).toUpperCase() + car.type.slice(1) }}
-                    </span>
-                  </div>
-                </div>
-
-                <!-- Car Details -->
-                <div class="card-body d-flex flex-column">
-                  <div class="d-flex justify-content-between align-items-start mb-3">
-                    <div>
-                      <h5 class="card-title fw-bold mb-1">{{ car.model }}</h5>
-                      <p class="text-muted small mb-0">{{ car.company }}</p>
-                    </div>
-                  </div>
-
-                  <!-- Car Features -->
+                <img 
+                  class="object-cover w-full rounded-base h-64 md:h-auto md:w-48 mb-4 md:mb-0" 
+                  :src="car.image" 
+                  :alt="car.model"
+                />
+                
+                <div class="flex flex-col justify-between md:p-4 leading-normal flex-1">
+                  <!-- Header Section -->
                   <div class="mb-4">
-                    <div class="row g-2 mb-3">
-                      <div class="col-6">
-                        <div class="d-flex align-items-center">
-                          <i class="bi bi-people text-primary me-2"></i>
-                          <small>{{ car.seats }} Seats</small>
-                        </div>
+                    <div class="flex justify-between items-start mb-2">
+                      <h5 class="text-2xl font-bold tracking-tight text-heading">
+                        {{ car.model }}
+                      </h5>
+                      <span class="px-3 py-1 bg-neutral-secondary-medium text-body rounded-full text-sm font-semibold">
+                        {{ car.type.charAt(0).toUpperCase() + car.type.slice(1) }}
+                      </span>
+                    </div>
+                    
+                    <div class="text-body mb-3">{{ car.company }}</div>
+                    
+                    <!-- Car Features -->
+                    <div class="grid grid-cols-2 gap-2 mb-3">
+                      <div class="flex items-center text-body text-sm">
+                        <i class="bi bi-people text-primary me-2"></i>
+                        {{ car.seats }} Seats
                       </div>
-                      <div class="col-6">
-                        <div class="d-flex align-items-center">
-                          <i class="bi bi-briefcase text-primary me-2"></i>
-                          <small>{{ car.bags }} Bags</small>
-                        </div>
+                      <div class="flex items-center text-body text-sm">
+                        <i class="bi bi-briefcase text-primary me-2"></i>
+                        {{ car.bags }} Bags
                       </div>
-                      <div class="col-6">
-                        <div class="d-flex align-items-center">
-                          <i class="bi bi-gear text-primary me-2"></i>
-                          <small>{{ car.transmission }}</small>
-                        </div>
+                      <div class="flex items-center text-body text-sm">
+                        <i class="bi bi-gear text-primary me-2"></i>
+                        {{ car.transmission }}
                       </div>
-                      <div class="col-6">
-                        <div class="d-flex align-items-center">
-                          <i class="bi bi-fuel-pump text-primary me-2"></i>
-                          <small>{{ car.fuel }}</small>
-                        </div>
+                      <div class="flex items-center text-body text-sm">
+                        <i class="bi bi-fuel-pump text-primary me-2"></i>
+                        {{ car.fuel }}
                       </div>
                     </div>
                     
                     <!-- Additional Features -->
-                    <div class="d-flex flex-wrap gap-2">
-                      <span v-if="car.ac" class="badge bg-light text-primary border">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span v-if="car.ac" class="px-2 py-1 bg-neutral-secondary-medium text-body rounded-full text-xs font-semibold">
                         <i class="bi bi-snow me-1"></i>A/C
                       </span>
-                      <span v-if="car.unlimitedMiles" class="badge bg-light text-primary border">
+                      <span v-if="car.unlimitedMiles" class="px-2 py-1 bg-neutral-secondary-medium text-body rounded-full text-xs font-semibold">
                         <i class="bi bi-speedometer me-1"></i>Unlimited Miles
                       </span>
-                      <span v-if="car.freeCancellation" class="badge bg-light text-primary border">
+                      <span v-if="car.freeCancellation" class="px-2 py-1 bg-neutral-secondary-medium text-body rounded-full text-xs font-semibold">
                         <i class="bi bi-x-circle me-1"></i>Free Cancellation
                       </span>
                     </div>
                   </div>
 
-                  <!-- Price and Action -->
-                  <div class="mt-auto">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                      <div>
-                        <p class="text-muted small mb-1">Daily Rate</p>
-                        <div class="d-flex align-items-center">
-                          <span class="h3 fw-bold text-primary mb-0">${{ car.price }}</span>
-                          <span class="text-muted ms-1">/day</span>
-                        </div>
-                        <small v-if="car.estimatedTotal" class="text-success">
-                          <i class="bi bi-check-circle me-1"></i>
-                          Est. Total: ${{ car.estimatedTotal }}
-                        </small>
+                  <!-- Footer with Price and Button -->
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <div class="text-body text-sm">Daily Rate</div>
+                      <div class="flex items-center">
+                        <span class="text-2xl font-bold text-heading">${{ car.price }}</span>
+                        <span class="text-body ms-1">/day</span>
                       </div>
-                      <div v-if="car.discount" class="text-end">
-                        <span class="badge bg-danger py-2">
-                          Save {{ car.discount }}%
-                        </span>
-                      </div>
+                      <small v-if="car.estimatedTotal" class="text-green-600 text-xs">
+                        <i class="bi bi-check-circle me-1"></i>
+                        Est. Total: ${{ car.estimatedTotal }}
+                      </small>
+                    </div>
+                    
+                    <div v-if="car.discount" class="text-end me-4">
+                      <span class="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">
+                        Save {{ car.discount }}%
+                      </span>
                     </div>
                     
                     <button 
-                      class="btn btn-primary w-100 py-3 fw-semibold"
+                      type="button" 
+                      class="inline-flex items-center w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
                       @click="rentCar(car)"
                     >
-                      <i class="bi bi-calendar-check me-2"></i>
                       Rent Now
+                      <svg class="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+                      </svg>
                     </button>
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
         </div>
@@ -632,14 +620,13 @@ export default {
 }
 
 .car-card {
-  transition: all 0.3s ease;
-  border-radius: 1rem !important;
-  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
 }
 
 .car-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .card-img-top {
