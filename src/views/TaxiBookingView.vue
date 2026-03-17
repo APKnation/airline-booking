@@ -1,558 +1,386 @@
 <template>
-  <div class="taxi-page bg-light min-vh-100">
-    <!-- Hero Section -->
-    <div class="hero-section bg-primary text-white py-6">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-6">
-            <h1 class="display-4 fw-bold mb-3">Book a Taxi</h1>
-            <p class="lead mb-4">Get a ride in minutes. Enter your details for instant fare estimates.</p>
-            <div class="d-flex align-items-center">
-              <div class="me-4">
-                <i class="bi bi-clock-fill fs-4"></i>
-                <div class="small">Quick Pickup</div>
-              </div>
-              <div class="me-4">
-                <i class="bi bi-shield-check fs-4"></i>
-                <div class="small">Safe Rides</div>
-              </div>
-              <div>
-                <i class="bi bi-cash-coin fs-4"></i>
-                <div class="small">Best Prices</div>
-              </div>
+  <div class="max-w-5xl mx-auto px-4 py-8 space-y-6">
+    
+    <!-- 1. Reduced Header Card (Former Hero) -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="bg-blue-100 text-blue-600 p-3 rounded-full">
+          <i class="bi bi-taxi-front text-3xl"></i>
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">Book a Taxi</h1>
+          <p class="text-gray-500 text-sm">Fast, safe, and reliable rides.</p>
+        </div>
+      </div>
+      <div class="flex gap-6 text-gray-600 text-sm">
+        <div class="flex items-center gap-2">
+          <i class="bi bi-clock-fill text-blue-500"></i>
+          <span>Quick Pickup</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="bi bi-shield-check text-green-500"></i>
+          <span>Safe Rides</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Location Details Section -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+        <i class="bi bi-geo-alt text-blue-600"></i>
+        Route Details
+      </h2>
+      
+      <div class="space-y-4">
+        <!-- Pickup -->
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Pickup Location</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <i class="bi bi-circle-fill text-blue-600 text-xs"></i>
             </div>
+            <input
+              type="text"
+              v-model="searchParams.pickup"
+              placeholder="Enter pickup address"
+              class="w-full pl-8 pr-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+            />
           </div>
-          <div class="col-lg-6 mt-4 mt-lg-0">
-            <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&auto=format&fit=crop" 
-                 alt="Taxi" 
-                 class="img-fluid rounded-3 shadow">
+        </div>
+
+        <!-- Swap Button -->
+        <div class="flex justify-center">
+          <button 
+            type="button" 
+            @click="swapLocations" 
+            class="p-2 rounded-full border border-gray-200 hover:bg-gray-50 hover:border-blue-300 transition-colors"
+          >
+            <i class="bi bi-arrow-down-up text-gray-500"></i>
+          </button>
+        </div>
+
+        <!-- Dropoff -->
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Destination</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <i class="bi bi-geo-alt-fill text-red-500"></i>
+            </div>
+            <input
+              type="text"
+              v-model="searchParams.dropoff"
+              placeholder="Where to?"
+              class="w-full pl-8 pr-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+            />
+          </div>
+        </div>
+
+        <!-- Quick Routes -->
+        <div class="pt-2">
+          <div class="text-xs text-gray-500 mb-2">Popular routes:</div>
+          <div class="flex flex-wrap gap-2">
+            <button
+              type="button"
+              v-for="route in quickRoutes"
+              :key="route.id"
+              @click="setQuickRoute(route)"
+              class="px-3 py-1.5 text-xs font-medium border border-gray-200 rounded-full hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-colors"
+            >
+              <i class="bi me-1" :class="route.icon"></i>
+              {{ route.label }}
+            </button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="container py-5">
-      <!-- Booking Form -->
-      <div class="row justify-content-center">
-        <div class="col-12 col-lg-10">
-          <div class="card shadow-lg border-0 rounded-4">
-            <div class="card-body p-4 p-lg-5">
-              <h2 class="h4 fw-bold mb-4">
-                <i class="bi bi-pin-map text-primary me-2"></i>
-                Where would you like to go?
-              </h2>
-
-              <form @submit.prevent="handleSearch">
-                <!-- Locations -->
-                <div class="row g-4 mb-4">
-                  <div class="col-12">
-                    <div class="location-input-group">
-                      <div class="location-input mb-3">
-                        <label class="form-label text-muted small mb-2">Pickup Location</label>
-                        <div class="input-group">
-                          <span class="input-group-text bg-white border-end-0">
-                            <i class="bi bi-geo-alt text-primary"></i>
-                          </span>
-                          <input
-                            type="text"
-                            class="form-control border-start-0 ps-0"
-                            v-model="searchParams.pickup"
-                            placeholder="Enter pickup address"
-                            required
-                          >
-                        </div>
-                      </div>
-                      
-                      <div class="location-swap text-center my-2">
-                        <button type="button" class="btn btn-outline-secondary btn-sm rounded-circle" @click="swapLocations">
-                          <i class="bi bi-arrow-down-up"></i>
-                        </button>
-                      </div>
-                      
-                      <div class="location-input">
-                        <label class="form-label text-muted small mb-2">Destination</label>
-                        <div class="input-group">
-                          <span class="input-group-text bg-white border-end-0">
-                            <i class="bi bi-geo-alt-fill text-primary"></i>
-                          </span>
-                          <input
-                            type="text"
-                            class="form-control border-start-0 ps-0"
-                            v-model="searchParams.dropoff"
-                            placeholder="Where to?"
-                            required
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Quick Locations -->
-                <div class="mb-4">
-                  <div class="text-muted small mb-2">Popular routes:</div>
-                  <div class="d-flex flex-wrap gap-2">
-                    <button
-                      type="button"
-                      v-for="route in quickRoutes"
-                      :key="route.id"
-                      class="btn btn-outline-primary btn-sm"
-                      @click="setQuickRoute(route)"
-                    >
-                      <i class="bi" :class="route.icon"></i>
-                      {{ route.label }}
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Date & Time -->
-                <div class="row g-4 mb-4">
-                  <div class="col-md-6">
-                    <label class="form-label text-muted small mb-2">Pickup Date</label>
-                    <input
-                      type="date"
-                      class="form-control"
-                      v-model="searchParams.date"
-                      :min="getTodayDate()"
-                      required
-                    >
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label text-muted small mb-2">Pickup Time</label>
-                    <input
-                      type="time"
-                      class="form-control"
-                      v-model="searchParams.time"
-                      required
-                    >
-                  </div>
-                </div>
-
-                <!-- Ride Type Selection -->
-                <div class="mb-4">
-                  <div class="text-muted small mb-2">Choose your ride:</div>
-                  <div class="ride-types">
-                    <div class="row g-2">
-                      <div class="col-6 col-md-3" v-for="type in rideTypes" :key="type.id">
-                        <div
-                          class="ride-type-card text-center p-3 rounded-3"
-                          :class="{ 'selected': searchParams.type === type.id }"
-                          @click="selectRideType(type.id)"
-                        >
-                          <i :class="[type.icon, 'fs-3 mb-2', type.color]"></i>
-                          <div class="fw-semibold mb-1">{{ type.name }}</div>
-                          <div class="text-muted small">From ${{ type.price }}/km</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Passengers & Luggage -->
-                <div class="row g-4 mb-4">
-                  <div class="col-md-6">
-                    <div class="counter-group">
-                      <div class="text-muted small mb-2">Passengers</div>
-                      <div class="d-flex align-items-center">
-                        <button
-                          type="button"
-                          class="btn btn-outline-secondary rounded-start"
-                          @click="adjustPassengers(-1)"
-                          :disabled="searchParams.passengers <= 1"
-                        >
-                          <i class="bi bi-dash"></i>
-                        </button>
-                        <div class="px-4 py-2 bg-white border-top border-bottom">
-                          <span class="fw-bold fs-5">{{ searchParams.passengers }}</span>
-                        </div>
-                        <button
-                          type="button"
-                          class="btn btn-outline-secondary rounded-end"
-                          @click="adjustPassengers(1)"
-                          :disabled="searchParams.passengers >= 6"
-                        >
-                          <i class="bi bi-plus"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="col-md-6">
-                    <div class="counter-group">
-                      <div class="text-muted small mb-2">Luggage</div>
-                      <div class="d-flex align-items-center">
-                        <button
-                          type="button"
-                          class="btn btn-outline-secondary rounded-start"
-                          @click="adjustLuggage(-1)"
-                          :disabled="searchParams.luggage <= 0"
-                        >
-                          <i class="bi bi-dash"></i>
-                        </button>
-                        <div class="px-4 py-2 bg-white border-top border-bottom">
-                          <span class="fw-bold fs-5">{{ searchParams.luggage }}</span>
-                        </div>
-                        <button
-                          type="button"
-                          class="btn btn-outline-secondary rounded-end"
-                          @click="adjustLuggage(1)"
-                          :disabled="searchParams.luggage >= 4"
-                        >
-                          <i class="bi bi-plus"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Submit Button -->
-                <div class="mt-4">
-                  <button
-                    type="submit"
-                    class="btn btn-primary btn-lg w-100 py-3"
-                    :disabled="loading || !isFormValid"
-                  >
-                    <template v-if="loading">
-                      <span class="spinner-border spinner-border-sm me-2"></span>
-                      Finding rides...
-                    </template>
-                    <template v-else>
-                      <i class="bi bi-search me-2"></i>
-                      Find Rides
-                    </template>
-                  </button>
-                </div>
-              </form>
+    <!-- 3. Schedule & Preferences Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- Schedule Card -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+          <i class="bi bi-calendar-event text-blue-600"></i>
+          Schedule
+        </h2>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Date</label>
+            <input
+              type="date"
+              v-model="searchParams.date"
+              :min="getTodayDate()"
+              class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Time</label>
+            <input
+              type="time"
+              v-model="searchParams.time"
+              class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
+            />
+          </div>
+        </div>
+        
+        <!-- Counters -->
+        <div class="mt-6 pt-4 border-t border-gray-100 grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Passengers</label>
+            <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden divide-x divide-gray-200">
+              <button type="button" @click="adjustPassengers(-1)" :disabled="searchParams.passengers <= 1" class="w-10 h-10 flex items-center justify-center hover:bg-gray-50 disabled:opacity-50">-</button>
+              <div class="flex-1 text-center font-bold text-gray-800">{{ searchParams.passengers }}</div>
+              <button type="button" @click="adjustPassengers(1)" :disabled="searchParams.passengers >= 6" class="w-10 h-10 flex items-center justify-center hover:bg-gray-50 disabled:opacity-50">+</button>
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Luggage</label>
+            <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden divide-x divide-gray-200">
+              <button type="button" @click="adjustLuggage(-1)" :disabled="searchParams.luggage <= 0" class="w-10 h-10 flex items-center justify-center hover:bg-gray-50 disabled:opacity-50">-</button>
+              <div class="flex-1 text-center font-bold text-gray-800">{{ searchParams.luggage }}</div>
+              <button type="button" @click="adjustLuggage(1)" :disabled="searchParams.luggage >= 4" class="w-10 h-10 flex items-center justify-center hover:bg-gray-50 disabled:opacity-50">+</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Results -->
-      <div v-if="loading" class="text-center py-5">
-        <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;"></div>
-        <h4 class="text-primary">Finding available rides...</h4>
-      </div>
-
-      <div v-else-if="rides.length" class="mt-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h3 class="h5 fw-bold mb-0">
-            Available Rides ({{ rides.length }})
-          </h3>
-          <div class="d-flex gap-2">
-            <button class="btn btn-sm btn-outline-primary" @click="sortRides('price')">
-              <i class="bi bi-sort-down"></i> Price
-            </button>
-            <button class="btn btn-sm btn-outline-primary" @click="sortRides('time')">
-              <i class="bi bi-clock"></i> ETA
-            </button>
+      <!-- Ride Type Card -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+          <i class="bi bi-car-front text-blue-600"></i>
+          Choose Ride
+        </h2>
+        <div class="grid grid-cols-2 gap-3">
+          <div
+            v-for="type in rideTypes"
+            :key="type.id"
+            @click="searchParams.type = type.id"
+            class="p-3 rounded-lg border-2 cursor-pointer transition-all text-center"
+            :class="searchParams.type === type.id 
+              ? 'border-blue-600 bg-blue-50 shadow-sm' 
+              : 'border-gray-100 hover:border-gray-200'"
+          >
+            <i class="bi text-2xl mb-1" :class="type.icon"></i>
+            <div class="font-semibold text-sm text-gray-800">{{ type.name }}</div>
+            <div class="text-xs text-gray-500">${{ type.price }}/km</div>
           </div>
         </div>
 
-        <div class="row g-3">
-          <div class="col-12 col-md-6 col-lg-4" v-for="ride in rides" :key="ride.id">
-            <a href="#" class="flex flex-col items-center bg-neutral-primary-soft p-6 border border-default rounded-base shadow-xs md:flex-row md:max-w-xl md:flex-row md:max-w-xl ride-card">
-              <!-- Ride Icon/Image -->
-              <div class="w-full h-32 md:h-auto md:w-32 mb-4 md:mb-0 flex items-center justify-center bg-neutral-secondary-medium rounded-base">
-                <i :class="[getRideIcon(ride.type), 'text-4xl text-heading']"></i>
-              </div>
-              
-              <div class="flex flex-col justify-between md:p-4 leading-normal flex-1">
-                <!-- Header Section -->
-                <div class="mb-4">
-                  <div class="flex justify-between items-start mb-2">
-                    <h5 class="text-2xl font-bold tracking-tight text-heading">
-                      {{ ride.type }}
-                    </h5>
-                    <span class="px-3 py-1 bg-neutral-secondary-medium text-body rounded-full text-sm font-semibold">
-                      <i class="bi bi-clock me-1"></i>
-                      {{ ride.eta }} min
-                    </span>
-                  </div>
-                  
-                  <div class="text-body mb-3">{{ ride.provider }}</div>
-                  
-                  <!-- Ride Details -->
-                  <div class="mb-3">
-                    <div class="flex items-center text-body text-sm mb-1">
-                      <i class="bi bi-geo-alt me-2"></i>
-                      <span>{{ ride.pickup }}</span>
-                    </div>
-                    <div class="flex items-center text-body text-sm">
-                      <i class="bi bi-geo-alt-fill me-2"></i>
-                      <span>{{ ride.dropoff }}</span>
-                    </div>
-                  </div>
-
-                  <div class="flex justify-between text-body text-sm mb-3">
-                    <span><i class="bi bi-speedometer2 me-1"></i> {{ ride.distance }} km</span>
-                    <span><i class="bi bi-clock-history me-1"></i> {{ ride.duration }} min</span>
-                    <span><i class="bi bi-people me-1"></i> {{ ride.capacity }}</span>
-                  </div>
-
-                  <!-- Features -->
-                  <div class="mb-4">
-                    <div class="flex flex-wrap gap-1">
-                      <span v-for="feature in ride.features" :key="feature" class="px-2 py-1 bg-neutral-secondary-medium text-body rounded-full text-xs font-semibold">
-                        {{ feature }}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Footer with Price and Button -->
-                <div class="flex items-center justify-between">
-                  <div>
-                    <div class="text-body text-sm">Estimated Fare</div>
-                    <div class="flex items-center">
-                      <span class="text-2xl font-bold text-heading">${{ ride.price }}</span>
-                      <span v-if="ride.discount" class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold ms-2">
-                        -${{ ride.discount }}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <button 
-                    type="button" 
-                    class="inline-flex items-center w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
-                    @click="bookRide(ride)"
-                  >
-                    Book
-                    <svg class="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </a>
-          </div>
+        <!-- Submit Button -->
+        <div class="mt-6">
+          <button
+            @click="handleSearch"
+            :disabled="loading || !isFormValid"
+            class="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 disabled:bg-blue-400 transition-colors flex items-center justify-center gap-2"
+          >
+            <template v-if="loading">
+              <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Searching...
+            </template>
+            <template v-else>
+              <i class="bi bi-search"></i>
+              Find Rides
+            </template>
+          </button>
         </div>
-      </div>
-
-      <div v-else-if="hasSearched" class="text-center py-5">
-        <div class="mb-4">
-          <i class="bi bi-taxi-front display-1 text-muted opacity-25"></i>
-        </div>
-        <h4 class="mb-3">No rides available</h4>
-        <p class="text-muted mb-4">Try different locations or time</p>
-        <button class="btn btn-primary" @click="clearSearch">
-          <i class="bi bi-arrow-clockwise me-2"></i>
-          Clear Search
-        </button>
       </div>
     </div>
+
+    <!-- 4. Results Section -->
+    <div v-if="hasSearched">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-bold text-gray-800">Available Rides</h3>
+        <div class="flex gap-2">
+          <button @click="sortRides('price')" class="px-3 py-1.5 text-xs font-medium border border-gray-200 rounded-lg hover:bg-gray-50">Sort by Price</button>
+          <button @click="sortRides('time')" class="px-3 py-1.5 text-xs font-medium border border-gray-200 rounded-lg hover:bg-gray-50">Sort by ETA</button>
+        </div>
+      </div>
+
+      <!-- Rides List -->
+      <div v-if="rides.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div 
+          v-for="ride in rides" 
+          :key="ride.id" 
+          class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow flex flex-col"
+        >
+          <!-- Card Header -->
+          <div class="p-4 bg-gray-50 border-b border-gray-100 flex items-center justify-between">
+            <div>
+              <span class="font-bold text-gray-900">{{ ride.type }}</span>
+              <span class="text-xs text-gray-500 ml-2">{{ ride.provider }}</span>
+            </div>
+            <span class="px-2 py-1 bg-white border border-gray-200 rounded text-xs font-medium text-gray-600">
+              <i class="bi bi-clock me-1"></i>{{ ride.eta }} min
+            </span>
+          </div>
+
+          <!-- Card Body -->
+          <div class="p-4 flex-1">
+            <div class="text-sm text-gray-600 space-y-1 mb-4">
+              <div class="flex items-center gap-2">
+                <i class="bi bi-circle-fill text-blue-500 text-[6px]"></i>
+                <span>{{ ride.pickup }}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="bi bi-geo-alt-fill text-red-500 text-xs"></i>
+                <span>{{ ride.dropoff }}</span>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-3 text-xs text-gray-500 mb-4">
+              <span><i class="bi bi-speedometer2 me-1"></i>{{ ride.distance }} km</span>
+              <span><i class="bi bi-people me-1"></i>{{ ride.capacity }}</span>
+            </div>
+
+            <div class="flex flex-wrap gap-1">
+              <span v-for="feature in ride.features" :key="feature" class="px-2 py-0.5 bg-gray-100 rounded text-[10px] font-medium text-gray-600">
+                {{ feature }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Card Footer -->
+          <div class="p-4 border-t border-gray-100 flex items-center justify-between bg-white">
+            <div>
+              <span class="text-xs text-gray-500">Est. Fare</span>
+              <div class="text-xl font-bold text-gray-900">${{ ride.price }}</div>
+            </div>
+            <button 
+              @click="bookRide(ride)"
+              class="px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Book Now
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Results -->
+      <div v-else class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+        <i class="bi bi-taxi-front text-5xl text-gray-300 mb-3 block"></i>
+        <h4 class="text-lg font-semibold text-gray-800 mb-1">No rides found</h4>
+        <p class="text-gray-500 text-sm mb-4">Try adjusting your location or time.</p>
+        <button @click="clearSearch" class="text-blue-600 hover:underline text-sm font-medium">Clear Search</button>
+      </div>
+    </div>
+
   </div>
 </template>
 
-<script>
-export default {
-  name: 'TaxiBookingView',
-  
-  data() {
-    return {
-      searchParams: {
-        pickup: '',
-        dropoff: '',
-        date: this.getTodayDate(),
-        time: this.getNextHour(),
-        type: 'sedan',
-        passengers: 1,
-        luggage: 0
-      },
-      rides: [],
-      loading: false,
-      hasSearched: false,
-      
-      quickRoutes: [
-        { id: 1, label: 'Airport → City', pickup: 'Airport', dropoff: 'Downtown', icon: 'bi-airplane' },
-        { id: 2, label: 'Hotel → Airport', pickup: 'Hotel', dropoff: 'Airport', icon: 'bi-building' },
-        { id: 3, label: 'Station → Mall', pickup: 'Train Station', dropoff: 'Shopping Mall', icon: 'bi-train' }
-      ],
-      
-      rideTypes: [
-        { id: 'economy', name: 'Economy', icon: 'bi-car-front', color: 'text-success', price: 1.5 },
-        { id: 'sedan', name: 'Sedan', icon: 'bi-car-front-fill', color: 'text-primary', price: 2.0 },
-        { id: 'suv', name: 'SUV', icon: 'bi-truck', color: 'text-warning', price: 2.5 },
-        { id: 'luxury', name: 'Luxury', icon: 'bi-stars', color: 'text-purple', price: 3.5 }
-      ],
-      
-      mockRides: [
-        {
-          id: 1,
-          type: 'Economy',
-          provider: 'UberX',
-          eta: 5,
-          pickup: 'City Center',
-          dropoff: 'Airport',
-          distance: 15,
-          duration: 25,
-          capacity: 4,
-          price: 22.50,
-          features: ['AC', 'WiFi'],
-          discount: 2.50
-        },
-        {
-          id: 2,
-          type: 'Sedan',
-          provider: 'Lyft',
-          eta: 7,
-          pickup: 'Hotel Grand',
-          dropoff: 'Mall',
-          distance: 8,
-          duration: 15,
-          capacity: 4,
-          price: 18.75,
-          features: ['Premium', 'AC'],
-          discount: 0
-        },
-        {
-          id: 3,
-          type: 'SUV',
-          provider: 'UberXL',
-          eta: 10,
-          pickup: 'Station',
-          dropoff: 'Resort',
-          distance: 20,
-          duration: 30,
-          capacity: 6,
-          price: 32.90,
-          features: ['Spacious', 'WiFi'],
-          discount: 3.10
-        }
-      ]
-    }
+<script setup>
+import { ref, computed } from 'vue'
+
+const searchParams = ref({
+  pickup: '',
+  dropoff: '',
+  date: new Date().toISOString().split('T')[0],
+  time: getNextHour(),
+  type: 'sedan',
+  passengers: 1,
+  luggage: 0
+})
+
+const rides = ref([])
+const loading = ref(false)
+const hasSearched = ref(false)
+
+const quickRoutes = [
+  { id: 1, label: 'Airport → City', pickup: 'Airport', dropoff: 'Downtown', icon: 'bi-airplane' },
+  { id: 2, label: 'Hotel → Airport', pickup: 'Hotel', dropoff: 'Airport', icon: 'bi-building' },
+  { id: 3, label: 'Station → Mall', pickup: 'Train Station', dropoff: 'Shopping Mall', icon: 'bi-train' }
+]
+
+const rideTypes = [
+  { id: 'economy', name: 'Economy', icon: 'bi-car-front text-green-600', price: 1.5 },
+  { id: 'sedan', name: 'Sedan', icon: 'bi-car-front-fill text-blue-600', price: 2.0 },
+  { id: 'suv', name: 'SUV', icon: 'bi-truck text-orange-500', price: 2.5 },
+  { id: 'luxury', name: 'Luxury', icon: 'bi-stars text-purple-600', price: 3.5 }
+]
+
+const mockRides = [
+  {
+    id: 1, type: 'Economy', provider: 'UberX', eta: 5, pickup: 'City Center', dropoff: 'Airport', distance: 15, capacity: 4, price: 22.50, features: ['AC', 'WiFi'], discount: 2.50
   },
-  
-  computed: {
-    isFormValid() {
-      return this.searchParams.pickup.trim() && 
-             this.searchParams.dropoff.trim() &&
-             this.searchParams.date &&
-             this.searchParams.time
-    }
+  {
+    id: 2, type: 'Sedan', provider: 'Lyft', eta: 7, pickup: 'Hotel Grand', dropoff: 'Mall', distance: 8, capacity: 4, price: 18.75, features: ['Premium', 'AC'], discount: 0
   },
+  {
+    id: 3, type: 'SUV', provider: 'UberXL', eta: 10, pickup: 'Station', dropoff: 'Resort', distance: 20, capacity: 6, price: 32.90, features: ['Spacious', 'WiFi'], discount: 3.10
+  }
+]
+
+const isFormValid = computed(() => {
+  return searchParams.value.pickup.trim() && 
+         searchParams.value.dropoff.trim() &&
+         searchParams.value.date &&
+         searchParams.value.time
+})
+
+function getTodayDate() {
+  return new Date().toISOString().split('T')[0]
+}
+
+function getNextHour() {
+  const now = new Date()
+  now.setHours(now.getHours() + 1)
+  return now.toTimeString().slice(0, 5)
+}
+
+function adjustPassengers(change) {
+  const newVal = searchParams.value.passengers + change
+  if (newVal >= 1 && newVal <= 6) searchParams.value.passengers = newVal
+}
+
+function adjustLuggage(change) {
+  const newVal = searchParams.value.luggage + change
+  if (newVal >= 0 && newVal <= 4) searchParams.value.luggage = newVal
+}
+
+function swapLocations() {
+  [searchParams.value.pickup, searchParams.value.dropoff] = 
+  [searchParams.value.dropoff, searchParams.value.pickup]
+}
+
+function setQuickRoute(route) {
+  searchParams.value.pickup = route.pickup
+  searchParams.value.dropoff = route.dropoff
+}
+
+async function handleSearch() {
+  if (!isFormValid.value) return
   
-  methods: {
-    getTodayDate() {
-      return new Date().toISOString().split('T')[0]
-    },
-    
-    getNextHour() {
-      const now = new Date()
-      now.setHours(now.getHours() + 1)
-      return now.toTimeString().slice(0, 5)
-    },
-    
-    adjustPassengers(change) {
-      const newValue = this.searchParams.passengers + change
-      if (newValue >= 1 && newValue <= 6) {
-        this.searchParams.passengers = newValue
-      }
-    },
-    
-    adjustLuggage(change) {
-      const newValue = this.searchParams.luggage + change
-      if (newValue >= 0 && newValue <= 4) {
-        this.searchParams.luggage = newValue
-      }
-    },
-    
-    selectRideType(type) {
-      this.searchParams.type = type
-    },
-    
-    swapLocations() {
-      [this.searchParams.pickup, this.searchParams.dropoff] = 
-      [this.searchParams.dropoff, this.searchParams.pickup]
-    },
-    
-    setQuickRoute(route) {
-      this.searchParams.pickup = route.pickup
-      this.searchParams.dropoff = route.dropoff
-    },
-    
-    async handleSearch() {
-      if (!this.isFormValid) {
-        alert('Please enter both pickup and destination locations')
-        return
-      }
-      
-      this.loading = true
-      this.hasSearched = true
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      // Filter by selected ride type
-      this.rides = this.mockRides.filter(ride => 
-        ride.type.toLowerCase() === this.searchParams.type
-      )
-      
-      this.loading = false
-    },
-    
-    getRideIcon(type) {
-      const icons = {
-        'Economy': 'bi-car-front text-success',
-        'Sedan': 'bi-car-front-fill text-primary',
-        'SUV': 'bi-truck text-warning',
-        'Luxury': 'bi-stars text-purple'
-      }
-      return icons[type] || 'bi-taxi-front text-secondary'
-    },
-    
-    sortRides(criteria) {
-      if (criteria === 'price') {
-        this.rides.sort((a, b) => a.price - b.price)
-      } else {
-        this.rides.sort((a, b) => a.eta - b.eta)
-      }
-    },
-    
-    bookRide(ride) {
-      // Add to booking store
-      const store = this.$pinia?.stores?.booking || {
-        addToCart: (item) => {
-          const cart = JSON.parse(localStorage.getItem('cart') || '[]')
-          cart.push(item)
-          localStorage.setItem('cart', JSON.stringify(cart))
-        }
-      }
-      
-      store.addToCart({
-        type: 'taxi',
-        name: `${ride.provider} - ${ride.type}`,
-        price: ride.price,
-        rideDetails: ride,
-        pickup: this.searchParams.pickup,
-        dropoff: this.searchParams.dropoff,
-        date: this.searchParams.date,
-        time: this.searchParams.time
-      })
-      
-      // Show success feedback
-      alert(`${ride.type} ride booked successfully!`)
-    },
-    
-    clearSearch() {
-      this.searchParams = {
-        pickup: '',
-        dropoff: '',
-        date: this.getTodayDate(),
-        time: this.getNextHour(),
-        type: 'sedan',
-        passengers: 1,
-        luggage: 0
-      }
-      this.rides = []
-      this.hasSearched = false
-    }
-  },
+  loading.value = true
+  hasSearched.value = true
   
-  mounted() {
-    console.log('Taxi page loaded')
+  // Simulate API
+  await new Promise(r => setTimeout(r, 1000))
+  
+  rides.value = mockRides.filter(ride => 
+    ride.type.toLowerCase() === searchParams.value.type
+  )
+  
+  loading.value = false
+}
+
+function sortRides(criteria) {
+  if (criteria === 'price') {
+    rides.value.sort((a, b) => a.price - b.price)
+  } else {
+    rides.value.sort((a, b) => a.eta - b.eta)
   }
 }
-</script>
 
+function bookRide(ride) {
+  alert(`Booking confirmed: ${ride.provider} ${ride.type} from ${searchParams.value.pickup} to ${searchParams.value.dropoff}. Total: $${ride.price}`)
+}
+
+function clearSearch() {
+  searchParams.value.pickup = ''
+  searchParams.value.dropoff = ''
+  rides.value = []
+  hasSearched.value = false
+}
+</script>

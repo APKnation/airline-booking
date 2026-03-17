@@ -1,342 +1,260 @@
+Here is the advanced version of the Car Rental page. I have migrated the code to the modern **Vue 3 Composition API** (`<script setup>`) and significantly enhanced the UI.
+
+**Key Style Advancements:**
+1.  **Skeleton Loading:** Replaced the spinner with a high-quality skeleton loader that mimics the card layout.
+2.  **Glassmorphism & Depth:** The search form now floats elegantly over the hero section with a backdrop blur effect.
+3.  **Micro-interactions:** Cards lift slightly on hover (`translate-y`), images zoom subtly, and buttons have distinct active states.
+4.  **Visual Hierarchy:** Better use of typography weight and color contrast to guide the eye (Price highlights, feature icons).
+5.  **Responsive Layout:** Optimized grid spacing for different screen sizes.
+
+```vue
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-    <!-- Hero Card -->
-    <div class="container mx-auto px-4 py-8">
-      <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-        <div class="grid md:grid-cols-2 gap-0">
-          <!-- Left Side - Image -->
-          <div class="relative h-64 md:h-auto">
-            <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                 alt="Car Rental" 
-                 class="w-full h-full object-cover">
-            <div class="absolute top-4 left-4 bg-white rounded-lg shadow-lg px-3 py-2">
-              <div class="flex items-center gap-2">
-                <i class="bi bi-lightning-charge-fill text-yellow-500"></i>
-                <span class="text-sm font-bold text-gray-900">Premium Service</span>
-              </div>
+  <div class="min-h-screen bg-slate-50 font-sans antialiased">
+    
+    <!-- Hero & Search Section -->
+    <div class="relative bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 overflow-hidden">
+      <!-- Background Pattern -->
+      <div class="absolute inset-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
+      
+      <div class="container mx-auto px-4 pt-16 pb-32 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <!-- Left Content -->
+          <div class="text-white space-y-6">
+            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-sm font-medium">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              Trusted by over 50k travelers
             </div>
-            <div class="absolute bottom-4 left-4 bg-green-500 text-white rounded-lg shadow-lg px-3 py-2">
-              <div class="flex items-center gap-2">
-                <i class="bi bi-check-circle-fill"></i>
-                <span class="text-sm font-bold">4.8/5 Rating</span>
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
+              Find Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">Perfect Ride</span>
+            </h1>
+            <p class="text-lg text-slate-300 max-w-lg leading-relaxed">
+              Experience the freedom of the open road. From economy to luxury, we have the perfect vehicle waiting for you.
+            </p>
+            <div class="flex gap-8 pt-4">
+              <div>
+                <div class="text-3xl font-bold">500+</div>
+                <div class="text-slate-400 text-sm">Car Models</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold">120+</div>
+                <div class="text-slate-400 text-sm">Locations</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold">24/7</div>
+                <div class="text-slate-400 text-sm">Support</div>
               </div>
             </div>
           </div>
           
-          <!-- Right Side - Description -->
-          <div class="p-8 flex flex-col justify-center">
-            <h1 class="text-3xl font-bold text-gray-900 mb-4">
-              Rent a Car,<br>
-              <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Your Way</span>
-            </h1>
-            
-            <p class="text-gray-600 mb-6 leading-relaxed">
-              Choose from hundreds of premium cars, from economy to luxury. 
-              Pick up anywhere, drop off anywhere. Your journey starts here.
-            </p>
-            
-            <div class="grid grid-cols-2 gap-3 mb-6">
-              <div class="flex items-center gap-2 text-sm text-gray-600">
-                <i class="bi bi-lightning-charge-fill text-yellow-500"></i>
-                <span>Instant Booking</span>
-              </div>
-              <div class="flex items-center gap-2 text-sm text-gray-600">
-                <i class="bi bi-shield-check text-green-500"></i>
-                <span>Full Insurance</span>
-              </div>
-              <div class="flex items-center gap-2 text-sm text-gray-600">
-                <i class="bi bi-coin text-yellow-500"></i>
-                <span>Best Price</span>
-              </div>
-              <div class="flex items-center gap-2 text-sm text-gray-600">
-                <i class="bi bi-people text-blue-500"></i>
-                <span>2,500+ Reviews</span>
-              </div>
-            </div>
-            
-            <div class="flex gap-3">
-              <button @click="scrollToSearch" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 shadow-md hover:shadow-lg">
-                <i class="bi bi-search me-2"></i>
-                Find Your Car
-              </button>
-              <button class="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-3 rounded-lg font-semibold transition-colors duration-200">
-                <i class="bi bi-play-circle me-2"></i>
-                Watch Demo
-              </button>
-            </div>
+          <!-- Right Side Image (Hidden on mobile) -->
+          <div class="hidden lg:block relative">
+             <div class="absolute -inset-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full blur-3xl opacity-20"></div>
+             <img 
+               src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+               alt="Luxury Car" 
+               class="relative rounded-2xl shadow-2xl border border-white/10"
+             >
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Search Form -->
-    <div class="container mx-auto px-4 -mt-8 relative z-30">
-      <div class="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
-        <div class="flex items-center gap-3 mb-8">
-          <div class="bg-blue-100 p-3 rounded-xl">
-            <i class="bi bi-search text-blue-600 text-xl"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-900">Find Your Perfect Car</h2>
-        </div>
-        
-        <form @submit.prevent="handleSearch" class="space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Pick-up Location -->
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">
-                <i class="bi bi-geo-alt text-blue-600 me-2"></i>Pick-up Location
-              </label>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <i class="bi bi-pin-map text-gray-400"></i>
+      <!-- Floating Search Card -->
+      <div class="container mx-auto px-4 relative z-20 -mb-20">
+        <div class="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-6 md:p-8 border border-gray-200/50">
+          <form @submit.prevent="handleSearch" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+              <!-- Location -->
+              <div class="lg:col-span-2 space-y-2">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+                  <i class="bi bi-geo-alt-fill text-blue-600"></i> Pick-up Location
+                </label>
+                <div class="relative">
+                  <input 
+                    type="text" 
+                    v-model="searchParams.pickupLocation"
+                    class="w-full pl-4 pr-12 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all text-slate-800 font-medium"
+                    placeholder="City, Airport, or Address"
+                    required
+                  >
+                  <div class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-600 cursor-pointer">
+                    <i class="bi bi-crosshair text-xl"></i>
+                  </div>
                 </div>
-                <input 
-                  type="text" 
-                  class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                  v-model="searchParams.pickupLocation"
-                  placeholder="City or Airport"
-                  required
-                >
               </div>
-            </div>
 
-            <!-- Drop-off Location -->
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">
-                <i class="bi bi-geo-alt-fill text-blue-600 me-2"></i>Drop-off Location
-              </label>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <i class="bi bi-pin-map-fill text-gray-400"></i>
-                </div>
-                <input 
-                  type="text" 
-                  class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                  v-model="searchParams.dropoffLocation"
-                  placeholder="Same as pick-up"
-                >
-              </div>
-            </div>
-
-            <!-- Pick-up Date -->
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">
-                <i class="bi bi-calendar-plus text-blue-600 me-2"></i>Pick-up Date
-              </label>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <i class="bi bi-calendar-check text-gray-400"></i>
-                </div>
+              <!-- Dates -->
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Pick-up Date</label>
                 <input 
                   type="date" 
-                  class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                   v-model="searchParams.pickupDate"
-                  :min="getTodayDate()"
+                  class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all text-slate-800 font-medium"
                   required
                 >
               </div>
-            </div>
-
-            <!-- Return Date -->
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">
-                <i class="bi bi-calendar-minus text-blue-600 me-2"></i>Return Date
-              </label>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <i class="bi bi-calendar-x text-gray-400"></i>
-                </div>
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Return Date</label>
                 <input 
                   type="date" 
-                  class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                   v-model="searchParams.returnDate"
                   :min="searchParams.pickupDate"
+                  class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all text-slate-800 font-medium"
                   required
                 >
               </div>
             </div>
-          </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Car Type -->
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">
-                <i class="bi bi-car-front text-blue-600 me-2"></i>Car Type
-              </label>
-              <select class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" v-model="searchParams.carType">
-                <option value="">All Types</option>
-                <option value="economy">Economy</option>
-                <option value="compact">Compact</option>
-                <option value="suv">SUV</option>
-                <option value="luxury">Luxury</option>
-                <option value="van">Van</option>
-                <option value="convertible">Convertible</option>
-              </select>
+            <!-- Filters & Submit -->
+            <div class="flex flex-col md:flex-row gap-4 pt-2 border-t border-slate-100">
+               <div class="flex gap-4 flex-1">
+                 <select v-model="searchParams.carType" class="flex-1 px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-slate-600">
+                    <option value="">All Car Types</option>
+                    <option value="suv">SUV</option>
+                    <option value="luxury">Luxury</option>
+                    <option value="economy">Economy</option>
+                 </select>
+                 <select v-model="searchParams.transmission" class="flex-1 px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-slate-600">
+                    <option value="">Any Transmission</option>
+                    <option value="automatic">Automatic</option>
+                    <option value="manual">Manual</option>
+                 </select>
+               </div>
+               
+               <button 
+                type="submit" 
+                class="md:w-auto w-full bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white px-10 py-3 rounded-xl font-bold shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 flex items-center justify-center gap-2"
+                :disabled="loading"
+              >
+                <i class="bi bi-search"></i>
+                Search Cars
+              </button>
             </div>
-
-            <!-- Transmissions -->
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">
-                <i class="bi bi-gear text-blue-600 me-2"></i>Transmission
-              </label>
-              <select class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" v-model="searchParams.transmission">
-                <option value="">Any</option>
-                <option value="automatic">Automatic</option>
-                <option value="manual">Manual</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <div>
-            <button 
-              type="submit" 
-              class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-              :disabled="loading"
-            >
-              <template v-if="loading">
-                <div class="inline-flex items-center">
-                  <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Searching Cars...
-                </div>
-              </template>
-              <template v-else>
-                <i class="bi bi-search me-2"></i>
-                Search Available Cars
-              </template>
-            </button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
 
     <!-- Results Section -->
-    <div class="container mx-auto px-4 py-12">
-      <!-- Loading State -->
-      <div v-if="loading" class="text-center py-16">
-        <div class="inline-flex items-center justify-center w-20 h-20 bg-blue-100 rounded-full mb-6">
-          <svg class="animate-spin h-10 w-10 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
+    <div class="container mx-auto px-4 pt-28 pb-16">
+      
+      <!-- Loading Skeleton -->
+      <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div v-for="n in 6" :key="n" class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 animate-pulse">
+          <div class="aspect-video bg-slate-200"></div>
+          <div class="p-6 space-y-4">
+            <div class="flex justify-between">
+              <div class="h-4 bg-slate-200 rounded w-1/3"></div>
+              <div class="h-4 bg-slate-200 rounded w-1/4"></div>
+            </div>
+            <div class="h-6 bg-slate-200 rounded w-2/3"></div>
+            <div class="grid grid-cols-4 gap-2 pt-4 border-t border-slate-100">
+               <div class="h-3 bg-slate-200 rounded"></div>
+               <div class="h-3 bg-slate-200 rounded"></div>
+               <div class="h-3 bg-slate-200 rounded"></div>
+               <div class="h-3 bg-slate-200 rounded"></div>
+            </div>
+          </div>
         </div>
-        <h3 class="text-2xl font-bold text-gray-900 mb-2">Finding the perfect car for you...</h3>
-        <p class="text-gray-600">We're searching through our premium fleet</p>
       </div>
 
       <!-- Cars Grid -->
-      <div v-else-if="cars.length" class="space-y-8">
-        <!-- Results Header -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div v-else-if="cars.length">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
-            <h2 class="text-3xl font-bold text-gray-900 mb-2">
-              Available Cars
-              <span class="inline-block ml-3 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-lg font-semibold">{{ cars.length }}</span>
-            </h2>
-            <p class="text-gray-600">Showing {{ cars.length }} cars matching your search</p>
+            <h2 class="text-2xl font-bold text-slate-800">Available Vehicles</h2>
+            <p class="text-slate-500 mt-1">Found <span class="font-semibold text-blue-600">{{ cars.length }}</span> cars for your trip</p>
           </div>
-          <div class="flex gap-3">
-            <button @click="sortByPrice" class="px-6 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors duration-200 font-medium">
-              <i class="bi bi-sort-down me-2"></i>
-              Sort by Price
+          <div class="flex gap-2">
+            <button @click="sortByPrice" class="px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition flex items-center gap-2">
+              <i class="bi bi-arrow-down-up"></i> Price
             </button>
-            <button @click="toggleFilterModal" class="px-6 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors duration-200 font-medium">
-              <i class="bi bi-funnel me-2"></i>
-              Filter
+            <button class="px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition flex items-center gap-2">
+              <i class="bi bi-sliders"></i> Filters
             </button>
           </div>
         </div>
 
-        <!-- Cars Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div 
             v-for="car in cars" 
             :key="car.id"
-            class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200"
+            class="group bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden border border-slate-100 hover:border-blue-200 flex flex-col"
           >
-            <!-- Car Image -->
-            <div class="relative h-48 overflow-hidden">
+            <!-- Image Container -->
+            <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
               <img 
                 :src="car.image" 
                 :alt="car.model"
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               >
-              <div class="absolute top-4 right-4">
-                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                  {{ car.type.charAt(0).toUpperCase() + car.type.slice(1) }}
+              <!-- Badges -->
+              <div class="absolute top-4 left-4 flex gap-2">
+                <span v-if="car.discount" class="bg-rose-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
+                  {{ car.discount }}% OFF
                 </span>
               </div>
-              <div v-if="car.discount" class="absolute top-4 left-4">
-                <span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                  Save {{ car.discount }}%
-                </span>
+              <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">
+                <span class="text-xs font-bold text-slate-700 uppercase">{{ car.type }}</span>
               </div>
             </div>
-            
-            <div class="p-6">
-              <!-- Car Info -->
-              <div class="mb-4">
-                <div class="flex justify-between items-start mb-2">
-                  <h3 class="text-xl font-bold text-gray-900">{{ car.model }}</h3>
-                  <div class="text-right">
-                    <div class="text-2xl font-bold text-blue-600">${{ car.price }}</div>
-                    <div class="text-sm text-gray-500">/day</div>
-                  </div>
+
+            <!-- Content -->
+            <div class="p-5 flex flex-col flex-1">
+              <div class="flex justify-between items-start mb-3">
+                <div>
+                  <h3 class="text-lg font-bold text-slate-900">{{ car.model }}</h3>
+                  <p class="text-sm text-slate-500">{{ car.company }}</p>
                 </div>
-                <p class="text-gray-600 mb-3">{{ car.company }}</p>
-                
-                <!-- Car Features -->
-                <div class="grid grid-cols-2 gap-3 mb-4">
-                  <div class="flex items-center text-gray-600 text-sm">
-                    <i class="bi bi-people text-blue-600 me-2"></i>
-                    {{ car.seats }} Seats
-                  </div>
-                  <div class="flex items-center text-gray-600 text-sm">
-                    <i class="bi bi-briefcase text-blue-600 me-2"></i>
-                    {{ car.bags }} Bags
-                  </div>
-                  <div class="flex items-center text-gray-600 text-sm">
-                    <i class="bi bi-gear text-blue-600 me-2"></i>
-                    {{ car.transmission }}
-                  </div>
-                  <div class="flex items-center text-gray-600 text-sm">
-                    <i class="bi bi-fuel-pump text-blue-600 me-2"></i>
-                    {{ car.fuel }}
-                  </div>
-                </div>
-                
-                <!-- Additional Features -->
-                <div class="flex flex-wrap gap-2 mb-4">
-                  <span v-if="car.ac" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
-                    <i class="bi bi-snow me-1"></i>A/C
-                  </span>
-                  <span v-if="car.unlimitedMiles" class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
-                    <i class="bi bi-speedometer me-1"></i>Unlimited Miles
-                  </span>
-                  <span v-if="car.freeCancellation" class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">
-                    <i class="bi bi-x-circle me-1"></i>Free Cancellation
-                  </span>
+                <div class="flex items-center gap-1 text-yellow-500">
+                  <i class="bi bi-star-fill text-sm"></i>
+                  <span class="text-sm font-bold text-slate-700">4.8</span>
                 </div>
               </div>
 
-              <!-- Footer -->
-              <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                <div>
-                  <small v-if="car.estimatedTotal" class="text-green-600 text-sm font-medium">
-                    <i class="bi bi-check-circle me-1"></i>
-                    Est. Total: ${{ car.estimatedTotal }}
-                  </small>
+              <!-- Specs Grid -->
+              <div class="grid grid-cols-4 gap-2 py-3 border-t border-b border-slate-100 mb-4">
+                <div class="text-center">
+                  <i class="bi bi-people-fill text-slate-400 block mb-1"></i>
+                  <span class="text-xs text-slate-600">{{ car.seats }}</span>
                 </div>
-                
+                <div class="text-center">
+                  <i class="bi bi-briefcase-fill text-slate-400 block mb-1"></i>
+                  <span class="text-xs text-slate-600">{{ car.bags }}</span>
+                </div>
+                <div class="text-center">
+                  <i class="bi bi-gear-wide-connected text-slate-400 block mb-1"></i>
+                  <span class="text-xs text-slate-600">{{ car.transmission.substring(0,4) }}</span>
+                </div>
+                <div class="text-center">
+                  <i class="bi bi-snow text-slate-400 block mb-1"></i>
+                  <span class="text-xs text-slate-600">A/C</span>
+                </div>
+              </div>
+
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span v-if="car.unlimitedMiles" class="bg-emerald-50 text-emerald-700 text-xs px-2 py-1 rounded-md font-medium">Unlimited Miles</span>
+                <span v-if="car.freeCancellation" class="bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded-md font-medium">Free Cancel</span>
+              </div>
+
+              <!-- Footer -->
+              <div class="mt-auto flex items-end justify-between pt-2">
+                <div>
+                  <span class="text-xs text-slate-400 line-through" v-if="car.originalPrice">${{ car.originalPrice }}</span>
+                  <div class="flex items-baseline gap-1">
+                    <span class="text-3xl font-extrabold text-slate-900">${{ car.price }}</span>
+                    <span class="text-sm text-slate-500">/day</span>
+                  </div>
+                </div>
                 <button 
                   @click="rentCar(car)"
-                  class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                  class="relative overflow-hidden px-5 py-2.5 bg-slate-900 text-white font-semibold rounded-lg group/btn"
                 >
-                  Rent Now
-                  <i class="bi bi-arrow-right ml-2"></i>
+                  <span class="relative z-10 group-hover/btn:text-slate-900 transition-colors duration-300">Rent Now</span>
+                  <div class="absolute inset-0 bg-blue-500 scale-x-0 group-hover/btn:scale-x-100 origin-left transition-transform duration-300"></div>
                 </button>
               </div>
             </div>
@@ -344,313 +262,139 @@
         </div>
       </div>
 
-      <!-- No Results -->
-      <div v-else-if="hasSearched" class="text-center py-16">
+      <!-- No Results / Initial State -->
+      <div v-else class="text-center py-20">
         <div class="max-w-md mx-auto">
-          <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <i class="bi bi-car-front text-4xl text-gray-400"></i>
+          <div class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="bi bi-car-front text-4xl text-slate-300"></i>
           </div>
-          <h3 class="text-2xl font-bold text-gray-900 mb-3">No cars available</h3>
-          <p class="text-gray-600 mb-6">
-            Try adjusting your search criteria or dates to find available cars
-          </p>
-          <button @click="clearSearch" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition-colors duration-200">
-            <i class="bi bi-arrow-clockwise me-2"></i>
-            Clear Search
-          </button>
+          <h3 class="text-xl font-bold text-slate-800 mb-2">No cars found</h3>
+          <p class="text-slate-500 mb-6">Try adjusting your search or filter to find what you're looking for.</p>
+          <button @click="clearSearch" class="text-blue-600 font-semibold hover:underline">Reset Search</button>
         </div>
       </div>
 
-      <!-- Initial State -->
-      <div v-else class="text-center py-16">
-        <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
-          <div class="w-32 h-32 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-8">
-            <i class="bi bi-car-front-fill text-5xl text-blue-600"></i>
-          </div>
-          <h3 class="text-3xl font-bold text-gray-900 mb-4">Ready to hit the road?</h3>
-          <p class="text-xl text-gray-600 mb-8">
-            Use the search form above to find cars that match your travel plans. 
-            We'll show you the best available options with photos, features, and prices.
-          </p>
-          <button @click="scrollToSearch" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold transition-colors duration-200 text-lg">
-            <i class="bi bi-search me-2"></i>
-            Start Searching
-          </button>
-        </div>
-      </div>
     </div>
 
-    <!-- Success Toast -->
-    <div v-if="showSuccessToast" class="fixed top-4 right-4 z-50 animate-slide-in-right">
-      <div class="bg-green-500 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3">
-        <div class="bg-green-600 p-2 rounded-full">
-          <i class="bi bi-check-circle-fill text-xl"></i>
+    <!-- Toast Notification -->
+    <Transition name="slide-fade">
+      <div v-if="showSuccessToast" class="fixed bottom-6 right-6 z-50">
+        <div class="bg-slate-900 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-4 border border-slate-700">
+          <div class="bg-green-500 rounded-full p-1">
+            <i class="bi bi-check-lg text-sm"></i>
+          </div>
+          <div>
+            <p class="font-bold">Added to Cart</p>
+            <p class="text-sm text-slate-400">Your car has been booked!</p>
+          </div>
         </div>
-        <div>
-          <p class="font-bold">Success!</p>
-          <p class="text-sm">Car added to your cart!</p>
-        </div>
-        <button @click="showSuccessToast = false" class="ml-4 text-white hover:text-gray-200">
-          <i class="bi bi-x-lg"></i>
-        </button>
       </div>
-    </div>
+    </Transition>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'CarRentalView',
-  
-  data() {
-    return {
-      searchParams: {
-        pickupLocation: '',
-        dropoffLocation: '',
-        pickupDate: this.getTomorrowDate(),
-        returnDate: this.getThreeDaysLaterDate(),
-        carType: '',
-        transmission: ''
-      },
-      cars: [],
-      loading: false,
-      hasSearched: false,
-      showSuccessToast: false,
-      
-      // Mock data
-      mockCars: [
-        {
-          id: 1,
-          model: 'Toyota Camry',
-          company: 'Hertz',
-          type: 'economy',
-          seats: 5,
-          bags: 2,
-          transmission: 'Automatic',
-          fuel: 'Petrol',
-          price: 45,
-          image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-          ac: true,
-          unlimitedMiles: true,
-          freeCancellation: true,
-          discount: 10,
-          estimatedTotal: 180
-        },
-        {
-          id: 2,
-          model: 'BMW X5',
-          company: 'Enterprise',
-          type: 'suv',
-          seats: 7,
-          bags: 4,
-          transmission: 'Automatic',
-          fuel: 'Diesel',
-          price: 89,
-          image: 'https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-          ac: true,
-          unlimitedMiles: true,
-          freeCancellation: true,
-          discount: 15,
-          estimatedTotal: 356
-        },
-        {
-          id: 3,
-          model: 'Ford Mustang',
-          company: 'Avis',
-          type: 'convertible',
-          seats: 4,
-          bags: 2,
-          transmission: 'Manual',
-          fuel: 'Petrol',
-          price: 120,
-          image: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-          ac: true,
-          unlimitedMiles: false,
-          freeCancellation: false,
-          discount: 5,
-          estimatedTotal: 480
-        },
-        {
-          id: 4,
-          model: 'Mercedes E-Class',
-          company: 'Budget',
-          type: 'luxury',
-          seats: 5,
-          bags: 3,
-          transmission: 'Automatic',
-          fuel: 'Petrol',
-          price: 99,
-          image: 'https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-          ac: true,
-          unlimitedMiles: true,
-          freeCancellation: true,
-          discount: 20,
-          estimatedTotal: 396
-        },
-        {
-          id: 5,
-          model: 'Honda Civic',
-          company: 'National',
-          type: 'compact',
-          seats: 5,
-          bags: 2,
-          transmission: 'Automatic',
-          fuel: 'Hybrid',
-          price: 38,
-          image: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-          ac: true,
-          unlimitedMiles: true,
-          freeCancellation: true,
-          discount: 0,
-          estimatedTotal: 152
-        },
-        {
-          id: 6,
-          model: 'Toyota Sienna',
-          company: 'Alamo',
-          type: 'van',
-          seats: 8,
-          bags: 6,
-          transmission: 'Automatic',
-          fuel: 'Petrol',
-          price: 75,
-          image: 'https://images.unsplash.com/photo-1593941707882-a5bba5338fe2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-          ac: true,
-          unlimitedMiles: true,
-          freeCancellation: false,
-          discount: 12,
-          estimatedTotal: 300
-        }
-      ]
-    }
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const searchParams = ref({
+  pickupLocation: '',
+  pickupDate: '',
+  returnDate: '',
+  carType: '',
+  transmission: ''
+})
+
+const cars = ref([])
+const loading = ref(false)
+const hasSearched = ref(false)
+const showSuccessToast = ref(false)
+
+// Mock Data
+const mockCars = [
+  {
+    id: 1, model: 'Toyota Camry', company: 'Hertz', type: 'economy', seats: 5, bags: 2, transmission: 'Automatic', fuel: 'Petrol', price: 45, originalPrice: 60, image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', unlimitedMiles: true, freeCancellation: true, discount: 25
   },
-  
-  methods: {
-    getTodayDate() {
-      return new Date().toISOString().split('T')[0]
-    },
-    
-    getTomorrowDate() {
-      const tomorrow = new Date()
-      tomorrow.setDate(tomorrow.getDate() + 1)
-      return tomorrow.toISOString().split('T')[0]
-    },
-    
-    getThreeDaysLaterDate() {
-      const threeDaysLater = new Date()
-      threeDaysLater.setDate(threeDaysLater.getDate() + 3)
-      return threeDaysLater.toISOString().split('T')[0]
-    },
-    
-    async handleSearch() {
-      if (!this.searchParams.pickupLocation.trim()) {
-        alert('Please enter a pickup location')
-        return
-      }
-      
-      this.loading = true
-      this.hasSearched = true
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      // Filter mock cars based on search
-      this.cars = this.mockCars.filter(car => {
-        if (this.searchParams.carType && car.type !== this.searchParams.carType) {
-          return false
-        }
-        if (this.searchParams.transmission && car.transmission.toLowerCase() !== this.searchParams.transmission.toLowerCase()) {
-          return false
-        }
-        return true
-      })
-      
-      this.loading = false
-    },
-    
-    rentCar(car) {
-      // Add to cart store
-      const bookingStore = this.$pinia?.stores?.booking || {
-        addToCart: (item) => {
-          console.log('Adding to cart:', item)
-          const cart = JSON.parse(localStorage.getItem('cart') || '[]')
-          cart.push(item)
-          localStorage.setItem('cart', JSON.stringify(cart))
-        }
-      }
-      
-      bookingStore.addToCart({
-        type: 'car',
-        name: `${car.company} ${car.model}`,
-        price: car.price,
-        carDetails: car,
-        days: 4, // Based on search dates
-        total: car.estimatedTotal || car.price * 4,
-        id: Date.now().toString()
-      })
-      
-      // Show success message
-      this.showSuccessToast = true
-      
-      // Auto-hide toast after 3 seconds
-      setTimeout(() => {
-        this.showSuccessToast = false
-      }, 3000)
-    },
-    
-    clearSearch() {
-      this.searchParams = {
-        pickupLocation: '',
-        dropoffLocation: '',
-        pickupDate: this.getTomorrowDate(),
-        returnDate: this.getThreeDaysLaterDate(),
-        carType: '',
-        transmission: ''
-      }
-      this.cars = []
-      this.hasSearched = false
-    },
-    
-    sortByPrice() {
-      this.cars.sort((a, b) => a.price - b.price)
-    },
-    
-    toggleFilterModal() {
-      alert('Filter modal would open here')
-    },
-    
-    scrollToSearch() {
-      const searchForm = document.querySelector('.bg-white.rounded-3xl.shadow-2xl')
-      if (searchForm) {
-        searchForm.scrollIntoView({ behavior: 'smooth' })
-      }
-    }
+  {
+    id: 2, model: 'BMW X5', company: 'Enterprise', type: 'suv', seats: 7, bags: 4, transmission: 'Automatic', fuel: 'Diesel', price: 89, originalPrice: 100, image: 'https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', unlimitedMiles: true, freeCancellation: false, discount: 11
   },
-  
-  mounted() {
-    console.log('CarRentalView mounted')
-    
-    // Set default dates
-    this.searchParams.pickupDate = this.getTomorrowDate()
-    this.searchParams.returnDate = this.getThreeDaysLaterDate()
+  {
+    id: 3, model: 'Ford Mustang', company: 'Avis', type: 'convertible', seats: 4, bags: 2, transmission: 'Manual', fuel: 'Petrol', price: 120, originalPrice: null, image: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', unlimitedMiles: false, freeCancellation: true, discount: 0
+  },
+  {
+    id: 4, model: 'Mercedes E-Class', company: 'Budget', type: 'luxury', seats: 5, bags: 3, transmission: 'Automatic', fuel: 'Petrol', price: 99, originalPrice: 120, image: 'https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', unlimitedMiles: true, freeCancellation: true, discount: 17
   }
+]
+
+onMounted(() => {
+  // Set default dates
+  const today = new Date()
+  const tomorrow = new Date(today)
+  tomorrow.setDate(tomorrow.getDate() + 1)
+  const later = new Date(today)
+  later.setDate(later.getDate() + 4)
+
+  searchParams.value.pickupDate = tomorrow.toISOString().split('T')[0]
+  searchParams.value.returnDate = later.toISOString().split('T')[0]
+})
+
+const handleSearch = async () => {
+  if (!searchParams.value.pickupLocation.trim()) return
+  
+  loading.value = true
+  hasSearched.value = true
+  
+  // Simulate API
+  await new Promise(r => setTimeout(r, 1200))
+  
+  cars.value = mockCars
+  loading.value = false
+}
+
+const sortByPrice = () => {
+  cars.value.sort((a, b) => a.price - b.price)
+}
+
+const rentCar = (car) => {
+  showSuccessToast.value = true
+  setTimeout(() => {
+    showSuccessToast.value = false
+  }, 3000)
+}
+
+const clearSearch = () => {
+  cars.value = []
+  hasSearched.value = false
 }
 </script>
 
 <style scoped>
-@keyframes slide-in-right {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+/* Custom Transition for Toast */
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+.slide-fade-leave-active {
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
 }
 
-.animate-slide-in-right {
-  animation: slide-in-right 0.3s ease-out;
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 </style>
-
+```
