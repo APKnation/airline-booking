@@ -332,9 +332,6 @@
             
             <div class="benefits-list">
               <div class="benefit-item">
-                <div class="benefit-icon">
-                  <i class="bi bi-shield-check"></i>
-                </div>
                 <div>
                   <h4>Best Price Guarantee</h4>
                   <p>Find a better price? We'll match it and give you 10% extra credit.</p>
@@ -342,9 +339,6 @@
               </div>
               
               <div class="benefit-item">
-                <div class="benefit-icon">
-                  <i class="bi bi-headset"></i>
-                </div>
                 <div>
                   <h4>24/7 Support</h4>
                   <p>Round-the-clock assistance in 15 languages from real travel experts.</p>
@@ -352,9 +346,6 @@
               </div>
               
               <div class="benefit-item">
-                <div class="benefit-icon">
-                  <i class="bi bi-arrow-repeat"></i>
-                </div>
                 <div>
                   <h4>Flexible Cancellation</h4>
                   <p>Most bookings can be cancelled or changed for free up to 24 hours before.</p>
@@ -371,7 +362,6 @@
                 
                 <div class="app-download">
                   <button class="app-store-btn">
-                    <i class="bi bi-apple"></i>
                     <div>
                       <span>Download on the</span>
                       <span>App Store</span>
@@ -379,7 +369,6 @@
                   </button>
                   
                   <button class="play-store-btn">
-                    <i class="bi bi-google-play"></i>
                     <div>
                       <span>Get it on</span>
                       <span>Google Play</span>
