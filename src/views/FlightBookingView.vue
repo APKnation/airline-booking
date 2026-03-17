@@ -7,12 +7,10 @@
         <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-8 shadow-2xl mb-6 backdrop-blur-sm bg-white/10 border border-white/20">
           <div class="flex items-center mb-4">
             <div class="rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center mr-6 w-16 h-16 border border-white/30">
-              <span class="text-3xl">✈️</span>
             </div>
             <h1 class="text-4xl lg:text-5xl font-bold text-white mb-0">Book Your Flight</h1>
           </div>
           <div class="flex items-center text-white/90 text-lg">
-            <span class="text-2xl mr-4">🎯</span>
             <span>Discover perfect journeys with exclusive deals</span>
           </div>
         </div>
@@ -22,7 +20,6 @@
       <div class="card border-0 shadow-2xl rounded-3xl overflow-hidden mb-8 backdrop-blur-sm bg-white/10 border border-white/20">
         <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white p-6 backdrop-blur-sm">
           <div class="flex items-center">
-            <span class="text-2xl mr-3">🔍</span>
             <span class="text-2xl font-semibold">Search Flights</span>
           </div>
         </div>
@@ -153,7 +150,6 @@
                   @click="showAdvanced = !showAdvanced"
                   class="w-full px-6 py-4 border-2 border-dashed border-white/30 rounded-xl text-white font-semibold hover:bg-white/10 transition-all duration-200 flex items-center justify-center space-x-2"
                 >
-                  <span class="text-xl">⚙️</span>
                   <span>Advanced Options</span>
                 </button>
               </div>
@@ -162,7 +158,6 @@
             <!-- Advanced Options Panel -->
             <div v-if="showAdvanced" class="bg-white/5 backdrop-blur-sm border-2 border-white/20 rounded-2xl p-6 mb-8 animate-slide-up">
               <h5 class="text-lg font-semibold text-white mb-6 flex items-center">
-                <span class="text-xl mr-3">🔧</span>
                 Advanced Search Options
               </h5>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -181,7 +176,6 @@
                 <div>
                   <label class="block text-lg font-semibold text-white mb-3">Preferred Airline</label>
                   <div class="relative">
-                    <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 text-xl">🛩️</span>
                     <input
                       v-model="search.airline"
                       type="text"
@@ -273,7 +267,6 @@
       <!-- No Flights Found -->
       <div v-else-if="searched && !loading && flights.length === 0" class="text-center py-16">
         <div class="card max-w-2xl mx-auto p-8 backdrop-blur-sm bg-white/10 border border-white/20">
-          <div class="text-6xl mb-6">✈️</div>
           <h3 class="text-2xl font-bold text-white mb-4">No flights match your search</h3>
           <p class="text-white/70 mb-6">Try adjusting your search criteria or dates to find available flights</p>
           <button @click="clearSearch" class="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200">
