@@ -1,58 +1,50 @@
 <template>
   <div class="container py-5">
     <!-- Page Header -->
-    <div class="row mb-5">
-      <div class="col-12 text-center">
-        <h1 class="display-4 fw-bold text-primary mb-3">
+    <div class="flex flex-col md:flex-row items-center justify-between mb-5">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-blue-600 mb-3">
           <i class="bi bi-compass me-3"></i>
           Travel Guide
         </h1>
-        <p class="lead text-muted mb-0">
-          Discover amazing destinations, attractions, and travel tips from around the world
-        </p>
       </div>
     </div>
 
-    <div class="row">
+    <div class="flex flex-col lg:flex-row gap-8">
       <!-- Left Sidebar - Destinations List -->
-      <div class="col-12 col-lg-4 mb-4 mb-lg-0">
-        <div class="card border-0 shadow-lg rounded-4 h-100">
-          <div class="card-header bg-success text-white py-4 rounded-top-4">
-            <h2 class="h4 mb-0 fw-bold">
+      <div class="w-full lg:w-1/4 mb-4 lg:mb-0">
+        <div class="bg-white rounded-lg shadow-lg p-4 h-full">
+          <div class="bg-green-600 text-white p-4 rounded-t-lg">
+            <h2 class="text-2xl font-bold">
               <i class="bi bi-globe-americas me-2"></i>
               Popular Destinations
             </h2>
           </div>
-          <div class="card-body p-0">
-            <div class="list-group list-group-flush rounded-bottom-4">
+          <div class="p-0">
+            <div class="space-y-2">
               <button
                 v-for="dest in destinations"
                 :key="dest.id"
                 @click="selectDestination(dest)"
-                class="list-group-item list-group-item-action border-0 py-4 px-4"
-                :class="{ 'active': selectedDestination?.id === dest.id, 'bg-light': selectedDestination?.id !== dest.id }"
+                class="w-full text-left p-4 border-0 hover:bg-gray-50 transition-colors duration-200"
+                :class="{ 'bg-blue-50 text-blue-600 border-l-2 border-l-blue-600': selectedDestination?.id === dest.id, 'bg-white text-gray-900': selectedDestination?.id !== dest.id }"
               >
-                <div class="d-flex align-items-center">
-                  <div class="flex-shrink-0 me-3">
-                    <img 
-                      :src="dest.thumbnail" 
-                      :alt="dest.name" 
-                      class="rounded-circle border border-2"
-                      :class="selectedDestination?.id === dest.id ? 'border-white' : 'border-primary'"
-                      style="width: 60px; height: 60px; object-fit: cover;"
-                    />
-                  </div>
-                  <div class="flex-grow-1">
-                    <h5 class="fw-bold mb-1" :class="selectedDestination?.id === dest.id ? 'text-white' : 'text-dark'">
+                <div class="flex items-center">
+                  <img 
+                    :src="dest.thumbnail" 
+                    :alt="dest.name" 
+                    class="w-12 h-12 rounded-lg object-cover mr-3"
+                  />
+                  <div class="flex-1">
+                    <h5 class="font-bold" :class="selectedDestination?.id === dest.id ? 'text-white' : 'text-gray-900'">
                       {{ dest.name }}
                     </h5>
-                    <p class="mb-0 small" :class="selectedDestination?.id === dest.id ? 'text-white-75' : 'text-muted'">
-                      <i class="bi bi-geo-alt me-1"></i>
+                    <p class="text-sm" :class="selectedDestination?.id === dest.id ? 'text-blue-100' : 'text-gray-600'">
                       {{ dest.country }}
                     </p>
                   </div>
-                  <div v-if="selectedDestination?.id === dest.id" class="flex-shrink-0">
-                    <i class="bi bi-chevron-right text-white"></i>
+                  <div v-if="selectedDestination?.id === dest.id" class="text-white">
+                    <i class="bi bi-chevron-right"></i>
                   </div>
                 </div>
               </button>
@@ -62,62 +54,61 @@
       </div>
 
       <!-- Right Content - Destination Details -->
-      <div class="col-12 col-lg-8" v-if="selectedDestination">
-        <div class="card border-0 shadow-lg rounded-4">
+      <div class="w-full lg:w-3/4" v-if="selectedDestination">
+        <div class="bg-white rounded-lg shadow-lg">
           <!-- Destination Hero Image -->
-          <div class="position-relative overflow-hidden rounded-top-4" style="height: 300px;">
+          <div class="relative overflow-hidden rounded-t-lg h-64">
             <img 
               :src="selectedDestination.image" 
               :alt="selectedDestination.name" 
-              class="card-img-top w-100 h-100"
-              style="object-fit: cover;"
+              class="w-full h-full object-cover"
             />
-            <div class="position-absolute bottom-0 start-0 w-100 p-4 bg-gradient-to-top">
-              <h2 class="display-5 fw-bold text-white mb-2">{{ selectedDestination.name }}</h2>
-              <div class="d-flex align-items-center text-white-75">
-                <i class="bi bi-geo-alt me-2"></i>
-                <span class="fs-5">{{ selectedDestination.country }}</span>
+            <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-transparent to-black/50">
+              <h2 class="text-3xl font-bold text-white mb-2">{{ selectedDestination.name }}</h2>
+              <div class="flex items-center text-white/75">
+                <i class="bi bi-geo-alt mr-2"></i>
+                <span class="text-lg">{{ selectedDestination.country }}</span>
               </div>
             </div>
           </div>
 
-          <div class="card-body p-4 p-md-5">
+          <div class="p-4 md:p-6">
             <!-- Destination Description -->
             <div class="mb-5">
-              <p class="lead text-muted">{{ selectedDestination.description }}</p>
+              <p class="text-lg text-gray-600">{{ selectedDestination.description }}</p>
             </div>
 
             <!-- Top Attractions -->
             <div class="mb-5">
-              <h3 class="h3 fw-bold text-primary mb-4">
+              <h3 class="text-2xl font-bold text-blue-600 mb-4">
                 <i class="bi bi-star-fill me-2"></i>
                 Top Attractions
               </h3>
-              <div class="row g-4">
-                <div class="col-12 col-md-6" v-for="attraction in selectedDestination.attractions" :key="attraction.id">
-                  <a href="#" class="flex flex-col items-center bg-neutral-primary-soft p-6 border border-default rounded-base shadow-xs md:flex-row md:max-w-xl md:flex-row md:max-w-xl attraction-card">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div v-for="attraction in selectedDestination.attractions" :key="attraction.id" class="w-full">
+                  <a href="#" class="flex flex-col items-center bg-gray-50 p-6 border border-gray-200 rounded-lg shadow-sm md:flex-row md:max-w-xl hover:shadow-md transition-shadow duration-200 attraction-card">
                     <!-- Attraction Image -->
                     <div class="relative w-full md:w-48 mb-4 md:mb-0">
                       <img 
                         :src="attraction.image" 
                         :alt="attraction.name" 
-                        class="object-cover w-full rounded-base h-48 md:h-auto"
+                        class="object-cover w-full rounded-lg h-48 md:h-auto"
                       />
-                      <div class="absolute top-0 end-0 m-3">
-                        <span class="px-3 py-1 bg-neutral-secondary-medium text-body rounded-full text-sm font-semibold">
+                      <div class="absolute top-0 right-0 m-3">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">
                           <i class="bi bi-star-fill me-1"></i>
                           {{ attraction.rating }}
                         </span>
                       </div>
                     </div>
                     
-                    <div class="flex flex-col justify-between md:p-4 leading-normal flex-1">
+                    <div class="flex flex-col justify-between md:p-4 flex-1">
                       <!-- Header Section -->
                       <div class="mb-4">
-                        <h5 class="text-2xl font-bold tracking-tight text-heading mb-2">
+                        <h5 class="text-2xl font-bold text-gray-900 mb-2">
                           {{ attraction.name }}
                         </h5>
-                        <p class="text-body mb-3">{{ attraction.description }}</p>
+                        <p class="text-gray-600 mb-3">{{ attraction.description }}</p>
                       </div>
 
                       <!-- Footer with Rating and Button -->
@@ -127,10 +118,10 @@
                           <i class="bi bi-star text-gray-300" v-for="n in (5 - Math.round(attraction.rating))" :key="'empty' + n"></i>
                         </div>
                         
-                        <router-link to="/attractions" class="inline-flex items-center w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                        <router-link to="/attractions" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200">
                           Book Now
-                          <svg class="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+                          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                           </svg>
                         </router-link>
                       </div>
@@ -142,25 +133,25 @@
 
             <!-- Travel Tips -->
             <div>
-              <h3 class="h3 fw-bold text-primary mb-4">
-                <i class="bi bi-lightbulb-fill me-2"></i>
+              <h3 class="text-2xl font-bold text-blue-600 mb-4">
+                <i class="bi bi-lightbulb me-2"></i>
                 Travel Tips
               </h3>
-              <div class="row g-3">
-                <div class="col-12" v-for="(tip, index) in selectedDestination.tips" :key="index">
-                  <div class="flex flex-col items-center bg-neutral-primary-soft p-6 border border-default rounded-base shadow-xs md:flex-row md:max-w-xl md:flex-row md:max-w-xl tip-card">
+              <div class="grid grid-cols-1 gap-3">
+                <div v-for="(tip, index) in selectedDestination.tips" :key="index" class="w-full">
+                  <div class="flex flex-col items-center bg-gray-50 p-6 border border-gray-200 rounded-lg shadow-sm md:flex-row md:max-w-xl hover:shadow-md transition-shadow duration-200 tip-card">
                     <!-- Tip Icon -->
                     <div class="w-full md:w-16 mb-4 md:mb-0 flex items-center justify-center">
-                      <div class="rounded-full bg-neutral-secondary-medium p-3">
-                        <i class="bi bi-lightbulb text-heading text-xl"></i>
+                      <div class="rounded-full bg-blue-100 p-3">
+                        <i class="bi bi-lightbulb text-blue-600 text-xl"></i>
                       </div>
                     </div>
                     
-                    <div class="flex flex-col justify-between md:p-4 leading-normal flex-1">
+                    <div class="flex flex-col justify-between md:p-4 flex-1">
                       <!-- Tip Content -->
                       <div class="flex items-center justify-between">
-                        <p class="text-body mb-0 flex-1">{{ tip }}</p>
-                        <span class="px-3 py-1 bg-neutral-secondary-medium text-body rounded-full text-sm font-semibold ms-4">
+                        <p class="text-gray-600 mb-0 flex-1">{{ tip }}</p>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold ml-4">
                           Tip {{ index + 1 }}
                         </span>
                       </div>
@@ -171,83 +162,73 @@
             </div>
 
             <!-- Additional Info -->
-            <div class="mt-5 pt-4 border-top">
-              <div class="row g-4">
-                <div class="col-12 col-md-4">
-                  <div class="text-center p-3">
-                    <div class="mb-3">
-                      <i class="bi bi-calendar-check display-6 text-primary"></i>
-                    </div>
-                    <h6 class="fw-bold mb-2">Best Time to Visit</h6>
-                    <p class="text-muted small mb-0">Check seasonal info for optimal travel</p>
+            <div class="mt-5 pt-4 border-t border-gray-200">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="text-center p-3">
+                  <div class="mb-3">
+                    <i class="bi bi-calendar-check text-3xl text-blue-600"></i>
                   </div>
+                  <h6 class="font-bold mb-2 text-lg">Best Time to Visit</h6>
+                  <p class="text-gray-600 text-sm mb-0">Check seasonal info for optimal travel</p>
                 </div>
-                <div class="col-12 col-md-4">
-                  <div class="text-center p-3">
-                    <div class="mb-3">
-                      <i class="bi bi-currency-exchange display-6 text-primary"></i>
-                    </div>
-                    <h6 class="fw-bold mb-2">Local Currency</h6>
-                    <p class="text-muted small mb-0">Currency info and exchange tips</p>
+                <div class="text-center p-3">
+                  <div class="mb-3">
+                    <i class="bi bi-currency-exchange text-3xl text-blue-600"></i>
                   </div>
+                  <h6 class="font-bold mb-2 text-lg">Local Currency</h6>
+                  <p class="text-gray-600 text-sm mb-0">Currency info and exchange tips</p>
                 </div>
-                <div class="col-12 col-md-4">
-                  <div class="text-center p-3">
-                    <div class="mb-3">
-                      <i class="bi bi-translate display-6 text-primary"></i>
-                    </div>
-                    <h6 class="fw-bold mb-2">Language</h6>
-                    <p class="text-muted small mb-0">Local language and useful phrases</p>
+                <div class="text-center p-3">
+                  <div class="mb-3">
+                    <i class="bi bi-translate text-3xl text-blue-600"></i>
                   </div>
+                  <h6 class="font-bold mb-2 text-lg">Language</h6>
+                  <p class="text-gray-600 text-sm mb-0">Local language and useful phrases</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Empty State -->
-      <div class="col-12 col-lg-8" v-else>
-        <div class="card border-0 shadow-lg rounded-4">
-          <div class="card-body text-center p-5">
-            <div class="mb-4">
-              <i class="bi bi-compass display-1 text-primary opacity-25"></i>
-            </div>
-            <h3 class="h3 fw-bold text-primary mb-3">Select a Destination</h3>
-            <p class="text-muted mb-4">
-              Choose a destination from the list to explore attractions, tips, and travel information
-            </p>
-            <div class="d-flex flex-wrap gap-3 justify-content-center">
-              <button 
-                v-for="dest in destinations" 
-                :key="dest.id"
-                @click="selectDestination(dest)"
-                class="btn btn-outline-primary"
-              >
-                <i class="bi bi-geo-alt me-2"></i>
-                {{ dest.name }}
-              </button>
-            </div>
-          </div>
+    <!-- Empty State -->
+    <div v-else class="bg-white rounded-lg shadow-lg p-8">
+      <div class="text-center">
+        <div class="mb-4">
+          <i class="bi bi-compass text-6xl text-blue-200"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-blue-600 mb-3">Select a Destination</h3>
+        <p class="text-gray-600 mb-4">
+          Choose a destination from the list to explore attractions, tips, and travel information
+        </p>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <button 
+            v-for="dest in destinations" 
+            :key="dest.id"
+            @click="selectDestination(dest)"
+            class="px-4 py-2 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-colors duration-200"
+          >
+            <i class="bi bi-geo-alt mr-2"></i>
+            {{ dest.name }}
+          </button>
         </div>
       </div>
     </div>
 
     <!-- More Destinations Section -->
-    <div class="row mt-5">
-      <div class="col-12">
-        <div class="card border-0 bg-light rounded-4 p-4">
-          <div class="row align-items-center">
-            <div class="col-12 col-md-8">
-              <h3 class="h3 fw-bold text-primary mb-2">Explore More Destinations</h3>
-              <p class="text-muted mb-0">Discover other amazing places around the world</p>
-            </div>
-            <div class="col-12 col-md-4 text-md-end mt-3 mt-md-0">
-              <router-link to="/destinations" class=" btn btn-info px-4">
-                <i class="bi bi-arrow-right me-2"></i>
-                View All
-              </router-link>
-            </div>
+    <div class="mt-5">
+      <div class="bg-gray-50 rounded-lg p-4">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+          <div class="mb-2 md:mb-0">
+            <h3 class="text-2xl font-bold text-blue-600 mb-2">Explore More Destinations</h3>
+            <p class="text-gray-600">Discover other amazing places around the world</p>
+          </div>
+          <div class="text-right">
+            <router-link to="/destinations" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200">
+              <i class="bi bi-arrow-right mr-2"></i>
+              View All
+            </router-link>
           </div>
         </div>
       </div>
