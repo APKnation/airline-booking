@@ -55,53 +55,69 @@
     <!-- Attractions Grid -->
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
       <div v-for="attraction in filteredAttractions" :key="attraction.id" class="col">
-        <div class="card h-100 shadow-sm border-0 hover-shadow">
+        <a href="#" class="flex flex-col items-center bg-neutral-primary-soft p-6 border border-default rounded-base shadow-xs md:flex-row md:max-w-xl md:flex-row md:max-w-xl attraction-card">
+          <!-- Attraction Image -->
           <img 
+            class="object-cover w-full rounded-base h-64 md:h-auto md:w-48 mb-4 md:mb-0" 
             :src="attraction.image" 
-            class="card-img-top" 
             :alt="attraction.name"
-            style="height: 200px; object-fit: cover;"
-          >
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title fw-bold">{{ attraction.name }}</h5>
-            <p class="card-subtitle mb-2 text-muted">
-              <i class="bi bi-geo-alt me-1"></i> {{ attraction.location }}
-            </p>
-            
-            <div class="mb-3">
-              <span class="badge bg-primary mb-2">{{ attraction.category }}</span>
-              <p class="card-text text-secondary mb-3">{{ attraction.description }}</p>
+          />
+          
+          <div class="flex flex-col justify-between md:p-4 leading-normal flex-1">
+            <!-- Header Section -->
+            <div class="mb-4">
+              <div class="flex justify-between items-start mb-2">
+                <h5 class="text-2xl font-bold tracking-tight text-heading">
+                  {{ attraction.name }}
+                </h5>
+                <span class="px-3 py-1 bg-neutral-secondary-medium text-body rounded-full text-sm font-semibold">
+                  {{ attraction.category }}
+                </span>
+              </div>
               
-              <div class="d-flex align-items-center mb-2">
-                <div class="rating me-2">
+              <div class="text-body mb-2">
+                <i class="bi bi-geo-alt me-1"></i> {{ attraction.location }}
+              </div>
+              
+              <p class="text-body mb-3">{{ attraction.description }}</p>
+              
+              <!-- Rating -->
+              <div class="flex items-center mb-3">
+                <div class="flex me-2">
                   <i 
                     v-for="star in 5" 
                     :key="star"
                     class="bi me-1"
-                    :class="star <= attraction.rating ? 'bi-star-fill text-warning' : 'bi-star text-secondary'"
+                    :class="star <= attraction.rating ? 'bi-star-fill text-yellow-500' : 'bi-star text-gray-300'"
                   ></i>
                 </div>
-                <small class="text-muted">({{ attraction.reviews }} reviews)</small>
+                <small class="text-body">({{ attraction.reviews }} reviews)</small>
               </div>
               
-              <p class="card-text mb-0">
+              <div class="text-body mb-4">
                 <i class="bi bi-clock me-1"></i> {{ attraction.duration }}
-              </p>
-            </div>
-            
-            <div class="mt-auto pt-3 border-top">
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="h4 text-primary mb-0 fw-bold">${{ attraction.price }}</span>
-                <button 
-                  class="btn btn-primary px-4" 
-                  @click="bookAttraction(attraction)"
-                >
-                  <i class="bi bi-calendar-plus me-2"></i>Book Now
-                </button>
               </div>
             </div>
+
+            <!-- Footer with Price and Button -->
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-2xl font-bold text-heading">${{ attraction.price }}</div>
+              </div>
+              
+              <button 
+                type="button" 
+                class="inline-flex items-center w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
+                @click="bookAttraction(attraction)"
+              >
+                Book Now
+                <svg class="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </div>
@@ -192,6 +208,16 @@ const bookAttraction = (attraction) => {
 </script>
 
 <style scoped>
+.attraction-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.attraction-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
 .hover-shadow {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
