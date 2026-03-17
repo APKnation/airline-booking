@@ -1,91 +1,93 @@
 <template>
-  <div class="card card-hover p-6 flight-card backdrop-blur-sm bg-white/10 border border-white/20 shadow-2xl">
-    <!-- Airline Info -->
-    <div class="flex justify-between items-center mb-6">
-      <div class="flex items-center space-x-4">
-        <div class="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg">
-          <img 
-            :src="airlineLogo" 
-            alt="Airline Logo" 
-            class="w-full h-full object-cover"
-          />
+  <a href="#" class="flex flex-col items-center bg-neutral-primary-soft p-6 border border-default rounded-base shadow-xs md:flex-row md:max-w-xl md:flex-row md:max-w-xl flight-card">
+    <!-- Airline Logo as Image -->
+    <img 
+      class="object-cover w-full rounded-base h-64 md:h-auto md:w-48 mb-4 md:mb-0" 
+      :src="airlineLogo" 
+      :alt="flight.airline"
+    />
+    
+    <div class="flex flex-col justify-between md:p-4 leading-normal flex-1">
+      <!-- Header Section -->
+      <div class="mb-4">
+        <div class="flex justify-between items-start mb-2">
+          <h5 class="text-2xl font-bold tracking-tight text-heading">
+            {{ flight.airline }} {{ flight.flightNumber }}
+          </h5>
+          <span :class="getStatusClass(flight.status)" class="px-3 py-1 rounded-full text-sm font-semibold">
+            {{ flight.status || 'On Time' }}
+          </span>
         </div>
-        <div>
-          <div class="font-bold text-white text-lg">{{ flight.airline }}</div>
-          <div class="text-white/60 text-sm">{{ flight.flightNumber }}</div>
-        </div>
-      </div>
-      <span :class="getStatusClass(flight.status)" class="px-4 py-2 rounded-full text-sm font-semibold">
-        {{ flight.status || 'On Time' }}
-      </span>
-    </div>
+        
+        <!-- Flight Route Info -->
+        <div class="grid grid-cols-3 gap-4 items-center text-center mb-4">
+          <!-- Departure -->
+          <div>
+            <div class="text-lg font-bold text-heading">{{ flight.departureTime }}</div>
+            <div class="text-body font-medium">{{ flight.from }}</div>
+            <div class="text-body text-sm">{{ flight.departureDate }}</div>
+          </div>
 
-    <!-- Flight Route -->
-    <div class="border-y border-white/20 py-6">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center text-center">
-        <!-- Departure -->
-        <div class="space-y-2">
-          <div class="text-2xl font-bold text-white">{{ flight.departureTime }}</div>
-          <div class="text-white/80 font-medium">{{ flight.from }}</div>
-          <div class="text-white/60 text-sm">{{ flight.departureDate }}</div>
-        </div>
-
-        <!-- Duration & Stops -->
-        <div class="space-y-2">
-          <div class="text-white/60 text-sm">{{ flight.duration }}</div>
-          <div class="relative my-4">
-            <div class="h-0.5 bg-white/20 w-full"></div>
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <div class="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
-                <i class="bi bi-airplane-fill text-white text-sm"></i>
+          <!-- Duration & Stops -->
+          <div class="text-center">
+            <div class="text-body text-sm">{{ flight.duration }}</div>
+            <div class="relative my-2">
+              <div class="h-0.5 bg-neutral-secondary-medium w-full"></div>
+              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <div class="w-6 h-6 bg-neutral-tertiary-medium rounded-full flex items-center justify-center">
+                  <i class="bi bi-airplane-fill text-white text-xs"></i>
+                </div>
               </div>
             </div>
+            <div class="text-body text-sm">
+              {{ flight.stops === 0 ? 'Non-stop' : flight.stops + ' stop(s)' }}
+            </div>
           </div>
-          <div class="text-white/60 text-sm">
-            {{ flight.stops === 0 ? 'Non-stop' : flight.stops + ' stop(s)' }}
+
+          <!-- Arrival -->
+          <div>
+            <div class="text-lg font-bold text-heading">{{ flight.arrivalTime }}</div>
+            <div class="text-body font-medium">{{ flight.to }}</div>
+            <div class="text-body text-sm">{{ flight.arrivalDate }}</div>
           </div>
         </div>
 
-        <!-- Arrival -->
-        <div class="space-y-2">
-          <div class="text-2xl font-bold text-white">{{ flight.arrivalTime }}</div>
-          <div class="text-white/80 font-medium">{{ flight.to }}</div>
-          <div class="text-white/60 text-sm">{{ flight.arrivalDate }}</div>
+        <!-- Additional Info -->
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="px-3 py-1 bg-neutral-secondary-medium text-body rounded-full text-sm font-semibold">
+            {{ flight.class || 'Economy' }}
+          </span>
+          <span
+            v-if="flight.seatsAvailable < 10"
+            class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-semibold"
+          >
+            Only {{ flight.seatsAvailable }} seats left!
+          </span>
         </div>
       </div>
-    </div>
 
-    <!-- Footer -->
-    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mt-6 space-y-4 lg:space-y-0">
-      <div class="flex flex-wrap gap-2">
-        <span class="px-4 py-2 bg-white/10 backdrop-blur-sm text-white border border-white/30 rounded-full text-sm font-semibold">
-          {{ flight.class || 'Economy' }}
-        </span>
-        <span
-          v-if="flight.seatsAvailable < 10"
-          class="px-4 py-2 bg-pink-500/20 backdrop-blur-sm text-pink-300 border border-pink-400/30 rounded-full text-sm font-semibold"
-        >
-          Only {{ flight.seatsAvailable }} seats left!
-        </span>
-      </div>
-      
-      <div class="flex items-center space-x-6">
+      <!-- Footer with Price and Button -->
+      <div class="flex items-center justify-between">
         <div class="text-right">
-          <div class="text-2xl font-bold text-white">${{ flight.price }}</div>
-          <div class="text-white/60 text-sm">per passenger</div>
+          <div class="text-2xl font-bold text-heading">${{ flight.price }}</div>
+          <div class="text-body text-sm">per passenger</div>
         </div>
-        <button
-          class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+        
+        <button 
+          type="button" 
+          class="inline-flex items-center w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
           @click="selectFlight"
           :disabled="flight.seatsAvailable === 0"
           :class="flight.seatsAvailable === 0 ? 'opacity-50 cursor-not-allowed' : ''"
         >
-          <i class="bi bi-check-circle mr-2"></i>
           Select Flight
+          <svg class="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+          </svg>
         </button>
       </div>
     </div>
-  </div>
+  </a>
 </template>
 
 <script setup>
@@ -117,57 +119,29 @@ const selectFlight = () => emit('select', props.flight)
 <style scoped>
 .flight-card {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
 }
 
 .flight-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* Status badge classes */
 .status-on-time {
-  @apply bg-green-50 text-green-700 border border-green-200;
+  @apply bg-green-100 text-green-700 border border-green-200;
 }
 
 .status-delayed {
-  @apply bg-yellow-50 text-yellow-700 border border-yellow-200;
+  @apply bg-yellow-100 text-yellow-700 border border-yellow-200;
 }
 
 .status-cancelled {
-  @apply bg-red-50 text-red-700 border border-red-200;
+  @apply bg-red-100 text-red-700 border border-red-200;
 }
 
 .status-boarding {
-  @apply bg-blue-50 text-blue-700 border border-blue-200;
-}
-
-/* Flight line animation */
-.flight-line {
-  position: relative;
-}
-
-.flight-line::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 8px;
-  background-color: rgb(14 165 233);
-  border-radius: 50%;
-}
-
-.flight-line::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 8px;
-  background-color: rgb(14 165 233);
-  border-radius: 50%;
+  @apply bg-blue-100 text-blue-700 border border-blue-200;
 }
 
 /* Button disabled state */
