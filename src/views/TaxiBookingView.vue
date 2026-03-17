@@ -252,68 +252,80 @@
 
         <div class="row g-3">
           <div class="col-12 col-md-6 col-lg-4" v-for="ride in rides" :key="ride.id">
-            <div class="card h-100 border-0 shadow-sm ride-card">
-              <div class="card-body">
-                <!-- Ride Header -->
-                <div class="d-flex align-items-start mb-3">
-                  <div class="flex-grow-1">
-                    <div class="d-flex align-items-center mb-2">
-                      <i :class="['me-2', getRideIcon(ride.type)]"></i>
-                      <h5 class="fw-bold mb-0">{{ ride.type }}</h5>
-                    </div>
-                    <div class="text-muted small">{{ ride.provider }}</div>
-                  </div>
-                  <span class="badge bg-light text-dark">
-                    <i class="bi bi-clock me-1"></i>
-                    {{ ride.eta }} min
-                  </span>
-                </div>
-
-                <!-- Ride Details -->
-                <div class="mb-3">
-                  <div class="d-flex align-items-center text-muted small mb-1">
-                    <i class="bi bi-geo-alt me-2"></i>
-                    <span class="text-truncate">{{ ride.pickup }}</span>
-                  </div>
-                  <div class="d-flex align-items-center text-muted small">
-                    <i class="bi bi-geo-alt-fill me-2"></i>
-                    <span class="text-truncate">{{ ride.dropoff }}</span>
-                  </div>
-                </div>
-
-                <div class="d-flex justify-content-between text-muted small mb-3">
-                  <span><i class="bi bi-speedometer2 me-1"></i> {{ ride.distance }} km</span>
-                  <span><i class="bi bi-clock-history me-1"></i> {{ ride.duration }} min</span>
-                  <span><i class="bi bi-people me-1"></i> {{ ride.capacity }}</span>
-                </div>
-
-                <!-- Features -->
-                <div class="mb-3">
-                  <div class="d-flex flex-wrap gap-1">
-                    <span v-for="feature in ride.features" :key="feature" class="badge bg-light text-dark">
-                      {{ feature }}
+            <a href="#" class="flex flex-col items-center bg-neutral-primary-soft p-6 border border-default rounded-base shadow-xs md:flex-row md:max-w-xl md:flex-row md:max-w-xl ride-card">
+              <!-- Ride Icon/Image -->
+              <div class="w-full h-32 md:h-auto md:w-32 mb-4 md:mb-0 flex items-center justify-center bg-neutral-secondary-medium rounded-base">
+                <i :class="[getRideIcon(ride.type), 'text-4xl text-heading']"></i>
+              </div>
+              
+              <div class="flex flex-col justify-between md:p-4 leading-normal flex-1">
+                <!-- Header Section -->
+                <div class="mb-4">
+                  <div class="flex justify-between items-start mb-2">
+                    <h5 class="text-2xl font-bold tracking-tight text-heading">
+                      {{ ride.type }}
+                    </h5>
+                    <span class="px-3 py-1 bg-neutral-secondary-medium text-body rounded-full text-sm font-semibold">
+                      <i class="bi bi-clock me-1"></i>
+                      {{ ride.eta }} min
                     </span>
                   </div>
+                  
+                  <div class="text-body mb-3">{{ ride.provider }}</div>
+                  
+                  <!-- Ride Details -->
+                  <div class="mb-3">
+                    <div class="flex items-center text-body text-sm mb-1">
+                      <i class="bi bi-geo-alt me-2"></i>
+                      <span>{{ ride.pickup }}</span>
+                    </div>
+                    <div class="flex items-center text-body text-sm">
+                      <i class="bi bi-geo-alt-fill me-2"></i>
+                      <span>{{ ride.dropoff }}</span>
+                    </div>
+                  </div>
+
+                  <div class="flex justify-between text-body text-sm mb-3">
+                    <span><i class="bi bi-speedometer2 me-1"></i> {{ ride.distance }} km</span>
+                    <span><i class="bi bi-clock-history me-1"></i> {{ ride.duration }} min</span>
+                    <span><i class="bi bi-people me-1"></i> {{ ride.capacity }}</span>
+                  </div>
+
+                  <!-- Features -->
+                  <div class="mb-4">
+                    <div class="flex flex-wrap gap-1">
+                      <span v-for="feature in ride.features" :key="feature" class="px-2 py-1 bg-neutral-secondary-medium text-body rounded-full text-xs font-semibold">
+                        {{ feature }}
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
-                <!-- Price & Action -->
-                <div class="d-flex justify-content-between align-items-center">
+                <!-- Footer with Price and Button -->
+                <div class="flex items-center justify-between">
                   <div>
-                    <div class="text-muted small">Estimated Fare</div>
-                    <div class="d-flex align-items-center">
-                      <span class="h4 fw-bold text-primary">${{ ride.price }}</span>
-                      <span v-if="ride.discount" class="badge bg-success ms-2">
+                    <div class="text-body text-sm">Estimated Fare</div>
+                    <div class="flex items-center">
+                      <span class="text-2xl font-bold text-heading">${{ ride.price }}</span>
+                      <span v-if="ride.discount" class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold ms-2">
                         -${{ ride.discount }}
                       </span>
                     </div>
                   </div>
-                  <button class="btn btn-primary" @click="bookRide(ride)">
-                    <i class="bi bi-check-lg me-1"></i>
+                  
+                  <button 
+                    type="button" 
+                    class="inline-flex items-center w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
+                    @click="bookRide(ride)"
+                  >
                     Book
+                    <svg class="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+                    </svg>
                   </button>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </div>
@@ -594,13 +606,13 @@ export default {
 
 /* Ride Cards */
 .ride-card {
-  transition: transform 0.2s ease;
-  border-radius: 0.75rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
 }
 
 .ride-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* Counter Buttons */
