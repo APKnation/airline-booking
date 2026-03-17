@@ -545,37 +545,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-/* Optional: Enhanced animations */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-
-.group:hover .card-img-top {
-  transform: scale(1.03);
-  transition: transform 0.3s ease;
-}
-
-/* Smooth focus transitions */
-input, select {
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-/* Custom scrollbar for better UX */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb {
-  background: #c7c7c7;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
-}
-</style>

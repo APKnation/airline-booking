@@ -241,25 +241,3 @@ export default {
 }
 </script>
 
-<style scoped>
-/* Optional: Subtle entrance animation */
-@keyframes slideUp {
-  from { 
-    opacity: 0; 
-    transform: translateY(20px); 
-  }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
-  }
-}
-
-.bg-white {
-  animation: slideUp 0.4s ease-out forwards;
-}
-
-/* Smooth focus transitions for form controls */
-input {
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-</style>
