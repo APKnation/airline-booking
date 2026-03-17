@@ -1,332 +1,366 @@
 <template>
-  <div class="car-rental-page">
+  <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
     <!-- Hero Header -->
-    <div class="container-fluid bg-primary bg-gradient py-5 mb-5">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-6">
-            <h1 class="display-3 fw-bold text-white mb-4">
+    <div class="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
+      <div class="absolute inset-0 bg-black/20"></div>
+      <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-transparent to-purple-600/20"></div>
+        <div class="h-full w-full bg-[url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center opacity-30"></div>
+      </div>
+      
+      <div class="relative container mx-auto px-4 py-16 lg:py-24">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div class="text-white">
+            <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+              <i class="bi bi-lightning-charge-fill text-yellow-300"></i>
+              <span class="text-sm font-semibold">Premium Car Rental Service</span>
+            </div>
+            
+            <h1 class="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
               Rent a Car,<br>
-              <span class="text-warning">Your Way</span>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-400">Your Way</span>
             </h1>
-            <p class="lead text-white opacity-75 mb-4">
-              Choose from hundreds of cars, from economy to luxury. Pick up anywhere, drop off anywhere.
+            
+            <p class="text-xl text-white/90 mb-8 leading-relaxed max-w-xl">
+              Choose from hundreds of premium cars, from economy to luxury. 
+              Pick up anywhere, drop off anywhere. Your journey starts here.
             </p>
-            <div class="d-flex flex-wrap gap-3">
-              <span class="badge bg-white text-primary px-3 py-2 fw-medium">
-                <i class="bi bi-lightning-charge-fill me-2"></i>Instant Booking
-              </span>
-              <span class="badge bg-white text-primary px-3 py-2 fw-medium">
-                <i class="bi bi-shield-check me-2"></i>Full Insurance
-              </span>
-              <span class="badge bg-white text-primary px-3 py-2 fw-medium">
-                <i class="bi bi-coin me-2"></i>Best Price Guarantee
-              </span>
+            
+            <div class="flex flex-wrap gap-3 mb-8">
+              <div class="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+                <i class="bi bi-lightning-charge-fill text-yellow-300"></i>
+                <span class="font-medium">Instant Booking</span>
+              </div>
+              <div class="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+                <i class="bi bi-shield-check text-green-300"></i>
+                <span class="font-medium">Full Insurance</span>
+              </div>
+              <div class="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+                <i class="bi bi-coin text-yellow-300"></i>
+                <span class="font-medium">Best Price</span>
+              </div>
+            </div>
+            
+            <div class="flex gap-4">
+              <button @click="scrollToSearch" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
+                <i class="bi bi-search me-2"></i>
+                Find Your Car
+              </button>
+              <button class="border-2 border-white text-white px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-blue-600 transition-all duration-300">
+                <i class="bi bi-play-circle me-2"></i>
+                Watch Demo
+              </button>
             </div>
           </div>
-          <div class="col-lg-6 mt-5 mt-lg-0">
-            <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                 alt="Car Rental" 
-                 class="img-fluid rounded-4 shadow-lg">
+          
+          <div class="relative">
+            <div class="relative z-10">
+              <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                   alt="Car Rental" 
+                   class="rounded-3xl shadow-2xl w-full">
+            </div>
+            <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-4 z-20">
+              <div class="flex items-center gap-3">
+                <div class="bg-green-100 p-3 rounded-full">
+                  <i class="bi bi-check-circle-fill text-green-600 text-xl"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-gray-900">4.8/5 Rating</p>
+                  <p class="text-sm text-gray-600">2,500+ Reviews</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Search Form -->
-    <div class="container mb-5">
-      <div class="row justify-content-center">
-        <div class="col-12 col-lg-10">
-          <div class="card border-0 shadow-lg rounded-4">
-            <div class="card-body p-4 p-md-5">
-              <div class="d-flex align-items-center mb-4">
-                <i class="bi bi-search text-primary fs-4 me-3"></i>
-                <h2 class="h3 mb-0 fw-bold">Find Your Perfect Car</h2>
+    <div class="container mx-auto px-4 -mt-8 relative z-30">
+      <div class="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
+        <div class="flex items-center gap-3 mb-8">
+          <div class="bg-blue-100 p-3 rounded-xl">
+            <i class="bi bi-search text-blue-600 text-xl"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900">Find Your Perfect Car</h2>
+        </div>
+        
+        <form @submit.prevent="handleSearch" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Pick-up Location -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                <i class="bi bi-geo-alt text-blue-600 me-2"></i>Pick-up Location
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <i class="bi bi-pin-map text-gray-400"></i>
+                </div>
+                <input 
+                  type="text" 
+                  class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  v-model="searchParams.pickupLocation"
+                  placeholder="City or Airport"
+                  required
+                >
               </div>
-              
-              <form @submit.prevent="handleSearch" class="row g-3">
-                <!-- Pick-up Location -->
-                <div class="col-12 col-md-6 col-lg-3">
-                  <label for="pickupLocation" class="form-label fw-medium">
-                    <i class="bi bi-geo-alt me-2"></i>Pick-up Location
-                  </label>
-                  <div class="input-group">
-                    <span class="input-group-text bg-light">
-                      <i class="bi bi-pin-map text-primary"></i>
-                    </span>
-                    <input 
-                      type="text" 
-                      class="form-control" 
-                      id="pickupLocation"
-                      v-model="searchParams.pickupLocation"
-                      placeholder="City or Airport"
-                      required
-                    >
-                  </div>
-                </div>
+            </div>
 
-                <!-- Drop-off Location -->
-                <div class="col-12 col-md-6 col-lg-3">
-                  <label for="dropoffLocation" class="form-label fw-medium">
-                    <i class="bi bi-geo-alt-fill me-2"></i>Drop-off Location
-                  </label>
-                  <div class="input-group">
-                    <span class="input-group-text bg-light">
-                      <i class="bi bi-pin-map-fill text-primary"></i>
-                    </span>
-                    <input 
-                      type="text" 
-                      class="form-control" 
-                      id="dropoffLocation"
-                      v-model="searchParams.dropoffLocation"
-                      placeholder="Same as pick-up"
-                    >
-                  </div>
+            <!-- Drop-off Location -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                <i class="bi bi-geo-alt-fill text-blue-600 me-2"></i>Drop-off Location
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <i class="bi bi-pin-map-fill text-gray-400"></i>
                 </div>
+                <input 
+                  type="text" 
+                  class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  v-model="searchParams.dropoffLocation"
+                  placeholder="Same as pick-up"
+                >
+              </div>
+            </div>
 
-                <!-- Pick-up Date -->
-                <div class="col-12 col-md-6 col-lg-3">
-                  <label for="pickupDate" class="form-label fw-medium">
-                    <i class="bi bi-calendar-plus me-2"></i>Pick-up Date
-                  </label>
-                  <div class="input-group">
-                    <span class="input-group-text bg-light">
-                      <i class="bi bi-calendar-check text-primary"></i>
-                    </span>
-                    <input 
-                      type="date" 
-                      class="form-control" 
-                      id="pickupDate"
-                      v-model="searchParams.pickupDate"
-                      :min="getTodayDate()"
-                      required
-                    >
-                  </div>
+            <!-- Pick-up Date -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                <i class="bi bi-calendar-plus text-blue-600 me-2"></i>Pick-up Date
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <i class="bi bi-calendar-check text-gray-400"></i>
                 </div>
+                <input 
+                  type="date" 
+                  class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  v-model="searchParams.pickupDate"
+                  :min="getTodayDate()"
+                  required
+                >
+              </div>
+            </div>
 
-                <!-- Return Date -->
-                <div class="col-12 col-md-6 col-lg-3">
-                  <label for="returnDate" class="form-label fw-medium">
-                    <i class="bi bi-calendar-minus me-2"></i>Return Date
-                  </label>
-                  <div class="input-group">
-                    <span class="input-group-text bg-light">
-                      <i class="bi bi-calendar-x text-primary"></i>
-                    </span>
-                    <input 
-                      type="date" 
-                      class="form-control" 
-                      id="returnDate"
-                      v-model="searchParams.returnDate"
-                      :min="searchParams.pickupDate"
-                      required
-                    >
-                  </div>
+            <!-- Return Date -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                <i class="bi bi-calendar-minus text-blue-600 me-2"></i>Return Date
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <i class="bi bi-calendar-x text-gray-400"></i>
                 </div>
-
-                <!-- Car Type -->
-                <div class="col-12 col-md-6">
-                  <label for="carType" class="form-label fw-medium">
-                    <i class="bi bi-car-front me-2"></i>Car Type
-                  </label>
-                  <select class="form-select" id="carType" v-model="searchParams.carType">
-                    <option value="">All Types</option>
-                    <option value="economy">Economy</option>
-                    <option value="compact">Compact</option>
-                    <option value="suv">SUV</option>
-                    <option value="luxury">Luxury</option>
-                    <option value="van">Van</option>
-                    <option value="convertible">Convertible</option>
-                  </select>
-                </div>
-
-                <!-- Transmissions -->
-                <div class="col-12 col-md-6">
-                  <label for="transmission" class="form-label fw-medium">
-                    <i class="bi bi-gear me-2"></i>Transmission
-                  </label>
-                  <select class="form-select" id="transmission" v-model="searchParams.transmission">
-                    <option value="">Any</option>
-                    <option value="automatic">Automatic</option>
-                    <option value="manual">Manual</option>
-                  </select>
-                </div>
-
-                <!-- Submit Button -->
-                <div class="col-12 mt-4">
-                  <button 
-                    type="submit" 
-                    class="btn btn-primary btn-lg w-100 py-3 fw-bold"
-                    :disabled="loading"
-                  >
-                    <template v-if="loading">
-                      <span class="spinner-border spinner-border-sm me-2" role="status"></span>
-                      Searching Cars...
-                    </template>
-                    <template v-else>
-                      <i class="bi bi-search me-2"></i>
-                      Search Available Cars
-                    </template>
-                  </button>
-                </div>
-              </form>
+                <input 
+                  type="date" 
+                  class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  v-model="searchParams.returnDate"
+                  :min="searchParams.pickupDate"
+                  required
+                >
+              </div>
             </div>
           </div>
-        </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Car Type -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                <i class="bi bi-car-front text-blue-600 me-2"></i>Car Type
+              </label>
+              <select class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" v-model="searchParams.carType">
+                <option value="">All Types</option>
+                <option value="economy">Economy</option>
+                <option value="compact">Compact</option>
+                <option value="suv">SUV</option>
+                <option value="luxury">Luxury</option>
+                <option value="van">Van</option>
+                <option value="convertible">Convertible</option>
+              </select>
+            </div>
+
+            <!-- Transmissions -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                <i class="bi bi-gear text-blue-600 me-2"></i>Transmission
+              </label>
+              <select class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" v-model="searchParams.transmission">
+                <option value="">Any</option>
+                <option value="automatic">Automatic</option>
+                <option value="manual">Manual</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div>
+            <button 
+              type="submit" 
+              class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+              :disabled="loading"
+            >
+              <template v-if="loading">
+                <div class="inline-flex items-center">
+                  <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Searching Cars...
+                </div>
+              </template>
+              <template v-else>
+                <i class="bi bi-search me-2"></i>
+                Search Available Cars
+              </template>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
 
     <!-- Results Section -->
-    <div class="container">
+    <div class="container mx-auto px-4 py-12">
       <!-- Loading State -->
-      <div v-if="loading" class="row justify-content-center py-5">
-        <div class="col-12 text-center">
-          <div class="spinner-border text-primary mb-4" style="width: 3rem; height: 3rem;" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          <h3 class="h4 text-primary">Finding the perfect car for you...</h3>
+      <div v-if="loading" class="text-center py-16">
+        <div class="inline-flex items-center justify-center w-20 h-20 bg-blue-100 rounded-full mb-6">
+          <svg class="animate-spin h-10 w-10 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
         </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">Finding the perfect car for you...</h3>
+        <p class="text-gray-600">We're searching through our premium fleet</p>
       </div>
 
       <!-- Cars Grid -->
-      <div v-else-if="cars.length" class="row mb-5">
-        <div class="col-12 mb-4">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <h2 class="display-6 fw-bold mb-0">
-                Available Cars
-                <span class="badge bg-primary fs-6 ms-2">{{ cars.length }}</span>
-              </h2>
-              <p class="text-muted mb-0 mt-2">
-                Showing {{ cars.length }} cars matching your search
-              </p>
-            </div>
-            <div class="d-flex gap-2">
-              <button class="btn btn-outline-primary" @click="sortByPrice">
-                <i class="bi bi-sort-down me-2"></i>
-                Sort by Price
-              </button>
-              <button class="btn btn-outline-primary" @click="toggleFilterModal">
-                <i class="bi bi-funnel me-2"></i>
-                Filter
-              </button>
-            </div>
+      <div v-else-if="cars.length" class="space-y-8">
+        <!-- Results Header -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">
+              Available Cars
+              <span class="inline-block ml-3 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-lg font-semibold">{{ cars.length }}</span>
+            </h2>
+            <p class="text-gray-600">Showing {{ cars.length }} cars matching your search</p>
+          </div>
+          <div class="flex gap-3">
+            <button @click="sortByPrice" class="px-6 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors duration-200 font-medium">
+              <i class="bi bi-sort-down me-2"></i>
+              Sort by Price
+            </button>
+            <button @click="toggleFilterModal" class="px-6 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors duration-200 font-medium">
+              <i class="bi bi-funnel me-2"></i>
+              Filter
+            </button>
           </div>
         </div>
 
-        <!-- Cars List -->
-        <div class="col-12">
-          <div class="row g-4">
-            <div 
-              class="col-12 col-md-6 col-lg-4 col-xl-3" 
-              v-for="car in cars" 
-              :key="car.id"
-            >
-              <a href="#" class="flex flex-col items-center bg-neutral-primary-soft p-6 border border-default rounded-base shadow-xs md:flex-row md:max-w-xl md:flex-row md:max-w-xl car-card">
-                <!-- Car Image -->
-                <img 
-                  class="object-cover w-full rounded-base h-64 md:h-auto md:w-48 mb-4 md:mb-0" 
-                  :src="car.image" 
-                  :alt="car.model"
-                />
-                
-                <div class="flex flex-col justify-between md:p-4 leading-normal flex-1">
-                  <!-- Header Section -->
-                  <div class="mb-4">
-                    <div class="flex justify-between items-start mb-2">
-                      <h5 class="text-2xl font-bold tracking-tight text-heading">
-                        {{ car.model }}
-                      </h5>
-                      <span class="px-3 py-1 bg-neutral-secondary-medium text-body rounded-full text-sm font-semibold">
-                        {{ car.type.charAt(0).toUpperCase() + car.type.slice(1) }}
-                      </span>
-                    </div>
-                    
-                    <div class="text-body mb-3">{{ car.company }}</div>
-                    
-                    <!-- Car Features -->
-                    <div class="grid grid-cols-2 gap-2 mb-3">
-                      <div class="flex items-center text-body text-sm">
-                        <i class="bi bi-people text-primary me-2"></i>
-                        {{ car.seats }} Seats
-                      </div>
-                      <div class="flex items-center text-body text-sm">
-                        <i class="bi bi-briefcase text-primary me-2"></i>
-                        {{ car.bags }} Bags
-                      </div>
-                      <div class="flex items-center text-body text-sm">
-                        <i class="bi bi-gear text-primary me-2"></i>
-                        {{ car.transmission }}
-                      </div>
-                      <div class="flex items-center text-body text-sm">
-                        <i class="bi bi-fuel-pump text-primary me-2"></i>
-                        {{ car.fuel }}
-                      </div>
-                    </div>
-                    
-                    <!-- Additional Features -->
-                    <div class="flex flex-wrap gap-2 mb-4">
-                      <span v-if="car.ac" class="px-2 py-1 bg-neutral-secondary-medium text-body rounded-full text-xs font-semibold">
-                        <i class="bi bi-snow me-1"></i>A/C
-                      </span>
-                      <span v-if="car.unlimitedMiles" class="px-2 py-1 bg-neutral-secondary-medium text-body rounded-full text-xs font-semibold">
-                        <i class="bi bi-speedometer me-1"></i>Unlimited Miles
-                      </span>
-                      <span v-if="car.freeCancellation" class="px-2 py-1 bg-neutral-secondary-medium text-body rounded-full text-xs font-semibold">
-                        <i class="bi bi-x-circle me-1"></i>Free Cancellation
-                      </span>
-                    </div>
-                  </div>
-
-                  <!-- Footer with Price and Button -->
-                  <div class="flex items-center justify-between">
-                    <div>
-                      <div class="text-body text-sm">Daily Rate</div>
-                      <div class="flex items-center">
-                        <span class="text-2xl font-bold text-heading">${{ car.price }}</span>
-                        <span class="text-body ms-1">/day</span>
-                      </div>
-                      <small v-if="car.estimatedTotal" class="text-green-600 text-xs">
-                        <i class="bi bi-check-circle me-1"></i>
-                        Est. Total: ${{ car.estimatedTotal }}
-                      </small>
-                    </div>
-                    
-                    <div v-if="car.discount" class="text-end me-4">
-                      <span class="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">
-                        Save {{ car.discount }}%
-                      </span>
-                    </div>
-                    
-                    <button 
-                      type="button" 
-                      class="inline-flex items-center w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
-                      @click="rentCar(car)"
-                    >
-                      Rent Now
-                      <svg class="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
-                      </svg>
-                    </button>
+        <!-- Cars Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div 
+            v-for="car in cars" 
+            :key="car.id"
+            class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200"
+          >
+            <!-- Car Image -->
+            <div class="relative h-48 overflow-hidden">
+              <img 
+                :src="car.image" 
+                :alt="car.model"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              >
+              <div class="absolute top-4 right-4">
+                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  {{ car.type.charAt(0).toUpperCase() + car.type.slice(1) }}
+                </span>
+              </div>
+              <div v-if="car.discount" class="absolute top-4 left-4">
+                <span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  Save {{ car.discount }}%
+                </span>
+              </div>
+            </div>
+            
+            <div class="p-6">
+              <!-- Car Info -->
+              <div class="mb-4">
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="text-xl font-bold text-gray-900">{{ car.model }}</h3>
+                  <div class="text-right">
+                    <div class="text-2xl font-bold text-blue-600">${{ car.price }}</div>
+                    <div class="text-sm text-gray-500">/day</div>
                   </div>
                 </div>
-              </a>
+                <p class="text-gray-600 mb-3">{{ car.company }}</p>
+                
+                <!-- Car Features -->
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                  <div class="flex items-center text-gray-600 text-sm">
+                    <i class="bi bi-people text-blue-600 me-2"></i>
+                    {{ car.seats }} Seats
+                  </div>
+                  <div class="flex items-center text-gray-600 text-sm">
+                    <i class="bi bi-briefcase text-blue-600 me-2"></i>
+                    {{ car.bags }} Bags
+                  </div>
+                  <div class="flex items-center text-gray-600 text-sm">
+                    <i class="bi bi-gear text-blue-600 me-2"></i>
+                    {{ car.transmission }}
+                  </div>
+                  <div class="flex items-center text-gray-600 text-sm">
+                    <i class="bi bi-fuel-pump text-blue-600 me-2"></i>
+                    {{ car.fuel }}
+                  </div>
+                </div>
+                
+                <!-- Additional Features -->
+                <div class="flex flex-wrap gap-2 mb-4">
+                  <span v-if="car.ac" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
+                    <i class="bi bi-snow me-1"></i>A/C
+                  </span>
+                  <span v-if="car.unlimitedMiles" class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
+                    <i class="bi bi-speedometer me-1"></i>Unlimited Miles
+                  </span>
+                  <span v-if="car.freeCancellation" class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">
+                    <i class="bi bi-x-circle me-1"></i>Free Cancellation
+                  </span>
+                </div>
+              </div>
+
+              <!-- Footer -->
+              <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                <div>
+                  <small v-if="car.estimatedTotal" class="text-green-600 text-sm font-medium">
+                    <i class="bi bi-check-circle me-1"></i>
+                    Est. Total: ${{ car.estimatedTotal }}
+                  </small>
+                </div>
+                
+                <button 
+                  @click="rentCar(car)"
+                  class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                >
+                  Rent Now
+                  <i class="bi bi-arrow-right ml-2"></i>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- No Results / Empty State -->
-      <div v-else-if="hasSearched" class="row justify-content-center py-5">
-        <div class="col-12 col-md-8 col-lg-6 text-center">
-          <div class="mb-4">
-            <i class="bi bi-car-front display-1 text-muted opacity-25"></i>
+      <!-- No Results -->
+      <div v-else-if="hasSearched" class="text-center py-16">
+        <div class="max-w-md mx-auto">
+          <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="bi bi-car-front text-4xl text-gray-400"></i>
           </div>
-          <h3 class="h2 mb-3">No cars available</h3>
-          <p class="lead text-muted mb-4">
+          <h3 class="text-2xl font-bold text-gray-900 mb-3">No cars available</h3>
+          <p class="text-gray-600 mb-6">
             Try adjusting your search criteria or dates to find available cars
           </p>
-          <button class="btn btn-primary btn-lg px-5" @click="clearSearch">
+          <button @click="clearSearch" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition-colors duration-200">
             <i class="bi bi-arrow-clockwise me-2"></i>
             Clear Search
           </button>
@@ -334,37 +368,37 @@
       </div>
 
       <!-- Initial State -->
-      <div v-else class="row justify-content-center py-5">
-        <div class="col-12 col-lg-10 text-center">
-          <div class="bg-light rounded-4 p-5 p-md-6">
-            <div class="mb-4">
-              <i class="bi bi-car-front-fill display-1 text-primary"></i>
-            </div>
-            <h3 class="h2 mb-4">Ready to hit the road?</h3>
-            <p class="lead text-muted mb-5">
-              Use the search form above to find cars that match your travel plans. 
-              We'll show you the best available options with photos, features, and prices.
-            </p>
-            <button class="btn btn-primary btn-lg px-5" @click="scrollToSearch">
-              <i class="bi bi-search me-2"></i>
-              Start Searching
-            </button>
+      <div v-else class="text-center py-16">
+        <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
+          <div class="w-32 h-32 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-8">
+            <i class="bi bi-car-front-fill text-5xl text-blue-600"></i>
           </div>
+          <h3 class="text-3xl font-bold text-gray-900 mb-4">Ready to hit the road?</h3>
+          <p class="text-xl text-gray-600 mb-8">
+            Use the search form above to find cars that match your travel plans. 
+            We'll show you the best available options with photos, features, and prices.
+          </p>
+          <button @click="scrollToSearch" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold transition-colors duration-200 text-lg">
+            <i class="bi bi-search me-2"></i>
+            Start Searching
+          </button>
         </div>
       </div>
     </div>
 
     <!-- Success Toast -->
-    <div v-if="showSuccessToast" class="position-fixed top-0 end-0 p-3" style="z-index: 11">
-      <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header bg-success text-white">
-          <i class="bi bi-check-circle-fill me-2"></i>
-          <strong class="me-auto">Success!</strong>
-          <button type="button" class="btn-close btn-close-white" @click="showSuccessToast = false"></button>
+    <div v-if="showSuccessToast" class="fixed top-4 right-4 z-50 animate-slide-in-right">
+      <div class="bg-green-500 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3">
+        <div class="bg-green-600 p-2 rounded-full">
+          <i class="bi bi-check-circle-fill text-xl"></i>
         </div>
-        <div class="toast-body">
-          Car added to your cart!
+        <div>
+          <p class="font-bold">Success!</p>
+          <p class="text-sm">Car added to your cart!</p>
         </div>
+        <button @click="showSuccessToast = false" class="ml-4 text-white hover:text-gray-200">
+          <i class="bi bi-x-lg"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -592,7 +626,7 @@ export default {
     },
     
     scrollToSearch() {
-      const searchForm = document.querySelector('.card.border-0.shadow-lg')
+      const searchForm = document.querySelector('.bg-white.rounded-3xl.shadow-2xl')
       if (searchForm) {
         searchForm.scrollIntoView({ behavior: 'smooth' })
       }
@@ -608,4 +642,21 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out;
+}
+</style>
 
