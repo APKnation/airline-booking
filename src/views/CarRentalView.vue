@@ -1,13 +1,3 @@
-Here is the advanced version of the Car Rental page. I have migrated the code to the modern **Vue 3 Composition API** (`<script setup>`) and significantly enhanced the UI.
-
-**Key Style Advancements:**
-1.  **Skeleton Loading:** Replaced the spinner with a high-quality skeleton loader that mimics the card layout.
-2.  **Glassmorphism & Depth:** The search form now floats elegantly over the hero section with a backdrop blur effect.
-3.  **Micro-interactions:** Cards lift slightly on hover (`translate-y`), images zoom subtly, and buttons have distinct active states.
-4.  **Visual Hierarchy:** Better use of typography weight and color contrast to guide the eye (Price highlights, feature icons).
-5.  **Responsive Layout:** Optimized grid spacing for different screen sizes.
-
-```vue
 <template>
   <div class="min-h-screen bg-slate-50 font-sans antialiased">
     
@@ -355,6 +345,7 @@ const sortByPrice = () => {
 }
 
 const rentCar = (car) => {
+  console.log('Renting car:', car.model)
   showSuccessToast.value = true
   setTimeout(() => {
     showSuccessToast.value = false
@@ -366,35 +357,3 @@ const clearSearch = () => {
   hasSearched.value = false
 }
 </script>
-
-<style scoped>
-/* Custom Transition for Toast */
-.slide-fade-enter-active {
-  transition: all 0.3s ease-out;
-}
-.slide-fade-leave-active {
-  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
-}
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateX(20px);
-  opacity: 0;
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-</style>
-```
