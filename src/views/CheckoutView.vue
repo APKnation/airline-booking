@@ -474,13 +474,5 @@ const formatDate = (date) => {
     day: 'numeric'
   })
 }
-
-const formatDateWithDay = (date) => {
-  if (!date) return 'TBD'
-  return new Date(date).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric'
-  })
-}
 </script>
 
